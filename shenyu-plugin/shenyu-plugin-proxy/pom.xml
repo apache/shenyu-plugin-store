@@ -32,6 +32,7 @@
     </properties>
     <modules>
         <module>shenyu-plugin-motan</module>
+        <module>shenyu-plugin-tars</module>
     </modules>
 
 </project>
