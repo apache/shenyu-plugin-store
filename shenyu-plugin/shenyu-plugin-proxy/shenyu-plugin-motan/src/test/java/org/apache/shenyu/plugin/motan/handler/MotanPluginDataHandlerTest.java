@@ -18,8 +18,11 @@
 package org.apache.shenyu.plugin.motan.handler;
 
 import org.apache.shenyu.common.dto.PluginData;
+import org.apache.shenyu.common.dto.SelectorData;
 import org.apache.shenyu.common.dto.convert.plugin.MotanRegisterConfig;
 import org.apache.shenyu.common.utils.Singleton;
+import org.apache.shenyu.plugin.motan.cache.ApplicationConfigCache;
+import org.apache.shenyu.plugin.motan.dto.MotanUpstream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,5 +53,19 @@ public final class MotanPluginDataHandlerTest {
     @Test
     public void testPluginNamed() {
         Assertions.assertEquals(motanPluginDataHandler.pluginNamed(), "motan");
+    }
+
+    @Test
+    public void testHandlerSelectorParsesReleasedApiUpstreamSettings() {
+        SelectorData selectorData = new SelectorData();
+        selectorData.setId("motan-selector-test");
+        selectorData.setHandle("{\"protocol\":\"motan\",\"registerProtocol\":\"zookeeper\",\"registerAddress\":\"127.0.0.1:2181\"}");
+
+        motanPluginDataHandler.handlerSelector(selectorData);
+
+        MotanUpstream upstream = ApplicationConfigCache.getInstance().getUpstream(selectorData.getId());
+        Assertions.assertEquals("motan", upstream.getProtocol());
+        Assertions.assertEquals("zookeeper", upstream.getRegisterProtocol());
+        Assertions.assertEquals("127.0.0.1:2181", upstream.getRegisterAddress());
     }
 }
