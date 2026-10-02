@@ -31,7 +31,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.shenyu.common.constant.Constants;
 import org.apache.shenyu.common.dto.MetaData;
 import org.apache.shenyu.common.dto.convert.plugin.MotanRegisterConfig;
-import org.apache.shenyu.common.dto.convert.selector.MotanUpstream;
+import org.apache.shenyu.plugin.motan.dto.MotanUpstream;
 import org.apache.shenyu.common.exception.ShenyuException;
 import org.apache.shenyu.common.utils.DigestUtils;
 import org.apache.shenyu.common.utils.GsonUtils;
@@ -259,7 +259,7 @@ public final class ApplicationConfigCache {
      * @return the reference config cache key
      */
     public String generateUpstreamCacheKey(final String selectorId, final String metaDataPath, final MotanUpstream motanUpstream) {
-        StringJoiner stringJoiner = new StringJoiner(Constants.SEPARATOR_UNDERLINE);
+        StringJoiner stringJoiner = new StringJoiner("_");
         stringJoiner.add(selectorId);
         stringJoiner.add(metaDataPath);
         if (StringUtils.isNotBlank(motanUpstream.getProtocol())) {
