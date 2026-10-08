@@ -64,7 +64,7 @@
 
     <properties>
         <java.version>17</java.version>
-        <shenyu.version>2.7.0</shenyu.version>
+        <shenyu.version>2.7.2-SNAPSHOT</shenyu.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -95,7 +95,10 @@
         <log4j-1.2-api.vetsion>2.17.2</log4j-1.2-api.vetsion>
         <bytebuddy.version>1.14.11</bytebuddy.version>
         <tars.version>1.7.2</tars.version>
-        <testcontainers.version>1.19.8</testcontainers.version>
+        <amqp-client.version>5.16.0</amqp-client.version>
+        <lz4-java.version>1.8.0</lz4-java.version>
+        <awaitility.version>4.0.3</awaitility.version>
+        <testcontainers.version>1.20.4</testcontainers.version>
         <!-- dependency version end -->
     </properties>
 
