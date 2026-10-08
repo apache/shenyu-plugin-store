@@ -1,0 +1,56 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+services:
+  shenyu-admin:
+    image: ${SHENYU_ADMIN_IMAGE:-shenyu-plugin-store-admin:${PLUGIN:-local}}
+    container_name: ${COMPOSE_PROJECT_NAME:-shenyu-store-suite}-admin
+    environment:
+      ADMIN_JVM: ${ADMIN_JVM:--Xms256m -Xmx768m}
+      SPRING_PROFILES_ACTIVE: h2
+      shenyu.sync.websocket.token: ${SHENYU_SYNC_WEBSOCKET_TOKEN:-plugin-store-websocket-token}
+    ports:
+      - "${SHENYU_ADMIN_PORT:-31095}:9095"
+    volumes:
+      - ${STORE_H2_DIR:?STORE_H2_DIR is required}:/opt/shenyu-data
+      - ${STORE_H2_DIR:?STORE_H2_DIR is required}/conf-ext:/opt/shenyu-admin/conf-ext:ro
+
+  shenyu-bootstrap:
+    image: ${SHENYU_BOOTSTRAP_IMAGE:-shenyu-plugin-store-bootstrap:${PLUGIN:-local}}
+    container_name: ${COMPOSE_PROJECT_NAME:-shenyu-store-suite}-bootstrap
+    depends_on:
+      - shenyu-admin
+      - plugin-store-backend
+    environment:
+      BOOT_JVM: ${BOOT_JVM:--Xms256m -Xmx768m}
+      shenyu.local.enabled: "true"
+      shenyu.fallback.enabled: "true"
+      shenyu.store.e2e-cache.enabled: ${SHENYU_STORE_E2E_CACHE_ENABLED:-true}
+      shenyu.sync.websocket.token: ${SHENYU_SYNC_WEBSOCKET_TOKEN:-plugin-store-websocket-token}
+      shenyu.sync.websocket.urls: ws://shenyu-admin:9095/websocket
+    ports:
+      - "${SHENYU_BOOTSTRAP_PORT:-31195}:9195"
+    volumes:
+      - ${STORE_PLUGIN_JARS_DIR:?STORE_PLUGIN_JARS_DIR is required}:/opt/shenyu-bootstrap/ext-lib:ro
+
+  plugin-store-backend:
+    image: ${STORE_HTTP_BACKEND_IMAGE:?STORE_HTTP_BACKEND_IMAGE is required}
+    container_name: ${COMPOSE_PROJECT_NAME:-shenyu-store-suite}-backend
+    entrypoint: ["perl", "/opt/plugin-store-backend/hystrix-backend.pl"]
+    environment:
+      STORE_BACKEND_PORT: "9080"
+      STORE_BACKEND_FALLBACK_DELAY_SECONDS: ${STORE_BACKEND_FALLBACK_DELAY_SECONDS:-4}
+    volumes:
+      - ${SCRIPT_DIR:?SCRIPT_DIR is required}/backend:/opt/plugin-store-backend:ro

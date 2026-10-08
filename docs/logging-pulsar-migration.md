@@ -26,6 +26,7 @@ This plugin-store module carries the gateway-side implementation that was previo
 3. Keep the logging plugin name and existing admin metadata values unchanged during the move. Runtime compatibility depends on the stable plugin name exposed by ShenYu core.
 4. Configure Pulsar broker settings such as `serviceUrl` and `topic` through the normal ShenYu plugin configuration path.
 5. Run the module test suite, including `PulsarLoggingGatewayE2ETest`, against a real backend service before enabling the plugin in a shared environment.
+6. Run the preserved original HTTP integration scenario from `shenyu-integrated-test/shenyu-integrated-test-http-logging-pulsar` when validating parity with the former main-tree suite.
 
 ## Roll back to the main-tree module
 
@@ -39,3 +40,4 @@ This plugin-store module carries the gateway-side implementation that was previo
 - The gateway starts with exactly one implementation of `shenyu-plugin-logging-pulsar` on the runtime classpath.
 - The configured backend accepts a test access log from the real gateway request pipeline.
 - Selector and rule refreshes still update logging behavior without restarting the gateway.
+- The original `LoggingPulsarPluginTest` scenario compiles under the `integration-tests` profile with `shenyu-plugin-store-it-common` available.
