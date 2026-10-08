@@ -1,0 +1,419 @@
+{
+  "coreH2Schema": "shenyu-admin/src/main/resources/sql-script/h2/schema.sql",
+  "defaultNamespace": "649330b6-c2d7-4edc-be8e-8a54df9eb385",
+  "description": "Plugin-owned SQL seed manifest for H2 original-suite store fixtures. h2CoreSeedIds identifies rows to remove from pinned core H2 schema before applying store-owned db/plugins/<slug>/h2/install.sql.",
+  "motanSource": "c8961528b72a2a7f81f0d1cd7525af1659a670bc",
+  "noSql": {
+    "consul": {
+      "reason": "Consul is a sync/registry extension and has no plugin row, plugin_handle, resource, permission, or namespace_plugin_rel seed rows in the pinned source.",
+      "storeRepository": "apache/shenyu-plugin-store"
+    },
+    "polaris": {
+      "reason": "Polaris is a sync/registry extension and has no plugin row, plugin_handle, resource, permission, or namespace_plugin_rel seed rows in the pinned source.",
+      "storeRepository": "apache/shenyu-plugin-store"
+    }
+  },
+  "plugins": {
+    "casdoor": {
+      "expectedH2Counts": {
+        "namespace_plugin_rel": 1,
+        "permission": 10,
+        "plugin": 1,
+        "plugin_handle": 6,
+        "resource": 10
+      },
+      "h2CoreSeedIds": {
+        "namespace_plugin_rel": [
+          "1801816010882822176"
+        ],
+        "plugin": [
+          "39"
+        ],
+        "plugin_handle": [
+          "1570590990341775360",
+          "1570591047635968000",
+          "1570591109623586816",
+          "1570591165374275584",
+          "1570591215131303936",
+          "1570591265492312064"
+        ]
+      },
+      "pluginId": "39",
+      "pluginName": "casdoor",
+      "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+      "storeRepository": "apache/shenyu-plugin-store"
+    },
+    "hystrix": {
+      "expectedH2Counts": {
+        "namespace_plugin_rel": 1,
+        "permission": 10,
+        "plugin": 1,
+        "plugin_handle": 0,
+        "resource": 10
+      },
+      "h2CoreSeedIds": {
+        "namespace_plugin_rel": [
+          "1801816010882822186"
+        ],
+        "plugin": [
+          "9"
+        ]
+      },
+      "pluginId": "9",
+      "pluginName": "hystrix",
+      "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+      "storeRepository": "apache/shenyu-plugin-store"
+    },
+    "logging-aliyun-sls": {
+      "expectedH2Counts": {
+        "namespace_plugin_rel": 1,
+        "permission": 10,
+        "plugin": 1,
+        "plugin_handle": 18,
+        "resource": 10
+      },
+      "h2CoreSeedIds": {
+        "namespace_plugin_rel": [
+          "1801816010882822172"
+        ],
+        "plugin": [
+          "34"
+        ],
+        "plugin_handle": [
+          "1529402613204172896",
+          "1529402613204172897",
+          "1529402613204172898",
+          "1529402613204172899",
+          "1529402613204172900",
+          "1529402613204172901",
+          "1529402613204172902",
+          "1529402613204172903",
+          "1529402613204172904",
+          "1529402613204172905",
+          "1529402613204172906",
+          "1529402613204172907",
+          "1529402613204172908",
+          "1529402613204172909",
+          "1529402613204172945",
+          "1529402613204172946",
+          "1529402613204172947",
+          "1722804548510507016"
+        ]
+      },
+      "pluginId": "34",
+      "pluginName": "loggingAliyunSls",
+      "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+      "storeRepository": "apache/shenyu-plugin-store"
+    },
+    "logging-clickhouse": {
+      "expectedH2Counts": {
+        "namespace_plugin_rel": 1,
+        "permission": 10,
+        "plugin": 1,
+        "plugin_handle": 13,
+        "resource": 10
+      },
+      "h2CoreSeedIds": {
+        "namespace_plugin_rel": [
+          "1801816010882822175"
+        ],
+        "plugin": [
+          "38"
+        ],
+        "plugin_handle": [
+          "1529402613204172954",
+          "1529402613204172955",
+          "1529402613204172956",
+          "1529402613204172890",
+          "1529402613204172891",
+          "1529402613204172892",
+          "1529402613204172894",
+          "1529402613204172895",
+          "1529402613204172896",
+          "1529402613204172897",
+          "1529402613204172777",
+          "1722804548510507018",
+          "1722804548510507019"
+        ]
+      },
+      "pluginId": "38",
+      "pluginName": "loggingClickHouse",
+      "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+      "storeRepository": "apache/shenyu-plugin-store"
+    },
+    "logging-huawei-lts": {
+      "expectedH2Counts": {
+        "namespace_plugin_rel": 1,
+        "permission": 20,
+        "plugin": 1,
+        "plugin_handle": 22,
+        "resource": 20
+      },
+      "h2CoreSeedIds": {
+        "namespace_plugin_rel": [
+          "1801816010882822180"
+        ],
+        "plugin": [
+          "43"
+        ],
+        "plugin_handle": [
+          "1570591265492312065",
+          "1570591265492312066",
+          "1570591265492312067",
+          "1570591265492312068",
+          "1570591265492312069",
+          "1570591265492312070",
+          "1570591265492312071",
+          "1570591265492312072",
+          "1570591265492312073",
+          "1570591265492312074",
+          "1570591265492312075",
+          "1570591265492312076",
+          "1570591265492312077",
+          "1570591265492312078",
+          "1570591265492312079",
+          "1570591265492312080",
+          "1570591265492312081",
+          "1570591265492312082",
+          "1570591265492312083",
+          "1570591265492312084",
+          "1722804548510507012",
+          "1722804548510507013"
+        ]
+      },
+      "pluginId": "43",
+      "pluginName": "loggingHuaweiLts",
+      "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+      "storeRepository": "apache/shenyu-plugin-store"
+    },
+    "logging-pulsar": {
+      "expectedH2Counts": {
+        "namespace_plugin_rel": 1,
+        "permission": 10,
+        "plugin": 1,
+        "plugin_handle": 10,
+        "resource": 10
+      },
+      "h2CoreSeedIds": {
+        "namespace_plugin_rel": [
+          "1801816010882822173"
+        ],
+        "plugin": [
+          "35"
+        ],
+        "plugin_handle": [
+          "1529402613204172910",
+          "1529402613204172911",
+          "1529402613204172912",
+          "1529402613204172913",
+          "1529402613204172914",
+          "1529402613204172915",
+          "1529402613204172948",
+          "1529402613204172949",
+          "1529402613204172950",
+          "1722804548510507017"
+        ]
+      },
+      "pluginId": "35",
+      "pluginName": "loggingPulsar",
+      "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+      "storeRepository": "apache/shenyu-plugin-store"
+    },
+    "logging-rabbitmq": {
+      "expectedH2Counts": {
+        "namespace_plugin_rel": 1,
+        "permission": 10,
+        "plugin": 1,
+        "plugin_handle": 28,
+        "resource": 10
+      },
+      "h2CoreSeedIds": {
+        "namespace_plugin_rel": [
+          "1801816010882822182"
+        ],
+        "plugin": [
+          "45"
+        ],
+        "plugin_handle": [
+          "1721435546642157568",
+          "1721435708743618560",
+          "1721436368046264320",
+          "1721436500343001088",
+          "1721436639635836928",
+          "1721436745583955968",
+          "1721509996347617280",
+          "1721725585461706752",
+          "1721725662875975680",
+          "1722804180904927232",
+          "1722804370575548416",
+          "1722804461256400896",
+          "1722804548510507008",
+          "1821435546642157568",
+          "1821435708743618560",
+          "1821436368046264320",
+          "1821436500343001088",
+          "1821436639635836928",
+          "1821436745583955968",
+          "1821509996347617280",
+          "1821725585461706752",
+          "1821725662875975680",
+          "1822804180904927232",
+          "1822804370575548416",
+          "1822804461256400896",
+          "1822804548510507008",
+          "1722804548510507010",
+          "1722804548510507011"
+        ]
+      },
+      "pluginId": "45",
+      "pluginName": "loggingRabbitMQ",
+      "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+      "storeRepository": "apache/shenyu-plugin-store"
+    },
+    "logging-tencent-cls": {
+      "expectedH2Counts": {
+        "namespace_plugin_rel": 1,
+        "permission": 10,
+        "plugin": 1,
+        "plugin_handle": 20,
+        "resource": 10
+      },
+      "h2CoreSeedIds": {
+        "namespace_plugin_rel": [
+          "1801816010882822174"
+        ],
+        "plugin": [
+          "36"
+        ],
+        "plugin_handle": [
+          "1529402613204172916",
+          "1529402613204172917",
+          "1529402613204172918",
+          "1529402613204172919",
+          "1529402613204172920",
+          "1529402613204172921",
+          "1529402613204172922",
+          "1529402613204172923",
+          "1529402613204172924",
+          "1529402613204172925",
+          "1529402613204172922",
+          "1529402613204172926",
+          "1529402613204172927",
+          "1529402613204172929",
+          "1529402613204172930",
+          "1529402613204172951",
+          "1529402613204172952",
+          "1529402613204172953",
+          "1722804548510507014",
+          "1722804548510507015"
+        ]
+      },
+      "pluginId": "36",
+      "pluginName": "loggingTencentCls",
+      "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+      "storeRepository": "apache/shenyu-plugin-store"
+    },
+    "motan": {
+      "expectedH2Counts": {
+        "namespace_plugin_rel": 1,
+        "permission": 10,
+        "plugin": 1,
+        "plugin_handle": 8,
+        "resource": 10
+      },
+      "h2CoreSeedIds": {
+        "namespace_plugin_rel": [
+          "1801816010882822153"
+        ],
+        "plugin": [
+          "17"
+        ],
+        "plugin_handle": [
+          "1529402613204172834",
+          "1529402613204172835",
+          "1529402613204172836",
+          "1529402613204172837",
+          "1529402613204172838",
+          "1678997557628272641",
+          "1829402613204172834",
+          "1878997557628272641"
+        ]
+      },
+      "pluginId": "17",
+      "pluginName": "motan",
+      "source": "c8961528b72a2a7f81f0d1cd7525af1659a670bc",
+      "storeRepository": "apache/shenyu-plugin-store"
+    },
+    "sofa": {
+      "expectedH2Counts": {
+        "namespace_plugin_rel": 1,
+        "permission": 10,
+        "plugin": 1,
+        "plugin_handle": 8,
+        "resource": 10
+      },
+      "h2CoreSeedIds": {
+        "namespace_plugin_rel": [
+          "1801816010882822147"
+        ],
+        "plugin": [
+          "11"
+        ],
+        "plugin_handle": [
+          "1529402613199978534",
+          "1529402613199978535",
+          "1729402613199978534",
+          "1729402613199978535",
+          "1529402613204172872",
+          "1529402613204172873",
+          "1529402613204172874",
+          "1529402613204172875"
+        ]
+      },
+      "pluginId": "11",
+      "pluginName": "sofa",
+      "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+      "storeRepository": "apache/shenyu-plugin-store"
+    },
+    "tars": {
+      "expectedH2Counts": {
+        "namespace_plugin_rel": 1,
+        "permission": 10,
+        "plugin": 1,
+        "plugin_handle": 16,
+        "resource": 10
+      },
+      "h2CoreSeedIds": {
+        "namespace_plugin_rel": [
+          "1801816010882822149"
+        ],
+        "plugin": [
+          "13"
+        ],
+        "plugin_handle": [
+          "1529402613199978555",
+          "1529402613199978556",
+          "1529402613199978557",
+          "1529402613199978558",
+          "1529402613199978559",
+          "1529402613199978560",
+          "1529402613199978561",
+          "1529402613199978562",
+          "1529402613199978563",
+          "1529402613199978564",
+          "1529402613199978565",
+          "1529402613199978566",
+          "1529402613204172868",
+          "1529402613204172869",
+          "1529402613204172870",
+          "1529402613204172871"
+        ]
+      },
+      "pluginId": "13",
+      "pluginName": "tars",
+      "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+      "storeRepository": "apache/shenyu-plugin-store"
+    }
+  },
+  "sourceHead": "ec198d442894fd9617947ed73c6c8fe3b206f665"
+}

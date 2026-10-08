@@ -1,0 +1,1210 @@
+{
+  "schemaVersion": 1,
+  "slug": "hystrix",
+  "issue": 7298,
+  "kind": "plugin",
+  "provenance": {
+    "sourceRepository": "apache/shenyu",
+    "sourceCommit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+    "store": {
+      "repository": "apache/shenyu-plugin-store",
+      "branch": "cloudbase/migrate-hystrix",
+      "baselineHeadAtGeneration": "56aa140e0bc0e643768f33aed400e9258f9c8003",
+      "headSemantics": "Git HEAD observed before this generator wrote receiving manifests; this is a provenance baseline, not a delivery head, and may intentionally predate a later manifest commit.",
+      "pullRequest": "https://github.com/apache/shenyu-plugin-store/pull/9"
+    },
+    "coreRemovalDraft": {
+      "repository": "apache/shenyu",
+      "branch": "cloudbase/externalize-hystrix",
+      "pullRequest": "https://github.com/apache/shenyu/pull/7499",
+      "role": "core-removal-draft"
+    }
+  },
+  "modulePrefixes": [
+    "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix"
+  ],
+  "starterPrefixes": [
+    "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-hystrix"
+  ],
+  "sql": {
+    "ownership": "plugin metadata rows and plugin-specific upgrade fragments",
+    "pluginId": "9",
+    "pluginName": "hystrix",
+    "sourceCommit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+    "installPreflightPairs": [
+      {
+        "dialect": "h2",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-hystrix",
+            "path": "db/plugins/hystrix/h2/install.sql",
+            "exists": true,
+            "sha256": "3165e1586e884c5a0e4f500e28e811f099f05fd6f12b4f23753eb8105ed0526d"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-hystrix",
+            "path": "db/plugins/hystrix/h2/preflight.sql",
+            "exists": true,
+            "sha256": "04b531a4f24c467aedda58ca7b6518dc1ad05ad4d5965692fff49f2558acf4f7"
+          }
+        }
+      },
+      {
+        "dialect": "mysql",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-hystrix",
+            "path": "db/plugins/hystrix/mysql/install.sql",
+            "exists": true,
+            "sha256": "e8b3a51c4e892cd0b88857463692a145683aec4d986ba214a09c3ac3a7adc280"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-hystrix",
+            "path": "db/plugins/hystrix/mysql/preflight.sql",
+            "exists": true,
+            "sha256": "fb1ed747829ffd92965f9456d98e98eb3ff40ca4a462db0ad6a5fdeb853d6250"
+          }
+        }
+      },
+      {
+        "dialect": "ob",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-hystrix",
+            "path": "db/plugins/hystrix/ob/install.sql",
+            "exists": true,
+            "sha256": "caa623290278381bb80a82c18b057d3c7f198762c628e10c2d45234e5c27bf25"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-hystrix",
+            "path": "db/plugins/hystrix/ob/preflight.sql",
+            "exists": true,
+            "sha256": "a2afa00ffc231b5b0cad6c3b68705ed52437f887015b56d2c0c898bbd737f501"
+          }
+        }
+      },
+      {
+        "dialect": "og",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-hystrix",
+            "path": "db/plugins/hystrix/og/install.sql",
+            "exists": true,
+            "sha256": "b59f55b4b749abf55f405f7f08173ca3c07d631470cfbeb9bb8989baeeb58322"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-hystrix",
+            "path": "db/plugins/hystrix/og/preflight.sql",
+            "exists": true,
+            "sha256": "1885742528b0776fd37ef176789c4a65c114154d0a6c49005a51b223c601e49c"
+          }
+        }
+      },
+      {
+        "dialect": "oracle",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-hystrix",
+            "path": "db/plugins/hystrix/oracle/install.sql",
+            "exists": true,
+            "sha256": "7dcbdeda720e2642c9594c650d5befbe389291a7625cfb6f1401ff56cf1ae8b8"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-hystrix",
+            "path": "db/plugins/hystrix/oracle/preflight.sql",
+            "exists": true,
+            "sha256": "6ae44ea24ee86a672a64cf15d53fd70488606656708c40d89faf9df2810b15b2"
+          }
+        }
+      },
+      {
+        "dialect": "pg",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-hystrix",
+            "path": "db/plugins/hystrix/pg/install.sql",
+            "exists": true,
+            "sha256": "cdd6f5bdc31a19daf11e206853271d725958fb51279f0ac3c9c96998ad5df133"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-hystrix",
+            "path": "db/plugins/hystrix/pg/preflight.sql",
+            "exists": true,
+            "sha256": "ab1091c7bb72aefa8185ae3396c18f51610faaad240f650ee435458c62ede88f"
+          }
+        }
+      }
+    ],
+    "archive": {
+      "kind": "sql-historical-archive",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "db/plugins/hystrix/archive/historical-upgrade-fragments.sql",
+        "exists": true,
+        "sha256": "d4290f4e8be90893396bac8c34e71ff7e2448b0d265b07d1d76056c813a61317"
+      }
+    },
+    "dialectRows": {
+      "h2": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 0,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822186"
+          ],
+          "permission": [
+            "1529402639305326620",
+            "1529402639376629888",
+            "1529402639376629889",
+            "1529402639376629890",
+            "1529402639376629891",
+            "1529402639376629892",
+            "1529402639376629893",
+            "1529402639376629894",
+            "1529402639376629895",
+            "1529402639376629896"
+          ],
+          "plugin": [
+            "9"
+          ],
+          "plugin_handle": [],
+          "resource": [
+            "1529402639284355099",
+            "1529402639372435654",
+            "1529402639372435655",
+            "1529402639372435656",
+            "1529402639372435657",
+            "1529402639372435658",
+            "1529402639372435659",
+            "1529402639372435660",
+            "1529402639372435661",
+            "1529402639372435662"
+          ]
+        },
+        "fallbackTables": [
+          "resource",
+          "permission"
+        ]
+      },
+      "mysql": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 0,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822186"
+          ],
+          "permission": [
+            "1529402639305326620",
+            "1529402639376629888",
+            "1529402639376629889",
+            "1529402639376629890",
+            "1529402639376629891",
+            "1529402639376629892",
+            "1529402639376629893",
+            "1529402639376629894",
+            "1529402639376629895",
+            "1529402639376629896"
+          ],
+          "plugin": [
+            "9"
+          ],
+          "plugin_handle": [],
+          "resource": [
+            "1529402639284355099",
+            "1529402639372435654",
+            "1529402639372435655",
+            "1529402639372435656",
+            "1529402639372435657",
+            "1529402639372435658",
+            "1529402639372435659",
+            "1529402639372435660",
+            "1529402639372435661",
+            "1529402639372435662"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "ob": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 0,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822186"
+          ],
+          "permission": [
+            "1529402639305326620",
+            "1529402639376629888",
+            "1529402639376629889",
+            "1529402639376629890",
+            "1529402639376629891",
+            "1529402639376629892",
+            "1529402639376629893",
+            "1529402639376629894",
+            "1529402639376629895",
+            "1529402639376629896"
+          ],
+          "plugin": [
+            "9"
+          ],
+          "plugin_handle": [],
+          "resource": [
+            "1529402639284355099",
+            "1529402639372435654",
+            "1529402639372435655",
+            "1529402639372435656",
+            "1529402639372435657",
+            "1529402639372435658",
+            "1529402639372435659",
+            "1529402639372435660",
+            "1529402639372435661",
+            "1529402639372435662"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "og": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 0,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822186"
+          ],
+          "permission": [
+            "1529403932797964312",
+            "1529403932886044722",
+            "1529403932886044723",
+            "1529403932886044724",
+            "1529403932886044725",
+            "1529403932886044726",
+            "1529403932886044727",
+            "1529403932886044728",
+            "1529403932886044729",
+            "1529403932886044730"
+          ],
+          "plugin": [
+            "9"
+          ],
+          "plugin_handle": [],
+          "resource": [
+            "1529403932781187095",
+            "1529403932881850467",
+            "1529403932881850468",
+            "1529403932881850469",
+            "1529403932881850470",
+            "1529403932881850471",
+            "1529403932881850472",
+            "1529403932881850473",
+            "1529403932881850474",
+            "1529403932881850475"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "oracle": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 0,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822186"
+          ],
+          "permission": [
+            "1529402639305326620",
+            "1529402639376629888",
+            "1529402639376629889",
+            "1529402639376629890",
+            "1529402639376629891",
+            "1529402639376629892",
+            "1529402639376629893",
+            "1529402639376629894",
+            "1529402639376629895",
+            "1529402639376629896"
+          ],
+          "plugin": [
+            "9"
+          ],
+          "plugin_handle": [],
+          "resource": [
+            "1529402639284355099",
+            "1529402639372435654",
+            "1529402639372435655",
+            "1529402639372435656",
+            "1529402639372435657",
+            "1529402639372435658",
+            "1529402639372435659",
+            "1529402639372435660",
+            "1529402639372435661",
+            "1529402639372435662"
+          ]
+        },
+        "fallbackTables": [
+          "resource",
+          "permission"
+        ]
+      },
+      "pg": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 0,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822186"
+          ],
+          "permission": [
+            "1529403932797964312",
+            "1529403932886044722",
+            "1529403932886044723",
+            "1529403932886044724",
+            "1529403932886044725",
+            "1529403932886044726",
+            "1529403932886044727",
+            "1529403932886044728",
+            "1529403932886044729",
+            "1529403932886044730"
+          ],
+          "plugin": [
+            "9"
+          ],
+          "plugin_handle": [],
+          "resource": [
+            "1529403932781187095",
+            "1529403932881850467",
+            "1529403932881850468",
+            "1529403932881850469",
+            "1529403932881850470",
+            "1529403932881850471",
+            "1529403932881850472",
+            "1529403932881850473",
+            "1529403932881850474",
+            "1529403932881850475"
+          ]
+        },
+        "fallbackTables": []
+      }
+    },
+    "idRemaps": {},
+    "omittedDuplicateNaturalKeys": {}
+  },
+  "counts": {
+    "originalAssets": 19,
+    "originalScenarios": 7,
+    "generatedSupportAssets": 25,
+    "installPreflightPairs": 6,
+    "archives": 1
+  },
+  "originalAssets": [
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-integrated-test/shenyu-integrated-test-http/src/test/java/org/apache/shenyu/integrated/test/http/combination/HystrixPluginTest.java",
+        "sha256": "88b1b6a5d84270e75bf537d16dd07fa46c670e263e393abe542743ad9caa22f8"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-integrated-test/shenyu-integrated-test-http-hystrix/src/test/java/org/apache/shenyu/integrated/test/http/combination/HystrixPluginTest.java",
+        "exists": true,
+        "sha256": "ae512595427692f1c0039f747f30c34c9c05083c1c42283f2ff21537d4de6b3f"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/pom.xml",
+        "sha256": "cdcb7837a5f70b584ed94ae4eedeb198d5b9043458f3c5704ae16f10465f29e4"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/pom.xml",
+        "exists": true,
+        "sha256": "35f085c377a2c5d62084d590e5ed4f0d3bc5f745027bf452122c84d61cde6a19"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/main/java/org/apache/shenyu/plugin/hystrix/HystrixPlugin.java",
+        "sha256": "dc78789c8562455e821172a7063ae9f732161199c5c2e7387acc83467ad91263"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/main/java/org/apache/shenyu/plugin/hystrix/HystrixPlugin.java",
+        "exists": true,
+        "sha256": "dc78789c8562455e821172a7063ae9f732161199c5c2e7387acc83467ad91263"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/main/java/org/apache/shenyu/plugin/hystrix/builder/HystrixBuilder.java",
+        "sha256": "37f03585c5a1dba39c82c5d2ed859e60830f35341d9734eb2979f5b4d83be72e"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/main/java/org/apache/shenyu/plugin/hystrix/builder/HystrixBuilder.java",
+        "exists": true,
+        "sha256": "37f03585c5a1dba39c82c5d2ed859e60830f35341d9734eb2979f5b4d83be72e"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/main/java/org/apache/shenyu/plugin/hystrix/command/Command.java",
+        "sha256": "a4b889c192c25fb2853da10f0192a188a334c41068a808ec01b6f4e7f5e58087"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/main/java/org/apache/shenyu/plugin/hystrix/command/Command.java",
+        "exists": true,
+        "sha256": "a4b889c192c25fb2853da10f0192a188a334c41068a808ec01b6f4e7f5e58087"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/main/java/org/apache/shenyu/plugin/hystrix/command/HystrixCommand.java",
+        "sha256": "80b85eeb209d1fc53585df1677ae25a655ac6dad48a6f391c666fb95a33f56fa"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/main/java/org/apache/shenyu/plugin/hystrix/command/HystrixCommand.java",
+        "exists": true,
+        "sha256": "80b85eeb209d1fc53585df1677ae25a655ac6dad48a6f391c666fb95a33f56fa"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/main/java/org/apache/shenyu/plugin/hystrix/command/HystrixCommandOnThread.java",
+        "sha256": "c1b4229d550ad4cede326f3890c41d46c8839bb046c6ae343d88887886081083"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/main/java/org/apache/shenyu/plugin/hystrix/command/HystrixCommandOnThread.java",
+        "exists": true,
+        "sha256": "c1b4229d550ad4cede326f3890c41d46c8839bb046c6ae343d88887886081083"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/main/java/org/apache/shenyu/plugin/hystrix/handler/HystrixPluginDataHandler.java",
+        "sha256": "d73446e26aa59b09cdc66783b637a7765bf0173440db7f1579ffca5b1b69da9a"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/main/java/org/apache/shenyu/plugin/hystrix/handler/HystrixPluginDataHandler.java",
+        "exists": true,
+        "sha256": "d73446e26aa59b09cdc66783b637a7765bf0173440db7f1579ffca5b1b69da9a"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/HystrixPluginTest.java",
+        "sha256": "4c5324f00d81057e1c22731e0d1cac83e58f2c84c72244582907003ef0085d93"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/HystrixPluginTest.java",
+        "exists": true,
+        "sha256": "4c5324f00d81057e1c22731e0d1cac83e58f2c84c72244582907003ef0085d93"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/builder/HystrixBuilderTest.java",
+        "sha256": "4998dbca001da6961d12c8250c5bb00df0b3b3db36e79ba855857e43cc05491a"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/builder/HystrixBuilderTest.java",
+        "exists": true,
+        "sha256": "4998dbca001da6961d12c8250c5bb00df0b3b3db36e79ba855857e43cc05491a"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/command/HystrixCommandOnThreadTest.java",
+        "sha256": "772e24b601cbe75ebbd90cce887f21fa25c28d4e822a3a31cdc4d4dbcd54f11a"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/command/HystrixCommandOnThreadTest.java",
+        "exists": true,
+        "sha256": "772e24b601cbe75ebbd90cce887f21fa25c28d4e822a3a31cdc4d4dbcd54f11a"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/command/HystrixCommandTest.java",
+        "sha256": "3c946aafceebfd9af9e8e0e74dbbbbdcd4f77ad3be638fa49bb1e10c069f0205"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/command/HystrixCommandTest.java",
+        "exists": true,
+        "sha256": "3c946aafceebfd9af9e8e0e74dbbbbdcd4f77ad3be638fa49bb1e10c069f0205"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/handler/HystrixPluginDataHandlerTest.java",
+        "sha256": "421d07db2270cfc5bde835285b6b4927aafcdeae35b02883faf863a2a19255d5"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/handler/HystrixPluginDataHandlerTest.java",
+        "exists": true,
+        "sha256": "421d07db2270cfc5bde835285b6b4927aafcdeae35b02883faf863a2a19255d5"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-hystrix/pom.xml",
+        "sha256": "27d418e161d1dfedd1200b1e5c454568e229c59948b16df186aaaf9eb63bf395"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-hystrix/pom.xml",
+        "exists": true,
+        "sha256": "6904432c5fad3a82ccf8ba3d2b4c8e87d0325447767494e9f2cfb6c962c3081e"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-hystrix/src/main/java/org/apache/shenyu/springboot/starter/plugin/hystrix/HystrixPluginConfiguration.java",
+        "sha256": "fb0e2caa4767e8c2f9670d1de8199ead3206e50e0e8943c18d1e3af9e0b4cc53"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-hystrix/src/main/java/org/apache/shenyu/springboot/starter/plugin/hystrix/HystrixPluginConfiguration.java",
+        "exists": true,
+        "sha256": "fb0e2caa4767e8c2f9670d1de8199ead3206e50e0e8943c18d1e3af9e0b4cc53"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-hystrix/src/main/resources/META-INF/spring.factories",
+        "sha256": "5ecc62dfeb5515500d3f3a273911db9a6b1319a76ceee57caaef8c51b1a4e796"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-hystrix/src/main/resources/META-INF/spring.factories",
+        "exists": true,
+        "sha256": "5ecc62dfeb5515500d3f3a273911db9a6b1319a76ceee57caaef8c51b1a4e796"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-hystrix/src/main/resources/META-INF/spring.provides",
+        "sha256": "076cf4a7e6382eac9e1f829ce6cd133509842867affca4d826e46fec4f669278"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-hystrix/src/main/resources/META-INF/spring.provides",
+        "exists": true,
+        "sha256": "076cf4a7e6382eac9e1f829ce6cd133509842867affca4d826e46fec4f669278"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-hystrix/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+        "sha256": "b846313f23264702e668d9570619917d5ebce3e16394387dc29daafd075d3ef2"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-hystrix/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+        "exists": true,
+        "sha256": "b846313f23264702e668d9570619917d5ebce3e16394387dc29daafd075d3ef2"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-hystrix/src/test/java/org/apache/shenyu/springboot/starter/plugin/hystrix/HystrixPluginConfigurationTest.java",
+        "sha256": "edddc18bdc501d39c2f2fdf230c1d74f78a11c5795cae4bb7f9af6a507875a01"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-hystrix/src/test/java/org/apache/shenyu/springboot/starter/plugin/hystrix/HystrixPluginConfigurationTest.java",
+        "exists": true,
+        "sha256": "edddc18bdc501d39c2f2fdf230c1d74f78a11c5795cae4bb7f9af6a507875a01"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    }
+  ],
+  "generatedSupportAssets": [
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "db/plugins/hystrix/PROVENANCE.md",
+        "exists": true,
+        "sha256": "c6857d1b3526baa9a757c85ffa038ae583e541cd122c6028585032c5c2fbd5ce"
+      }
+    },
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "db/plugins/hystrix/README.md",
+        "exists": true,
+        "sha256": "ac454f00117531d82ba8bc466cd969b2a31009b4de0c8f731e849d112a65453b"
+      }
+    },
+    {
+      "kind": "sql-historical-archive",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "db/plugins/hystrix/archive/historical-upgrade-fragments.sql",
+        "exists": true,
+        "sha256": "d4290f4e8be90893396bac8c34e71ff7e2448b0d265b07d1d76056c813a61317"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "db/plugins/hystrix/h2/install.sql",
+        "exists": true,
+        "sha256": "3165e1586e884c5a0e4f500e28e811f099f05fd6f12b4f23753eb8105ed0526d"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "db/plugins/hystrix/h2/preflight.sql",
+        "exists": true,
+        "sha256": "04b531a4f24c467aedda58ca7b6518dc1ad05ad4d5965692fff49f2558acf4f7"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "db/plugins/hystrix/mysql/install.sql",
+        "exists": true,
+        "sha256": "e8b3a51c4e892cd0b88857463692a145683aec4d986ba214a09c3ac3a7adc280"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "db/plugins/hystrix/mysql/preflight.sql",
+        "exists": true,
+        "sha256": "fb1ed747829ffd92965f9456d98e98eb3ff40ca4a462db0ad6a5fdeb853d6250"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "db/plugins/hystrix/ob/install.sql",
+        "exists": true,
+        "sha256": "caa623290278381bb80a82c18b057d3c7f198762c628e10c2d45234e5c27bf25"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "db/plugins/hystrix/ob/preflight.sql",
+        "exists": true,
+        "sha256": "a2afa00ffc231b5b0cad6c3b68705ed52437f887015b56d2c0c898bbd737f501"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "db/plugins/hystrix/og/install.sql",
+        "exists": true,
+        "sha256": "b59f55b4b749abf55f405f7f08173ca3c07d631470cfbeb9bb8989baeeb58322"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "db/plugins/hystrix/og/preflight.sql",
+        "exists": true,
+        "sha256": "1885742528b0776fd37ef176789c4a65c114154d0a6c49005a51b223c601e49c"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "db/plugins/hystrix/oracle/install.sql",
+        "exists": true,
+        "sha256": "7dcbdeda720e2642c9594c650d5befbe389291a7625cfb6f1401ff56cf1ae8b8"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "db/plugins/hystrix/oracle/preflight.sql",
+        "exists": true,
+        "sha256": "6ae44ea24ee86a672a64cf15d53fd70488606656708c40d89faf9df2810b15b2"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "db/plugins/hystrix/pg/install.sql",
+        "exists": true,
+        "sha256": "cdd6f5bdc31a19daf11e206853271d725958fb51279f0ac3c9c96998ad5df133"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "db/plugins/hystrix/pg/preflight.sql",
+        "exists": true,
+        "sha256": "ab1091c7bb72aefa8185ae3396c18f51610faaad240f650ee435458c62ede88f"
+      }
+    },
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "db/plugins/hystrix/row-manifest.json",
+        "exists": true,
+        "sha256": "33841a8240d0ba07d43175507951e41b459a5f4bbdf6e112cfdcd2c880383d82"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "script/plugin-store/assert-store-fixtures.sh",
+        "exists": true,
+        "sha256": "5d83d6dcb2a3eabb39929fcb93352f6dfe7da20c6d9b5d43ae07563ad2594543"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "script/plugin-store/build-h2-store-sql-fixture.py",
+        "exists": true,
+        "sha256": "eb914c5eea758e6ad77b4e65d89792cf2a575ce2dd1fe76dc9d0d4258b2e093b"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "script/plugin-store/docker-compose.original-suite.yml",
+        "exists": true,
+        "sha256": "409db3ebfcc82d71a7f62589709eb7476f4a18c2ca2916a8ce3130c08d05221c"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "script/plugin-store/h2-store-sql-fixture.md",
+        "exists": true,
+        "sha256": "bee24995be38656fa85d8666056cac863f0408071de47113d79ddf12b26830b4"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "script/plugin-store/plugin-sql-seed-manifest.json",
+        "exists": true,
+        "sha256": "a23a4b6edda4381fa2566988e0c51bb333d5eaf535896064a9dc935d6f9f64bf"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "script/plugin-store/run-core-compose.sh",
+        "exists": true,
+        "sha256": "ded518505229c6d659501a655febacb4458efa0c5e5ec321fe50afe924d218d6"
+      }
+    },
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-integrated-test/shenyu-integrated-test-http-hystrix/pom.xml",
+        "exists": true,
+        "sha256": "163767408ac4a21b7fc5f060d6a06a46b0c120e416840d77662a73660ab4f458"
+      }
+    },
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-integrated-test/shenyu-integrated-test-http-hystrix/src/test/java/org/apache/shenyu/integrated/test/http/combination/HystrixPluginTest.java",
+        "exists": true,
+        "sha256": "ae512595427692f1c0039f747f30c34c9c05083c1c42283f2ff21537d4de6b3f"
+      }
+    },
+    {
+      "kind": "shared-test-helper",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-store-test-support/src/main/java/org/apache/shenyu/plugin/store/test/support/GatewayFixtures.java",
+        "exists": true,
+        "sha256": "bf9bfe9f7aeae47a838f837e3611eb26901ab7b6988452505df70c4390551cbd"
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-integrated-test/shenyu-integrated-test-http/src/test/java/org/apache/shenyu/integrated/test/http/combination/HystrixPluginTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-integrated-test/shenyu-integrated-test-http-hystrix/src/test/java/org/apache/shenyu/integrated/test/http/combination/HystrixPluginTest.java"
+      },
+      "methods": [
+        "testPass",
+        "testFallbackBySemaphore"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/HystrixPluginTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/HystrixPluginTest.java"
+      },
+      "methods": [
+        "testDoExecuteNullException",
+        "testDoExecute",
+        "testNamed",
+        "testGetOrder"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/builder/HystrixBuilderTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/builder/HystrixBuilderTest.java"
+      },
+      "methods": [
+        "testBuild"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/command/HystrixCommandOnThreadTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/command/HystrixCommandOnThreadTest.java"
+      },
+      "methods": [
+        "testGetCallBackUri",
+        "testGetFallback"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/command/HystrixCommandTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/command/HystrixCommandTest.java"
+      },
+      "methods": [
+        "testFetchObservable",
+        "testGetCallBackUri",
+        "testConstruct",
+        "testResumeWithFallback"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/handler/HystrixPluginDataHandlerTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix/src/test/java/org/apache/shenyu/plugin/hystrix/handler/HystrixPluginDataHandlerTest.java"
+      },
+      "methods": [
+        "testHandlerRUle",
+        "testPluginNamed"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "hystrix",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-hystrix/src/test/java/org/apache/shenyu/springboot/starter/plugin/hystrix/HystrixPluginConfigurationTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-hystrix",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-hystrix/src/test/java/org/apache/shenyu/springboot/starter/plugin/hystrix/HystrixPluginConfigurationTest.java"
+      },
+      "methods": [
+        "testHystrixPlugin",
+        "testHystrixPluginDataHandler"
+      ],
+      "originalMayContainDisabledAssertions": false
+    }
+  ],
+  "notes": [
+    "Shared IT/E2E helper closure is recorded as support assets where present; it is profile-scoped test infrastructure, not production runtime code.",
+    "File presence plus hash validation does not claim runtime parity without a matching execution log."
+  ]
+}
