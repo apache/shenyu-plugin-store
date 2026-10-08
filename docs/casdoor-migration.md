@@ -31,6 +31,7 @@ Add the external starter to a ShenYu bootstrap that targets the supported ShenYu
 ```
 
 The store artifact compiles against ShenYu `2.7.2-SNAPSHOT` plugin APIs and keeps `casdoor-java-sdk` at `1.9.0`.
+The Casdoor SDK's old transitive `org.json:json:20140107` artifact remains excluded because its JSON License is ASF Category X unsuitable for Apache distribution. The plugin declares `org.json:json:20240303` directly at runtime so the SDK/Oltu OAuth callback parser owns a modern Public Domain JSON parser on the starter classpath.
 
 ## Configuration
 
@@ -51,7 +52,7 @@ Certificates and secrets should be supplied through deployment configuration or 
 
 ## Compatibility
 
-Existing admin plugin data can be reused. A valid bearer token or callback `code` and `state` continue to authenticate through the Casdoor SDK. On success, the plugin forwards the same trusted headers to downstream handlers: `name`, `id`, and `organization`.
+Existing admin plugin data can be reused. A valid bearer token or callback `code` and `state` continue to authenticate through the Casdoor SDK. On success, the plugin forwards the same trusted headers to downstream handlers: `name`, `id`, and `organization`. The starter gateway test covers both bearer JWT authentication and a local OAuth callback token exchange, proving the direct runtime JSON parser dependency is available through the starter-created plugin bean.
 
 The starter remains enabled by default for compatibility. Set `shenyu.plugins.casdoor.enabled=false` to keep the dependency present but prevent plugin registration.
 

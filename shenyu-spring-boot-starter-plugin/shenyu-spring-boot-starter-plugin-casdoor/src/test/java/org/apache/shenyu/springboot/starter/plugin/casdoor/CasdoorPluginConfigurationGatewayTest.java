@@ -22,6 +22,7 @@ import com.nimbusds.jose.JWSHeader;
 import com.nimbusds.jose.crypto.RSASSASigner;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import com.sun.net.httpserver.HttpServer;
 import org.apache.shenyu.common.config.ShenyuConfig;
 import org.apache.shenyu.common.dto.PluginData;
 import org.apache.shenyu.common.enums.PluginEnum;
@@ -49,6 +50,7 @@ import reactor.core.publisher.Mono;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.math.BigInteger;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -105,7 +107,7 @@ public final class CasdoorPluginConfigurationGatewayTest {
                     ShenyuPlugin plugin = context.getBean(ShenyuPlugin.class);
                     PluginDataHandler handler = context.getBean(PluginDataHandler.class);
                     TestKeyMaterial keyMaterial = TestKeyMaterial.create();
-                    handler.handlerPlugin(pluginData(keyMaterial));
+                    handler.handlerPlugin(pluginData(keyMaterial, "http://127.0.0.1:1"));
                     GatewayFixtures.cachePluginRoute(plugin, "{}");
                     try (ShenyuGatewayTestServer server = ShenyuGatewayTestServer.start(Arrays.asList(plugin, new IdentityTerminalPlugin()))) {
                         HttpRequest request = HttpRequest.newBuilder(URI.create(server.baseUrl() + "/starter"))
@@ -119,9 +121,34 @@ public final class CasdoorPluginConfigurationGatewayTest {
                 });
     }
 
-    private PluginData pluginData(final TestKeyMaterial keyMaterial) {
+    @Test
+    public void testStarterCreatedPluginAuthenticatesOAuthCallbackThroughGateway() {
+        ShenyuGatewayTestServer.contextRunner()
+                .withConfiguration(AutoConfigurations.of(CasdoorPluginConfiguration.class))
+                .run(context -> {
+                    ShenyuPlugin plugin = context.getBean(ShenyuPlugin.class);
+                    PluginDataHandler handler = context.getBean(PluginDataHandler.class);
+                    TestKeyMaterial keyMaterial = TestKeyMaterial.create();
+                    String token = keyMaterial.token("callback-org", "callback-user", "callback-id");
+                    try (LocalTokenEndpoint endpoint = LocalTokenEndpoint.start(token)) {
+                        handler.handlerPlugin(pluginData(keyMaterial, endpoint.baseUrl()));
+                        GatewayFixtures.cachePluginRoute(plugin, "{}");
+                        try (ShenyuGatewayTestServer server = ShenyuGatewayTestServer.start(Arrays.asList(plugin, new IdentityTerminalPlugin()))) {
+                            HttpRequest request = HttpRequest.newBuilder(URI.create(server.baseUrl() + "/starter-callback?code=local-code&state=local-state"))
+                                    .GET()
+                                    .build();
+                            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+                            assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+                            assertThat(response.body()).isEqualTo("callback-user|callback-id|callback-org");
+                            assertThat(endpoint.requests).isEqualTo(1);
+                        }
+                    }
+                });
+    }
+
+    private PluginData pluginData(final TestKeyMaterial keyMaterial, final String endpoint) {
         Map<String, String> config = new LinkedHashMap<>();
-        config.put("endpoint", "http://127.0.0.1:1");
+        config.put("endpoint", endpoint);
         config.put("client_id", "local-client");
         config.put("client_secrect", "local-secret");
         config.put("certificate", keyMaterial.certificatePem);
@@ -255,6 +282,42 @@ public final class CasdoorPluginConfigurationGatewayTest {
         }
     }
 
+    private static final class LocalTokenEndpoint implements AutoCloseable {
+
+        private final HttpServer server;
+
+        private int requests;
+
+        private LocalTokenEndpoint(final HttpServer server) {
+            this.server = server;
+        }
+
+        private static LocalTokenEndpoint start(final String token) throws IOException {
+            HttpServer server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+            LocalTokenEndpoint endpoint = new LocalTokenEndpoint(server);
+            server.createContext("/api/login/oauth/access_token", exchange -> {
+                endpoint.requests++;
+                String body = "{\"access_token\":\"" + token + "\",\"token_type\":\"Bearer\",\"expires_in\":3600}";
+                byte[] bytes = body.getBytes(StandardCharsets.UTF_8);
+                exchange.getResponseHeaders().set("Content-Type", "application/json;charset=UTF-8");
+                exchange.sendResponseHeaders(HttpStatus.OK.value(), bytes.length);
+                exchange.getResponseBody().write(bytes);
+                exchange.close();
+            });
+            server.start();
+            return endpoint;
+        }
+
+        private String baseUrl() {
+            return "http://127.0.0.1:" + server.getAddress().getPort();
+        }
+
+        @Override
+        public void close() {
+            server.stop(0);
+        }
+    }
+
     private static final class TestKeyMaterial {
 
         private final RSAPrivateKey privateKey;
@@ -274,10 +337,14 @@ public final class CasdoorPluginConfigurationGatewayTest {
         }
 
         private String token() throws Exception {
+            return token("starter-org", "starter-user", "starter-id");
+        }
+
+        private String token(final String owner, final String name, final String id) throws Exception {
             JWTClaimsSet claims = new JWTClaimsSet.Builder()
-                    .claim("owner", "starter-org")
-                    .claim("name", "starter-user")
-                    .claim("id", "starter-id")
+                    .claim("owner", owner)
+                    .claim("name", name)
+                    .claim("id", id)
                     .issueTime(new Date())
                     .expirationTime(Date.from(Instant.now().plusSeconds(300)))
                     .build();
