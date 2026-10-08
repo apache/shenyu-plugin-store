@@ -4,5 +4,5 @@
   "reason": "Polaris is a sync/registry extension and has no plugin row, plugin_handle, resource, permission, or namespace_plugin_rel seed rows in the pinned source.",
   "sourceSHA": "ec198d442894fd9617947ed73c6c8fe3b206f665",
   "sourceVersion": "2.7.2-SNAPSHOT",
-  "store": "/private/tmp/shenyu-remaining-store-polaris"
+  "storeRepository": "apache/shenyu-plugin-store"
 }

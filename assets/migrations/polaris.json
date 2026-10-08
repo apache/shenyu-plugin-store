@@ -9,7 +9,8 @@
     "store": {
       "repository": "apache/shenyu-plugin-store",
       "branch": "cloudbase/migrate-polaris",
-      "head": "526c11f2764106f38bbf4cf981e442163132181e",
+      "baselineHeadAtGeneration": "78869b2d9b16499551e7901f190aead5662ffb03",
+      "headSemantics": "Git HEAD observed before this generator wrote receiving manifests; this is a provenance baseline, not a delivery head, and may intentionally predate a later manifest commit.",
       "pullRequest": "https://github.com/apache/shenyu-plugin-store/pull/18"
     },
     "coreRemovalDraft": {
@@ -644,7 +645,7 @@
         "worktreeId": "store-polaris",
         "path": "db/plugins/polaris/row-manifest.json",
         "exists": true,
-        "sha256": "8f054c9641f52c6fedc46d92b72794a3faa223d11ed2ef319c3c98e0185b3d91"
+        "sha256": "aeb3a2dee4627f93b0969d0d5d50775a26ad6367b63012bfcfbb9dd9c36b0b08"
       }
     },
     {
@@ -684,7 +685,7 @@
         "worktreeId": "store-polaris",
         "path": "script/plugin-store/build-h2-store-sql-fixture.py",
         "exists": true,
-        "sha256": "2a8be34352851230d43778142db814aa38ede87466db1afe81c49b513f524ecf"
+        "sha256": "eb914c5eea758e6ad77b4e65d89792cf2a575ce2dd1fe76dc9d0d4258b2e093b"
       }
     },
     {
@@ -694,7 +695,7 @@
         "worktreeId": "store-polaris",
         "path": "script/plugin-store/docker-compose.original-suite.yml",
         "exists": true,
-        "sha256": "40140ff81d1ab4d80884f90bcb231db324e6ce39e8a68058bb74d4da30baee20"
+        "sha256": "409db3ebfcc82d71a7f62589709eb7476f4a18c2ca2916a8ce3130c08d05221c"
       }
     },
     {
@@ -704,7 +705,7 @@
         "worktreeId": "store-polaris",
         "path": "script/plugin-store/h2-store-sql-fixture.md",
         "exists": true,
-        "sha256": "26cdad1a4c968fa793a6de5fd448491ba95511db3eb9af68c0a2da5fa061d197"
+        "sha256": "bee24995be38656fa85d8666056cac863f0408071de47113d79ddf12b26830b4"
       }
     },
     {
@@ -714,7 +715,7 @@
         "worktreeId": "store-polaris",
         "path": "script/plugin-store/plugin-sql-seed-manifest.json",
         "exists": true,
-        "sha256": "76c188143c8cf3ea58ace527bea48bfd645a078ec31e8af7eb2207175394f57f"
+        "sha256": "a23a4b6edda4381fa2566988e0c51bb333d5eaf535896064a9dc935d6f9f64bf"
       }
     },
     {
@@ -724,7 +725,7 @@
         "worktreeId": "store-polaris",
         "path": "script/plugin-store/run-core-compose.sh",
         "exists": true,
-        "sha256": "a0cfec67424cff25a0bd1a925ff578979efb2b3fe42e98e455184d7926a8bab3"
+        "sha256": "ded518505229c6d659501a655febacb4458efa0c5e5ec321fe50afe924d218d6"
       }
     },
     {
