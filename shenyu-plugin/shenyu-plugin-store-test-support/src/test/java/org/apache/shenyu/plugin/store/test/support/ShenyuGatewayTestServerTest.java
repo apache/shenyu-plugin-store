@@ -62,6 +62,44 @@ public final class ShenyuGatewayTestServerTest {
         }
     }
 
+
+    @Test
+    public void rejectsE2eCacheEndpointWithoutLocalKey() {
+        try (ShenyuGatewayTestServer server = ShenyuGatewayTestServer.start()) {
+            GatewayResponse response = server.get("/shenyu/e2e/plugins");
+
+            assertThat(response.getStatusCode()).isEqualTo(403);
+        }
+    }
+
+    @Test
+    public void returnsE2eCacheSnapshotWithLocalKey() {
+        ShenyuPlugin plugin = new ShenyuPlugin() {
+            @Override
+            public Mono<Void> execute(final ServerWebExchange exchange, final ShenyuPluginChain chain) {
+                return chain.execute(exchange);
+            }
+
+            @Override
+            public int getOrder() {
+                return 3;
+            }
+
+            @Override
+            public String named() {
+                return "store-test-plugin";
+            }
+        };
+
+        GatewayFixtures.cachePluginRoute(plugin, "{}");
+        try (ShenyuGatewayTestServer server = ShenyuGatewayTestServer.start(Collections.singletonList(plugin))) {
+            GatewayResponse response = server.localGet("/shenyu/e2e/plugins");
+
+            assertThat(response.getStatusCode()).isEqualTo(200);
+            assertThat(response.getBody()).contains("store-test-plugin");
+        }
+    }
+
     @Test
     public void executesSuppliedPluginBeforeTerminalResponse() {
         AtomicBoolean executed = new AtomicBoolean(false);
