@@ -64,7 +64,7 @@
 
     <properties>
         <java.version>17</java.version>
-        <shenyu.version>2.7.0</shenyu.version>
+        <shenyu.version>2.7.2-SNAPSHOT</shenyu.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -96,6 +96,9 @@
         <bytebuddy.version>1.14.11</bytebuddy.version>
         <tars.version>1.7.2</tars.version>
         <testcontainers.version>1.19.8</testcontainers.version>
+        <hystrix-core.version>1.5.18</hystrix-core.version>
+        <hystrix-metrics-event-stream.version>1.5.18</hystrix-metrics-event-stream.version>
+        <rxjava-reactive-streams.version>1.2.1</rxjava-reactive-streams.version>
         <!-- dependency version end -->
     </properties>
 
