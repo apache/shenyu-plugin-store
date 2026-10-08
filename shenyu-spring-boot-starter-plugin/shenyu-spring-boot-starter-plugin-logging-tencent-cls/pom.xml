@@ -15,39 +15,38 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.apache.shenyu</groupId>
-        <artifactId>shenyu-plugin-store</artifactId>
+        <artifactId>shenyu-spring-boot-starter-plugin</artifactId>
         <version>2.7.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
-    <artifactId>shenyu-spring-boot-starter-plugin</artifactId>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-    <modules>
-        <module>shenyu-spring-boot-starter-plugin-motan</module>
-        <module>shenyu-spring-boot-starter-plugin-tars</module>
-        <module>shenyu-spring-boot-starter-plugin-logging-tencent-cls</module>
-    </modules>
+    <artifactId>shenyu-spring-boot-starter-plugin-logging-tencent-cls</artifactId>
+
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
+            <groupId>org.apache.shenyu</groupId>
+            <artifactId>shenyu-plugin-logging-tencent-cls</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-test</artifactId>
+            <groupId>org.apache.shenyu</groupId>
+            <artifactId>shenyu-web</artifactId>
+            <version>${shenyu.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-test-autoconfigure</artifactId>
+            <groupId>org.apache.shenyu</groupId>
+            <artifactId>shenyu-plugin-store-test-support</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor.netty</groupId>
+            <artifactId>reactor-netty-http</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
