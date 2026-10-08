@@ -22,6 +22,11 @@ STORE_PLUGIN_SOURCE="${STORE_PLUGIN_SOURCE:-$(pwd)}"
 STORE_PLUGIN_JARS_DIR="${STORE_PLUGIN_JARS_DIR:-target/plugin-store-jars}"
 DEPENDENCY_SCOPE="${STORE_PLUGIN_DEPENDENCY_SCOPE:-runtime}"
 STORE_PLUGIN_MAVEN_GOAL="${STORE_PLUGIN_MAVEN_GOAL:-install}"
+STORE_PLUGIN_EXTRA_MAVEN_ARGS=()
+if [[ -n "${STORE_PLUGIN_MAVEN_ARGS:-}" ]]; then
+  # shellcheck disable=SC2206
+  STORE_PLUGIN_EXTRA_MAVEN_ARGS=(${STORE_PLUGIN_MAVEN_ARGS})
+fi
 
 case "${PLUGIN}" in
   motan)
@@ -32,6 +37,15 @@ case "${PLUGIN}" in
     ;;
   hystrix)
     STORE_PLUGIN_MODULES="${STORE_PLUGIN_MODULES:-shenyu-plugin/shenyu-plugin-fault-tolerance/shenyu-plugin-hystrix,shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-hystrix}"
+    ;;
+  sofa)
+    STORE_PLUGIN_MODULES="${STORE_PLUGIN_MODULES:-shenyu-plugin/shenyu-plugin-proxy/shenyu-plugin-sofa,shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-sofa}"
+    ;;
+  logging-pulsar|loggingPulsar|pulsar)
+    STORE_PLUGIN_MODULES="${STORE_PLUGIN_MODULES:-shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-pulsar,shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-pulsar}"
+    ;;
+  logging-rabbitmq|loggingRabbitMQ|rabbitmq)
+    STORE_PLUGIN_MODULES="${STORE_PLUGIN_MODULES:-shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-rabbitmq,shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-rabbitmq}"
     ;;
   *)
     if [[ -z "${STORE_PLUGIN_MODULES:-}" ]]; then
@@ -46,7 +60,13 @@ if [[ ! -x "${STORE_PLUGIN_SOURCE}/mvnw" ]]; then
   exit 1
 fi
 
-"${STORE_PLUGIN_SOURCE}/mvnw" -B -ntp -f "${STORE_PLUGIN_SOURCE}/pom.xml" -pl "${STORE_PLUGIN_MODULES}" -am "${STORE_PLUGIN_MAVEN_GOAL}" -DskipTests -Dapi.version="${API_VERSION:-1.44}"
+MAVEN_CMD=("${STORE_PLUGIN_SOURCE}/mvnw" -B -ntp -f "${STORE_PLUGIN_SOURCE}/pom.xml"
+  -pl "${STORE_PLUGIN_MODULES}" -am "${STORE_PLUGIN_MAVEN_GOAL}"
+  -DskipTests -Dapi.version="${API_VERSION:-1.44}")
+if [[ ${#STORE_PLUGIN_EXTRA_MAVEN_ARGS[@]} -gt 0 ]]; then
+  MAVEN_CMD+=("${STORE_PLUGIN_EXTRA_MAVEN_ARGS[@]}")
+fi
+"${MAVEN_CMD[@]}"
 
 rm -rf "${STORE_PLUGIN_JARS_DIR}"
 mkdir -p "${STORE_PLUGIN_JARS_DIR}"
@@ -63,14 +83,18 @@ for module in "${MODULES[@]}"; do
     ! -name '*-javadoc.jar' \
     ! -name '*-tests.jar' \
     -exec cp {} "${STORE_PLUGIN_JARS_DIR}/" \;
-  "${STORE_PLUGIN_SOURCE}/mvnw" -B -ntp -f "${module_dir}/pom.xml" dependency:copy-dependencies \
-    -DincludeScope="${DEPENDENCY_SCOPE}" \
-    -DexcludeTransitive=false \
-    -DoutputDirectory="${STORE_PLUGIN_JARS_DIR}" \
-    -Dmdep.overWriteReleases=false \
-    -Dmdep.overWriteSnapshots=false \
-    -Dmdep.overWriteIfNewer=true \
-    -Dapi.version="${API_VERSION:-1.44}"
+  MAVEN_CMD=("${STORE_PLUGIN_SOURCE}/mvnw" -B -ntp -f "${module_dir}/pom.xml" dependency:copy-dependencies
+    -DincludeScope="${DEPENDENCY_SCOPE}"
+    -DexcludeTransitive=false
+    -DoutputDirectory="${STORE_PLUGIN_JARS_DIR}"
+    -Dmdep.overWriteReleases=false
+    -Dmdep.overWriteSnapshots=false
+    -Dmdep.overWriteIfNewer=true
+    -Dapi.version="${API_VERSION:-1.44}")
+  if [[ ${#STORE_PLUGIN_EXTRA_MAVEN_ARGS[@]} -gt 0 ]]; then
+    MAVEN_CMD+=("${STORE_PLUGIN_EXTRA_MAVEN_ARGS[@]}")
+  fi
+  "${MAVEN_CMD[@]}"
 done
 
 find "${STORE_PLUGIN_JARS_DIR}" -maxdepth 1 -type f -name '*.jar' -print | sort

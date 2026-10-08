@@ -145,7 +145,7 @@ def sql_literal(value: str) -> str:
     return "'" + value.replace("'", "''") + "'"
 
 
-def parse_insert_id(statement: str) -> tuple[str, str] | None:
+def parse_insert_row(statement: str) -> tuple[str, dict[str, str | None]] | None:
     match = re.match(r"\s*INSERT(?:\s+IGNORE)?\s+INTO\s+`?([\w_]+)`?\s*\((.*?)\)\s*VALUES\s*\((.*)\)\s*;?\s*$", statement, re.IGNORECASE | re.DOTALL)
     if not match:
         return None
@@ -153,25 +153,37 @@ def parse_insert_id(statement: str) -> tuple[str, str] | None:
     if table not in TABLES:
         return None
     columns = [column.strip().strip('`"').lower() for column in match.group(2).split(",")]
-    try:
-        id_index = columns.index("id")
-    except ValueError:
-        return None
     values = split_csv(match.group(3))
-    if id_index >= len(values):
+    return table, {column: literal_value(values[index]) if index < len(values) else None for index, column in enumerate(columns)}
+
+
+def parse_insert_id(statement: str) -> tuple[str, str] | None:
+    parsed = parse_insert_row(statement)
+    if not parsed:
         return None
-    row_id = literal_value(values[id_index])
+    table, row = parsed
+    try:
+        row_id = row["id"]
+    except KeyError:
+        return None
     if row_id is None:
         return None
     return table, row_id
 
 
-def strip_core_seed_rows(core_schema: Path, seed_ids: dict[str, list[str]], output: Path) -> int:
+def strip_core_seed_rows(core_schema: Path, seed_ids: dict[str, list[str]], output: Path, plugin_id: str) -> int:
     source = core_schema.read_text()
     seed_sets = {table: set(ids) for table, ids in seed_ids.items()}
     kept: list[str] = []
     removed = 0
     for statement in split_statements(source):
+        parsed_row = parse_insert_row(statement)
+        if parsed_row and parsed_row[0] == "plugin_handle":
+            if parsed_row[1].get("plugin_id") == plugin_id:
+                removed += 1
+            else:
+                kept.append(statement.rstrip(";").rstrip() + ";")
+            continue
         parsed = parse_insert_id(statement)
         if parsed and parsed[1] in seed_sets.get(parsed[0], set()):
             removed += 1
@@ -285,7 +297,7 @@ def id_count_sql(table: str, ids: list[str]) -> str:
 
 
 def count_installed_table(h2_jar: Path, url: str, password: str, table: str, row_ids: dict[str, list[str]], plugin_id: str) -> int:
-    if table == "plugin_handle" and not row_ids.get(table):
+    if table == "plugin_handle":
         sql = f"SELECT COUNT(*) FROM plugin_handle WHERE plugin_id = {sql_literal(plugin_id)};"
     else:
         sql = id_count_sql(table, row_ids.get(table, []))
@@ -507,7 +519,7 @@ def main() -> None:
     install_output = output_dir / "store-h2-install.sql"
     result_output = output_dir / "fixture-result.json"
     seed_ids = h2_row_ids(plugin_data)
-    removed = strip_core_seed_rows(core_schema, seed_ids, core_output)
+    removed = strip_core_seed_rows(core_schema, seed_ids, core_output, plugin_id)
     preflight_output.write_text(preflight_source.read_text())
     install_output.write_text(install_source.read_text())
 

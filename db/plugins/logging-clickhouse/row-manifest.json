@@ -35,11 +35,11 @@
           "1529402613204172954",
           "1529402613204172955",
           "1529402613204172956",
-          "1529402613204172890",
-          "1529402613204172891",
-          "1529402613204172892",
-          "1529402613204172894",
-          "1529402613204172895",
+          "389402613204172890",
+          "389402613204172891",
+          "389402613204172892",
+          "389402613204172894",
+          "389402613204172895",
           "389402613204172896",
           "389402613204172897",
           "1529402613204172777",
@@ -357,15 +357,45 @@
   "idRemaps": {
     "h2": [
       {
+        "newId": "389402613204172890",
+        "oldId": "1529402613204172890",
+        "reason": "source id also used by source core plugin_id=33 compressAlg/3",
+        "table": "plugin_handle"
+      },
+      {
+        "newId": "389402613204172891",
+        "oldId": "1529402613204172891",
+        "reason": "source id also used by source core plugin_id=33 topic/1",
+        "table": "plugin_handle"
+      },
+      {
+        "newId": "389402613204172892",
+        "oldId": "1529402613204172892",
+        "reason": "source id also used by source core plugin_id=33 securityProtocol/3",
+        "table": "plugin_handle"
+      },
+      {
+        "newId": "389402613204172894",
+        "oldId": "1529402613204172894",
+        "reason": "source id also used by source core plugin_id=33 userName/3",
+        "table": "plugin_handle"
+      },
+      {
+        "newId": "389402613204172895",
+        "oldId": "1529402613204172895",
+        "reason": "source id also used by source core plugin_id=33 passWord/3",
+        "table": "plugin_handle"
+      },
+      {
         "newId": "389402613204172896",
         "oldId": "1529402613204172896",
-        "reason": "source id also used by logging-aliyun-sls accessId/3",
+        "reason": "source id also used by source core plugin_id=10 flowRuleMaxQueueingTimeMs/2; source core plugin_id=34 accessId/3; selected logging-aliyun-sls plugin_id=34 accessId/3",
         "table": "plugin_handle"
       },
       {
         "newId": "389402613204172897",
         "oldId": "1529402613204172897",
-        "reason": "source id also used by logging-aliyun-sls accessKey/3",
+        "reason": "source id also used by source core plugin_id=10 flowRuleWarmUpPeriodSec/2; source core plugin_id=34 accessKey/3; selected logging-aliyun-sls plugin_id=34 accessKey/3",
         "table": "plugin_handle"
       }
     ]
@@ -439,5 +469,5 @@
   "pluginName": "loggingClickHouse",
   "sourceSHA": "ec198d442894fd9617947ed73c6c8fe3b206f665",
   "sourceVersion": "2.7.2-SNAPSHOT",
-  "store": "/private/tmp/shenyu-remaining-store-logging-clickhouse"
+  "storeRepository": "apache/shenyu-plugin-store"
 }

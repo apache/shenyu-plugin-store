@@ -113,7 +113,7 @@ shenyu:
 
 spring:
   datasource:
-    url: jdbc:h2:file:/opt/shenyu-data/shenyu;DB_CLOSE_DELAY=-1;MODE=MySQL;DATABASE_TO_UPPER=false;
+    url: jdbc:h2:file:/opt/shenyu-data/shenyu;DB_CLOSE_DELAY=-1;MODE=MySQL;DATABASE_TO_UPPER=false;CASE_INSENSITIVE_IDENTIFIERS=TRUE;
     username: sa
     password: sa
     driver-class-name: org.h2.Driver

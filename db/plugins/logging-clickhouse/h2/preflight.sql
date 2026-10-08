@@ -42,35 +42,35 @@ SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE id = '15294026132
 -- plugin_handle natural-key collision: 1529402613204172956
 SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE plugin_id = '38' AND field = 'maskStatus' AND type = 2 AND id <> '1529402613204172956') THEN 0 ELSE 1 END AS shenyu_preflight_check_8 FROM DUAL;
 
--- plugin_handle id collision: 1529402613204172890
-SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE id = '1529402613204172890' AND NOT (plugin_id = '38' AND field = 'host' AND type = 3)) THEN 0 ELSE 1 END AS shenyu_preflight_check_9 FROM DUAL;
+-- plugin_handle id collision: 389402613204172890
+SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE id = '389402613204172890' AND NOT (plugin_id = '38' AND field = 'host' AND type = 3)) THEN 0 ELSE 1 END AS shenyu_preflight_check_9 FROM DUAL;
 
--- plugin_handle natural-key collision: 1529402613204172890
-SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE plugin_id = '38' AND field = 'host' AND type = 3 AND id <> '1529402613204172890') THEN 0 ELSE 1 END AS shenyu_preflight_check_10 FROM DUAL;
+-- plugin_handle natural-key collision: 389402613204172890
+SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE plugin_id = '38' AND field = 'host' AND type = 3 AND id <> '389402613204172890') THEN 0 ELSE 1 END AS shenyu_preflight_check_10 FROM DUAL;
 
--- plugin_handle id collision: 1529402613204172891
-SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE id = '1529402613204172891' AND NOT (plugin_id = '38' AND field = 'port' AND type = 3)) THEN 0 ELSE 1 END AS shenyu_preflight_check_11 FROM DUAL;
+-- plugin_handle id collision: 389402613204172891
+SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE id = '389402613204172891' AND NOT (plugin_id = '38' AND field = 'port' AND type = 3)) THEN 0 ELSE 1 END AS shenyu_preflight_check_11 FROM DUAL;
 
--- plugin_handle natural-key collision: 1529402613204172891
-SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE plugin_id = '38' AND field = 'port' AND type = 3 AND id <> '1529402613204172891') THEN 0 ELSE 1 END AS shenyu_preflight_check_12 FROM DUAL;
+-- plugin_handle natural-key collision: 389402613204172891
+SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE plugin_id = '38' AND field = 'port' AND type = 3 AND id <> '389402613204172891') THEN 0 ELSE 1 END AS shenyu_preflight_check_12 FROM DUAL;
 
--- plugin_handle id collision: 1529402613204172892
-SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE id = '1529402613204172892' AND NOT (plugin_id = '38' AND field = 'database' AND type = 3)) THEN 0 ELSE 1 END AS shenyu_preflight_check_13 FROM DUAL;
+-- plugin_handle id collision: 389402613204172892
+SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE id = '389402613204172892' AND NOT (plugin_id = '38' AND field = 'database' AND type = 3)) THEN 0 ELSE 1 END AS shenyu_preflight_check_13 FROM DUAL;
 
--- plugin_handle natural-key collision: 1529402613204172892
-SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE plugin_id = '38' AND field = 'database' AND type = 3 AND id <> '1529402613204172892') THEN 0 ELSE 1 END AS shenyu_preflight_check_14 FROM DUAL;
+-- plugin_handle natural-key collision: 389402613204172892
+SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE plugin_id = '38' AND field = 'database' AND type = 3 AND id <> '389402613204172892') THEN 0 ELSE 1 END AS shenyu_preflight_check_14 FROM DUAL;
 
--- plugin_handle id collision: 1529402613204172894
-SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE id = '1529402613204172894' AND NOT (plugin_id = '38' AND field = 'username' AND type = 3)) THEN 0 ELSE 1 END AS shenyu_preflight_check_15 FROM DUAL;
+-- plugin_handle id collision: 389402613204172894
+SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE id = '389402613204172894' AND NOT (plugin_id = '38' AND field = 'username' AND type = 3)) THEN 0 ELSE 1 END AS shenyu_preflight_check_15 FROM DUAL;
 
--- plugin_handle natural-key collision: 1529402613204172894
-SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE plugin_id = '38' AND field = 'username' AND type = 3 AND id <> '1529402613204172894') THEN 0 ELSE 1 END AS shenyu_preflight_check_16 FROM DUAL;
+-- plugin_handle natural-key collision: 389402613204172894
+SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE plugin_id = '38' AND field = 'username' AND type = 3 AND id <> '389402613204172894') THEN 0 ELSE 1 END AS shenyu_preflight_check_16 FROM DUAL;
 
--- plugin_handle id collision: 1529402613204172895
-SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE id = '1529402613204172895' AND NOT (plugin_id = '38' AND field = 'password' AND type = 3)) THEN 0 ELSE 1 END AS shenyu_preflight_check_17 FROM DUAL;
+-- plugin_handle id collision: 389402613204172895
+SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE id = '389402613204172895' AND NOT (plugin_id = '38' AND field = 'password' AND type = 3)) THEN 0 ELSE 1 END AS shenyu_preflight_check_17 FROM DUAL;
 
--- plugin_handle natural-key collision: 1529402613204172895
-SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE plugin_id = '38' AND field = 'password' AND type = 3 AND id <> '1529402613204172895') THEN 0 ELSE 1 END AS shenyu_preflight_check_18 FROM DUAL;
+-- plugin_handle natural-key collision: 389402613204172895
+SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE plugin_id = '38' AND field = 'password' AND type = 3 AND id <> '389402613204172895') THEN 0 ELSE 1 END AS shenyu_preflight_check_18 FROM DUAL;
 
 -- plugin_handle id collision: 389402613204172896
 SELECT 1 / CASE WHEN EXISTS (SELECT 1 FROM plugin_handle WHERE id = '389402613204172896' AND NOT (plugin_id = '38' AND field = 'engine' AND type = 3)) THEN 0 ELSE 1 END AS shenyu_preflight_check_19 FROM DUAL;

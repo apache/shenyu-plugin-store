@@ -9,7 +9,8 @@
     "store": {
       "repository": "apache/shenyu-plugin-store",
       "branch": "cloudbase/migrate-logging-clickhouse",
-      "head": "b75edd04f072b547fdf458febefdcbd0ea26c52f",
+      "baselineHeadAtGeneration": "571b8f0dcac0bc3f776bf70a8cb977dbd8599247",
+      "headSemantics": "Git HEAD observed before this generator wrote receiving manifests; this is a provenance baseline, not a delivery head, and may intentionally predate a later manifest commit.",
       "pullRequest": "https://github.com/apache/shenyu-plugin-store/pull/15"
     },
     "coreRemovalDraft": {
@@ -40,7 +41,7 @@
             "worktreeId": "store-logging-clickhouse",
             "path": "db/plugins/logging-clickhouse/h2/install.sql",
             "exists": true,
-            "sha256": "12d227a0844ce2a248d77b1840a433b8f71e0cbbc51bf232efc852441dacd665"
+            "sha256": "206dc55618ff42adef57d298a90deeb872f2ab8b2b50d23bffb8dd5ec233b408"
           }
         },
         "preflight": {
@@ -50,7 +51,7 @@
             "worktreeId": "store-logging-clickhouse",
             "path": "db/plugins/logging-clickhouse/h2/preflight.sql",
             "exists": true,
-            "sha256": "3626ea612108f4e0b9892f9c15d29b538d28545d451ae7eb8cae8604b7c295fa"
+            "sha256": "57cd7e0cd3a381ff0f8a9b7ecb8322836384c58858063fb179c8ff4412c8663d"
           }
         }
       },
@@ -212,11 +213,11 @@
             "1529402613204172954",
             "1529402613204172955",
             "1529402613204172956",
-            "1529402613204172890",
-            "1529402613204172891",
-            "1529402613204172892",
-            "1529402613204172894",
-            "1529402613204172895",
+            "389402613204172890",
+            "389402613204172891",
+            "389402613204172892",
+            "389402613204172894",
+            "389402613204172895",
             "389402613204172896",
             "389402613204172897",
             "1529402613204172777",
@@ -538,15 +539,45 @@
     "idRemaps": {
       "h2": [
         {
+          "newId": "389402613204172890",
+          "oldId": "1529402613204172890",
+          "reason": "source id also used by source core plugin_id=33 compressAlg/3",
+          "table": "plugin_handle"
+        },
+        {
+          "newId": "389402613204172891",
+          "oldId": "1529402613204172891",
+          "reason": "source id also used by source core plugin_id=33 topic/1",
+          "table": "plugin_handle"
+        },
+        {
+          "newId": "389402613204172892",
+          "oldId": "1529402613204172892",
+          "reason": "source id also used by source core plugin_id=33 securityProtocol/3",
+          "table": "plugin_handle"
+        },
+        {
+          "newId": "389402613204172894",
+          "oldId": "1529402613204172894",
+          "reason": "source id also used by source core plugin_id=33 userName/3",
+          "table": "plugin_handle"
+        },
+        {
+          "newId": "389402613204172895",
+          "oldId": "1529402613204172895",
+          "reason": "source id also used by source core plugin_id=33 passWord/3",
+          "table": "plugin_handle"
+        },
+        {
           "newId": "389402613204172896",
           "oldId": "1529402613204172896",
-          "reason": "source id also used by logging-aliyun-sls accessId/3",
+          "reason": "source id also used by source core plugin_id=10 flowRuleMaxQueueingTimeMs/2; source core plugin_id=34 accessId/3; selected logging-aliyun-sls plugin_id=34 accessId/3",
           "table": "plugin_handle"
         },
         {
           "newId": "389402613204172897",
           "oldId": "1529402613204172897",
-          "reason": "source id also used by logging-aliyun-sls accessKey/3",
+          "reason": "source id also used by source core plugin_id=10 flowRuleWarmUpPeriodSec/2; source core plugin_id=34 accessKey/3; selected logging-aliyun-sls plugin_id=34 accessKey/3",
           "table": "plugin_handle"
         }
       ]
@@ -1017,7 +1048,7 @@
         "worktreeId": "store-logging-clickhouse",
         "path": "db/plugins/logging-clickhouse/h2/install.sql",
         "exists": true,
-        "sha256": "12d227a0844ce2a248d77b1840a433b8f71e0cbbc51bf232efc852441dacd665"
+        "sha256": "206dc55618ff42adef57d298a90deeb872f2ab8b2b50d23bffb8dd5ec233b408"
       }
     },
     {
@@ -1027,7 +1058,7 @@
         "worktreeId": "store-logging-clickhouse",
         "path": "db/plugins/logging-clickhouse/h2/preflight.sql",
         "exists": true,
-        "sha256": "3626ea612108f4e0b9892f9c15d29b538d28545d451ae7eb8cae8604b7c295fa"
+        "sha256": "57cd7e0cd3a381ff0f8a9b7ecb8322836384c58858063fb179c8ff4412c8663d"
       }
     },
     {
@@ -1137,7 +1168,7 @@
         "worktreeId": "store-logging-clickhouse",
         "path": "db/plugins/logging-clickhouse/row-manifest.json",
         "exists": true,
-        "sha256": "786eee2c555ba0d75721b27ed071c688a72aaf58d7979ad314413ab8aa79ed40"
+        "sha256": "03e29467d6a6d705348164cf47d1b3f183eedc79a0fd4b42ec5c8186f1516c7f"
       }
     },
     {
@@ -1167,7 +1198,7 @@
         "worktreeId": "store-logging-clickhouse",
         "path": "script/plugin-store/build-h2-store-sql-fixture.py",
         "exists": true,
-        "sha256": "2a8be34352851230d43778142db814aa38ede87466db1afe81c49b513f524ecf"
+        "sha256": "eb914c5eea758e6ad77b4e65d89792cf2a575ce2dd1fe76dc9d0d4258b2e093b"
       }
     },
     {
@@ -1177,7 +1208,7 @@
         "worktreeId": "store-logging-clickhouse",
         "path": "script/plugin-store/docker-compose.original-suite.yml",
         "exists": true,
-        "sha256": "40140ff81d1ab4d80884f90bcb231db324e6ce39e8a68058bb74d4da30baee20"
+        "sha256": "409db3ebfcc82d71a7f62589709eb7476f4a18c2ca2916a8ce3130c08d05221c"
       }
     },
     {
@@ -1187,7 +1218,7 @@
         "worktreeId": "store-logging-clickhouse",
         "path": "script/plugin-store/h2-store-sql-fixture.md",
         "exists": true,
-        "sha256": "26cdad1a4c968fa793a6de5fd448491ba95511db3eb9af68c0a2da5fa061d197"
+        "sha256": "bee24995be38656fa85d8666056cac863f0408071de47113d79ddf12b26830b4"
       }
     },
     {
@@ -1197,7 +1228,7 @@
         "worktreeId": "store-logging-clickhouse",
         "path": "script/plugin-store/plugin-sql-seed-manifest.json",
         "exists": true,
-        "sha256": "76c188143c8cf3ea58ace527bea48bfd645a078ec31e8af7eb2207175394f57f"
+        "sha256": "a23a4b6edda4381fa2566988e0c51bb333d5eaf535896064a9dc935d6f9f64bf"
       }
     },
     {
@@ -1207,7 +1238,7 @@
         "worktreeId": "store-logging-clickhouse",
         "path": "script/plugin-store/run-core-compose.sh",
         "exists": true,
-        "sha256": "a0cfec67424cff25a0bd1a925ff578979efb2b3fe42e98e455184d7926a8bab3"
+        "sha256": "ded518505229c6d659501a655febacb4458efa0c5e5ec321fe50afe924d218d6"
       }
     },
     {
