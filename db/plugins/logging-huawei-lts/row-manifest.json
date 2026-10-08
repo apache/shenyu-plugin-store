@@ -497,5 +497,5 @@
   "pluginName": "loggingHuaweiLts",
   "sourceSHA": "ec198d442894fd9617947ed73c6c8fe3b206f665",
   "sourceVersion": "2.7.2-SNAPSHOT",
-  "store": "/private/tmp/shenyu-remaining-store-logging-huawei-lts"
+  "storeRepository": "apache/shenyu-plugin-store"
 }

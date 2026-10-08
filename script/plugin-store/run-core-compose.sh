@@ -45,6 +45,42 @@ checksum() {
     shasum -a 256 "$1" | awk '{print $1}'
   fi
 }
+copy_e2e_cache_support_jar() {
+  if [[ "${STORE_E2E_CACHE_ENDPOINT:-true}" != "true" ]]; then
+    return
+  fi
+  "${REPO_DIR}/mvnw" -B -ntp -pl shenyu-plugin/shenyu-plugin-store-test-support -am package -DskipTests -Dapi.version="${API_VERSION:-1.44}"
+  local support_jar
+  support_jar="$(find "${REPO_DIR}/shenyu-plugin/shenyu-plugin-store-test-support/target" -maxdepth 1 -type f -name 'shenyu-plugin-store-test-support-*.jar' ! -name '*-sources.jar' ! -name '*-javadoc.jar' | sort | tail -n 1)"
+  if [[ -z "${support_jar}" ]]; then
+    echo "Missing shenyu-plugin-store-test-support jar" >&2
+    exit 1
+  fi
+  cp "${support_jar}" "${STORE_PLUGIN_JARS_DIR}/"
+}
+store_manifest_plugin_name() {
+  local row_manifest="${STORE_PLUGIN_SQL_DIR}/row-manifest.json"
+  python3 - "${row_manifest}" "${PLUGIN}" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+manifest = Path(sys.argv[1])
+if not manifest.is_file():
+    print(sys.argv[2])
+    raise SystemExit(0)
+print(json.loads(manifest.read_text()).get("pluginName") or sys.argv[2])
+PY
+}
+probe_e2e_cache_endpoint() {
+  if [[ "${STORE_E2E_CACHE_ENDPOINT:-true}" != "true" ]]; then
+    return
+  fi
+  local plugin_name
+  plugin_name="$(store_manifest_plugin_name)"
+  SHENYU_GATEWAY_URL="http://localhost:${SHENYU_BOOTSTRAP_PORT}" "${SCRIPT_DIR}/probe-e2e-cache-endpoint.sh" "${plugin_name}"
+}
+
 STORE_PLUGIN_JARS_DIR="${STORE_PLUGIN_JARS_DIR:-${REPO_DIR}/target/plugin-store-jars}"
 STORE_PLUGIN_SQL_DIR="${STORE_PLUGIN_SQL_DIR:-${REPO_DIR}/db/plugins/${PLUGIN}}"
 STORE_H2_DIR="${STORE_H2_DIR:-${REPO_DIR}/target/plugin-store-h2/${PLUGIN}}"
@@ -64,6 +100,7 @@ export STORE_HTTP_BACKEND_UPSTREAM="${STORE_HTTP_BACKEND_UPSTREAM:-http://plugin
 export SCRIPT_DIR
 
 "${SCRIPT_DIR}/assert-store-fixtures.sh" "${PLUGIN}"
+copy_e2e_cache_support_jar
 if [[ "${BUILD_CORE_IMAGES:-true}" == "true" ]]; then
   "${SCRIPT_DIR}/build-slim-core-images.sh" "${PLUGIN}"
 fi
@@ -98,6 +135,7 @@ if [[ "${SEED_HTTP_DIVIDE_ROUTE:-true}" == "true" ]]; then
   fi
   SHENYU_GATEWAY_URL="http://localhost:${SHENYU_BOOTSTRAP_PORT}" "${SCRIPT_DIR}/seed-http-divide-route.sh"
 fi
+probe_e2e_cache_endpoint
 
 if [[ "$#" -gt 0 ]]; then
   "$@"

@@ -9,7 +9,8 @@
     "store": {
       "repository": "apache/shenyu-plugin-store",
       "branch": "cloudbase/migrate-logging-huawei-lts",
-      "head": "fedbbe8eaf6b567dcec4e0746b412904bfe86342",
+      "baselineHeadAtGeneration": "f77323ba9e1bc8a10a41c2ac99484e7eff2922a6",
+      "headSemantics": "Git HEAD observed before this generator wrote receiving manifests; this is a provenance baseline, not a delivery head, and may intentionally predate a later manifest commit.",
       "pullRequest": "https://github.com/apache/shenyu-plugin-store/pull/13"
     },
     "coreRemovalDraft": {
@@ -1176,7 +1177,7 @@
         "worktreeId": "store-logging-huawei-lts",
         "path": "db/plugins/logging-huawei-lts/row-manifest.json",
         "exists": true,
-        "sha256": "95e3f67b216f5d5124ceac136cb76c65cac1dd54440728a6633270c83ff057c0"
+        "sha256": "d474b431e3abf394295615b0826b377ae84bed227802d4d000022b37f6895c34"
       }
     },
     {
@@ -1206,7 +1207,7 @@
         "worktreeId": "store-logging-huawei-lts",
         "path": "script/plugin-store/build-h2-store-sql-fixture.py",
         "exists": true,
-        "sha256": "2a8be34352851230d43778142db814aa38ede87466db1afe81c49b513f524ecf"
+        "sha256": "eb914c5eea758e6ad77b4e65d89792cf2a575ce2dd1fe76dc9d0d4258b2e093b"
       }
     },
     {
@@ -1216,7 +1217,7 @@
         "worktreeId": "store-logging-huawei-lts",
         "path": "script/plugin-store/docker-compose.original-suite.yml",
         "exists": true,
-        "sha256": "40140ff81d1ab4d80884f90bcb231db324e6ce39e8a68058bb74d4da30baee20"
+        "sha256": "409db3ebfcc82d71a7f62589709eb7476f4a18c2ca2916a8ce3130c08d05221c"
       }
     },
     {
@@ -1226,7 +1227,7 @@
         "worktreeId": "store-logging-huawei-lts",
         "path": "script/plugin-store/h2-store-sql-fixture.md",
         "exists": true,
-        "sha256": "26cdad1a4c968fa793a6de5fd448491ba95511db3eb9af68c0a2da5fa061d197"
+        "sha256": "bee24995be38656fa85d8666056cac863f0408071de47113d79ddf12b26830b4"
       }
     },
     {
@@ -1236,7 +1237,7 @@
         "worktreeId": "store-logging-huawei-lts",
         "path": "script/plugin-store/plugin-sql-seed-manifest.json",
         "exists": true,
-        "sha256": "76c188143c8cf3ea58ace527bea48bfd645a078ec31e8af7eb2207175394f57f"
+        "sha256": "a23a4b6edda4381fa2566988e0c51bb333d5eaf535896064a9dc935d6f9f64bf"
       }
     },
     {
@@ -1246,7 +1247,7 @@
         "worktreeId": "store-logging-huawei-lts",
         "path": "script/plugin-store/run-core-compose.sh",
         "exists": true,
-        "sha256": "a0cfec67424cff25a0bd1a925ff578979efb2b3fe42e98e455184d7926a8bab3"
+        "sha256": "ded518505229c6d659501a655febacb4458efa0c5e5ec321fe50afe924d218d6"
       }
     },
     {

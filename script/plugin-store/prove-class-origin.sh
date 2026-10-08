@@ -18,7 +18,34 @@
 set -euo pipefail
 
 PLUGIN="${1:?Usage: $0 <plugin-slug>}"
-STORE_PLUGIN_CLASS="${STORE_PLUGIN_CLASS:?Set STORE_PLUGIN_CLASS to the target plugin implementation class}"
+case "${PLUGIN}" in
+  hystrix)
+    DEFAULT_STORE_PLUGIN_CLASS="org.apache.shenyu.plugin.hystrix.HystrixPlugin"
+    ;;
+  motan)
+    DEFAULT_STORE_PLUGIN_CLASS="org.apache.shenyu.plugin.motan.MotanPlugin"
+    ;;
+  tars)
+    DEFAULT_STORE_PLUGIN_CLASS="org.apache.shenyu.plugin.tars.TarsPlugin"
+    ;;
+  sofa)
+    DEFAULT_STORE_PLUGIN_CLASS="org.apache.shenyu.plugin.sofa.SofaPlugin"
+    ;;
+  logging-pulsar|loggingPulsar|pulsar)
+    DEFAULT_STORE_PLUGIN_CLASS="org.apache.shenyu.plugin.logging.pulsar.LoggingPulsarPlugin"
+    ;;
+  logging-rabbitmq|loggingRabbitMQ|rabbitmq)
+    DEFAULT_STORE_PLUGIN_CLASS="org.apache.shenyu.plugin.logging.rabbitmq.LoggingRabbitmqPlugin"
+    ;;
+  *)
+    DEFAULT_STORE_PLUGIN_CLASS=""
+    ;;
+esac
+STORE_PLUGIN_CLASS="${STORE_PLUGIN_CLASS:-${DEFAULT_STORE_PLUGIN_CLASS}}"
+if [[ -z "${STORE_PLUGIN_CLASS}" ]]; then
+  echo "Set STORE_PLUGIN_CLASS to the target plugin implementation class for ${PLUGIN}" >&2
+  exit 1
+fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 STORE_PLUGIN_JARS_DIR="${STORE_PLUGIN_JARS_DIR:-${REPO_DIR}/target/plugin-store-jars}"
