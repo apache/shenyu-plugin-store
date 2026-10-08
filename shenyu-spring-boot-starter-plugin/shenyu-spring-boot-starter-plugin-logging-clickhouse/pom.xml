@@ -15,26 +15,24 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <parent>
-        <groupId>org.apache.shenyu</groupId>
-        <artifactId>shenyu-plugin-store</artifactId>
-        <version>2.7.1-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
-    <artifactId>shenyu-plugin</artifactId>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-    <modules>
-        <module>shenyu-plugin-store-test-support</module>
-        <module>shenyu-plugin-proxy</module>
-        <module>shenyu-plugin-logging</module>
-    </modules>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>org.apache.shenyu</groupId>
+    <artifactId>shenyu-spring-boot-starter-plugin</artifactId>
+    <version>2.7.1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>shenyu-spring-boot-starter-plugin-logging-clickhouse</artifactId>
 
+  <dependencies>
+
+    <dependency>
+      <groupId>org.apache.shenyu</groupId>
+      <artifactId>shenyu-plugin-logging-clickhouse</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+  </dependencies>
 
 </project>
