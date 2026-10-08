@@ -30,11 +30,11 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.shenyu.common.constant.Constants;
 import org.apache.shenyu.common.dto.MetaData;
-import org.apache.shenyu.common.dto.convert.plugin.MotanRegisterConfig;
-import org.apache.shenyu.plugin.motan.dto.MotanUpstream;
 import org.apache.shenyu.common.exception.ShenyuException;
 import org.apache.shenyu.common.utils.DigestUtils;
 import org.apache.shenyu.common.utils.GsonUtils;
+import org.apache.shenyu.plugin.motan.config.MotanRegisterConfig;
+import org.apache.shenyu.plugin.motan.dto.MotanUpstream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
@@ -68,6 +68,7 @@ public final class ApplicationConfigCache {
         RefererConfig<?> config = (RefererConfig<?>) notification.getValue();
         if (Objects.nonNull(config)) {
             try {
+                config.destroy();
                 Field field = FieldUtils.getDeclaredField(config.getClass(), "ref", true);
                 field.set(config, null);
                 // After the configuration change, motan destroys the instance, but does not empty it. If it is not handled,
@@ -236,11 +237,13 @@ public final class ApplicationConfigCache {
             Optional.ofNullable(motanUpstream.getRegisterProtocol()).ifPresent(registryConfig::setRegProtocol);
             Optional.ofNullable(motanUpstream.getRegisterAddress()).ifPresent(registryConfig::setAddress);
         }
+        Optional.ofNullable(motanUpstream.getDirectUrl()).filter(StringUtils::isNotBlank).ifPresent(reference::setDirectUrl);
         reference.setRegistry(registryConfig);
         if (StringUtils.isNotEmpty(motanParamExtInfo.getRpcProtocol())) {
             protocolConfig.setName(motanParamExtInfo.getRpcProtocol());
             protocolConfig.setId(motanParamExtInfo.getRpcProtocol());
         }
+        Optional.ofNullable(motanUpstream.getSerialization()).filter(StringUtils::isNotBlank).ifPresent(protocolConfig::setSerialization);
         reference.setProtocol(protocolConfig);
         CommonClient obj = reference.getRef();
         if (Objects.nonNull(obj)) {
@@ -269,6 +272,12 @@ public final class ApplicationConfigCache {
         if (StringUtils.isNotBlank(motanUpstream.getRegisterAddress())) {
             String registryHash = DigestUtils.md5Hex(motanUpstream.getRegisterAddress());
             stringJoiner.add(registryHash);
+        }
+        if (StringUtils.isNotBlank(motanUpstream.getDirectUrl())) {
+            stringJoiner.add(DigestUtils.md5Hex(motanUpstream.getDirectUrl()));
+        }
+        if (StringUtils.isNotBlank(motanUpstream.getSerialization())) {
+            stringJoiner.add(motanUpstream.getSerialization());
         }
         return stringJoiner.toString();
     }
@@ -301,6 +310,7 @@ public final class ApplicationConfigCache {
      */
     public void invalidate(final String path) {
         cache.invalidate(path);
+        cache.cleanUp();
     }
 
     /**
@@ -308,6 +318,8 @@ public final class ApplicationConfigCache {
      */
     public void invalidateAll() {
         cache.invalidateAll();
+        cache.cleanUp();
+        UPSTREAM_CACHE_MAP.clear();
     }
 
     /**
@@ -326,6 +338,7 @@ public final class ApplicationConfigCache {
             return;
         }
         needInvalidateKeys.forEach(cache::invalidate);
+        cache.cleanUp();
     }
 
     /**
@@ -344,6 +357,16 @@ public final class ApplicationConfigCache {
             return;
         }
         needInvalidateKeys.forEach(cache::invalidate);
+        cache.cleanUp();
+    }
+
+    /**
+     * Remove motanUpstream.
+     *
+     * @param path path
+     */
+    public void removeUpstream(final String path) {
+        UPSTREAM_CACHE_MAP.remove(path);
     }
 
     /**

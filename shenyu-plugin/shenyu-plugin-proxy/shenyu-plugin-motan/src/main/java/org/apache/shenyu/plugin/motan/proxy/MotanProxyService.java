@@ -31,9 +31,6 @@ import org.apache.shenyu.common.concurrent.ShenyuThreadPoolExecutor;
 import org.apache.shenyu.common.constant.Constants;
 import org.apache.shenyu.common.dto.MetaData;
 import org.apache.shenyu.common.dto.SelectorData;
-import org.apache.shenyu.common.dto.convert.plugin.MotanRegisterConfig;
-import org.apache.shenyu.plugin.motan.dto.MotanUpstream;
-import org.apache.shenyu.common.enums.PluginEnum;
 import org.apache.shenyu.common.enums.ResultEnum;
 import org.apache.shenyu.common.exception.ShenyuException;
 import org.apache.shenyu.common.utils.GsonUtils;
@@ -42,6 +39,9 @@ import org.apache.shenyu.common.utils.Singleton;
 import org.apache.shenyu.plugin.api.utils.BodyParamUtils;
 import org.apache.shenyu.plugin.api.utils.SpringBeanUtils;
 import org.apache.shenyu.plugin.motan.cache.ApplicationConfigCache;
+import org.apache.shenyu.plugin.motan.config.MotanRegisterConfig;
+import org.apache.shenyu.plugin.motan.constant.MotanPluginConstants;
+import org.apache.shenyu.plugin.motan.dto.MotanUpstream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -84,7 +84,7 @@ public class MotanProxyService {
     @SuppressWarnings("all")
     public Mono<Object> genericInvoker(final String body, final MetaData metaData, final ServerWebExchange exchange, final SelectorData selectorData) throws ShenyuException {
         Map<String, Map<String, String>> rpcContext = exchange.getAttribute(Constants.GENERAL_CONTEXT);
-        Optional.ofNullable(rpcContext).map(context -> context.get(PluginEnum.MOTAN.getName())).ifPresent(context -> {
+        Optional.ofNullable(rpcContext).map(context -> context.get(MotanPluginConstants.MOTAN)).ifPresent(context -> {
             context.forEach((k, v) -> RpcContext.getContext().setRpcAttachment(k, v));
         });
         RefererConfig<CommonClient> reference = getConsumerConfig(selectorData, metaData);
@@ -106,7 +106,7 @@ public class MotanProxyService {
             responseFuture = (ResponseFuture)commonClient.asyncCall(request, Object.class);
         } catch (Throwable e) {
             LOG.error("Exception caught in MotanProxyService#genericInvoker.", e);
-            return null;
+            return Mono.error(new ShenyuException(e));
         }
         //CHECKSTYLE:ON IllegalCatch
         initThreadPool();
@@ -114,7 +114,7 @@ public class MotanProxyService {
         return Mono.fromFuture(future.thenApply(ret -> {
             Object result = ret;
             if (Objects.isNull(result)) {
-                result = Constants.MOTAN_RPC_RESULT_EMPTY;
+                result = MotanPluginConstants.MOTAN_RPC_RESULT_EMPTY;
             }
             exchange.getAttributes().put(Constants.RPC_RESULT, result);
             exchange.getAttributes().put(Constants.CLIENT_RESPONSE_RESULT_TYPE, ResultEnum.SUCCESS.getName());

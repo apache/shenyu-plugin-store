@@ -18,9 +18,9 @@
 package org.apache.shenyu.plugin.motan.context;
 
 import org.apache.shenyu.common.dto.MetaData;
-import org.apache.shenyu.common.enums.RpcTypeEnum;
 import org.apache.shenyu.plugin.api.context.ShenyuContext;
 import org.apache.shenyu.plugin.api.context.ShenyuContextDecorator;
+import org.apache.shenyu.plugin.motan.constant.MotanPluginConstants;
 
 /**
  * The type motan shenyu context decorator.
@@ -32,12 +32,12 @@ public class MotanShenyuContextDecorator implements ShenyuContextDecorator {
         shenyuContext.setModule(metaData.getAppName());
         shenyuContext.setMethod(metaData.getServiceName());
         shenyuContext.setContextPath(metaData.getContextPath());
-        shenyuContext.setRpcType(RpcTypeEnum.MOTAN.getName());
+        shenyuContext.setRpcType(MotanPluginConstants.MOTAN);
         return shenyuContext;
     }
     
     @Override
     public String rpcType() {
-        return RpcTypeEnum.MOTAN.getName();
+        return MotanPluginConstants.MOTAN;
     }
 }

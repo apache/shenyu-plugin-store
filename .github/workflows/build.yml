@@ -54,3 +54,5 @@ jobs:
           "${CORE_API_DIR}/mvnw" -B -ntp -f "${CORE_API_DIR}/pom.xml" -pl shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common,shenyu-web,shenyu-admin-listener/shenyu-admin-listener-api,shenyu-registry/shenyu-registry-api -am install -DskipTests -Dmaven.javadoc.skip=true -Drat.skip=true -Djacoco.skip=true -DskipRemoteResources=true
       - name: Build, test, check style, and verify licenses
         run: ./mvnw -B -ntp clean verify -Dapi.version=1.44
+      - name: Verify Motan against the cutover core API
+        run: ./mvnw -B -ntp -pl shenyu-plugin/shenyu-plugin-proxy/shenyu-plugin-motan,shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-motan -am verify -Dshenyu.version=2.7.2-SNAPSHOT -Dapi.version=1.44

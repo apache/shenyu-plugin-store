@@ -23,9 +23,9 @@ import com.weibo.api.motan.rpc.Request;
 import com.weibo.api.motan.rpc.ResponseFuture;
 import org.apache.shenyu.common.dto.MetaData;
 import org.apache.shenyu.common.dto.SelectorData;
-import org.apache.shenyu.common.dto.convert.plugin.MotanRegisterConfig;
-import org.apache.shenyu.common.enums.RpcTypeEnum;
 import org.apache.shenyu.plugin.motan.cache.ApplicationConfigCache;
+import org.apache.shenyu.plugin.motan.config.MotanRegisterConfig;
+import org.apache.shenyu.plugin.motan.constant.MotanPluginConstants;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -61,7 +61,7 @@ public class MotanProxyServiceTest {
         metaData.setPath("/motan/findAll");
         metaData.setServiceName("org.apache.shenyu.test.motan.api.service.MotanTestService");
         metaData.setMethodName("findAll");
-        metaData.setRpcType(RpcTypeEnum.MOTAN.getName());
+        metaData.setRpcType(MotanPluginConstants.MOTAN);
         metaData.setRpcExt("{\"loadbalance\": \"loadbalance\"}");
     }
 

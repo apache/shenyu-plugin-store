@@ -19,9 +19,9 @@ package org.apache.shenyu.plugin.motan.handler;
 
 import com.google.common.collect.Maps;
 import org.apache.shenyu.common.dto.MetaData;
-import org.apache.shenyu.common.enums.RpcTypeEnum;
 import org.apache.shenyu.plugin.base.handler.MetaDataHandler;
 import org.apache.shenyu.plugin.motan.cache.ApplicationConfigCache;
+import org.apache.shenyu.plugin.motan.constant.MotanPluginConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,6 +69,6 @@ public class MotanMetaDataHandler implements MetaDataHandler {
     
     @Override
     public String rpcType() {
-        return RpcTypeEnum.MOTAN.getName();
+        return MotanPluginConstants.MOTAN;
     }
 }
