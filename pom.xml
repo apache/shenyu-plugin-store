@@ -60,11 +60,35 @@
     <modules>
         <module>shenyu-plugin</module>
         <module>shenyu-spring-boot-starter-plugin</module>
+        <module>shenyu-client/shenyu-client-motan</module>
+        <module>shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-motan</module>
+        <module>shenyu-admin/shenyu-admin-register-motan</module>
+        <module>shenyu-kubernetes-controller-motan</module>
     </modules>
 
+    <profiles>
+        <profile>
+            <id>integration-tests</id>
+            <modules>
+                <module>shenyu-integrated-test</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>e2e</id>
+            <modules>
+                <module>shenyu-e2e</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>examples</id>
+            <modules>
+                <module>shenyu-examples/shenyu-examples-motan</module>
+            </modules>
+        </profile>
+    </profiles>
     <properties>
         <java.version>17</java.version>
-        <shenyu.version>2.7.0</shenyu.version>
+        <shenyu.version>2.7.2-SNAPSHOT</shenyu.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

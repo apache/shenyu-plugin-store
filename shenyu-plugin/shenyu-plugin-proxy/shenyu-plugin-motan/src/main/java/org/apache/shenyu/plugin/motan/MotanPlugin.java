@@ -33,10 +33,13 @@ import org.apache.shenyu.plugin.motan.constant.MotanPluginConstants;
 import org.apache.shenyu.plugin.motan.proxy.MotanProxyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
@@ -56,7 +59,7 @@ public class MotanPlugin extends AbstractShenyuPlugin {
     public MotanPlugin(final MotanProxyService motanProxyService) {
         this.motanProxyService = motanProxyService;
     }
-    
+
     @Override
     protected String getRawPath(final ServerWebExchange exchange) {
         return RequestUrlUtils.getRewrittenRawPath(exchange);
@@ -78,13 +81,12 @@ public class MotanPlugin extends AbstractShenyuPlugin {
             return WebFluxResultUtils.result(exchange, error);
         }
         if (StringUtils.isNoneBlank(metaData.getParameterTypes()) && StringUtils.isBlank(param)) {
-            exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
-            Object error = ShenyuResultWrap.error(exchange, MotanPluginConstants.MOTAN_HAVE_BODY_PARAM_CODE,
-                    MotanPluginConstants.MOTAN_HAVE_BODY_PARAM_MESSAGE, null);
-            return WebFluxResultUtils.result(exchange, error);
+            return DataBufferUtils.join(exchange.getRequest().getBody())
+                    .map(this::resolveBodyFromRequest)
+                    .defaultIfEmpty(StringUtils.EMPTY)
+                    .flatMap(body -> executeWithBodyParam(body, metaData, exchange, selector, chain));
         }
-        final Mono<Object> result = motanProxyService.genericInvoker(param, metaData, exchange, selector);
-        return result.then(chain.execute(exchange));
+        return executeWithBodyParam(param, metaData, exchange, selector, chain);
     }
 
     /**
@@ -109,12 +111,12 @@ public class MotanPlugin extends AbstractShenyuPlugin {
         Objects.requireNonNull(shenyuContext);
         return !Objects.equals(shenyuContext.getRpcType(), MotanPluginConstants.MOTAN);
     }
-    
+
     @Override
     protected Mono<Void> handleSelectorIfNull(final String pluginName, final ServerWebExchange exchange, final ShenyuPluginChain chain) {
         return WebFluxResultUtils.noSelectorResult(pluginName, exchange);
     }
-    
+
     @Override
     protected Mono<Void> handleRuleIfNull(final String pluginName, final ServerWebExchange exchange, final ShenyuPluginChain chain) {
         return WebFluxResultUtils.noRuleResult(pluginName, exchange);
@@ -123,6 +125,25 @@ public class MotanPlugin extends AbstractShenyuPlugin {
     @Override
     public int getOrder() {
         return MotanPluginConstants.MOTAN_PLUGIN_ORDER;
+    }
+
+    private Mono<Void> executeWithBodyParam(final String param, final MetaData metaData, final ServerWebExchange exchange,
+                                            final SelectorData selector, final ShenyuPluginChain chain) {
+        if (StringUtils.isNoneBlank(metaData.getParameterTypes()) && StringUtils.isBlank(param)) {
+            exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
+            Object error = ShenyuResultWrap.error(exchange, MotanPluginConstants.MOTAN_HAVE_BODY_PARAM_CODE,
+                    MotanPluginConstants.MOTAN_HAVE_BODY_PARAM_MESSAGE, null);
+            return WebFluxResultUtils.result(exchange, error);
+        }
+        final Mono<Object> result = motanProxyService.genericInvoker(param, metaData, exchange, selector);
+        return result.then(chain.execute(exchange));
+    }
+
+    private String resolveBodyFromRequest(final DataBuffer dataBuffer) {
+        byte[] bytes = new byte[dataBuffer.readableByteCount()];
+        dataBuffer.read(bytes);
+        DataBufferUtils.release(dataBuffer);
+        return new String(bytes, StandardCharsets.UTF_8);
     }
 
     private boolean checkMetaData(final MetaData metaData) {
