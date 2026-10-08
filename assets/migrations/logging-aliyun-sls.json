@@ -1,0 +1,1300 @@
+{
+  "schemaVersion": 1,
+  "slug": "logging-aliyun-sls",
+  "issue": 7300,
+  "kind": "plugin",
+  "provenance": {
+    "sourceRepository": "apache/shenyu",
+    "sourceCommit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+    "store": {
+      "repository": "apache/shenyu-plugin-store",
+      "branch": "cloudbase/migrate-logging-aliyun-sls",
+      "head": "c06dcdd9bfe19481a1cdc40d468a22bb2dd088f7",
+      "pullRequest": "https://github.com/apache/shenyu-plugin-store/pull/11"
+    },
+    "coreRemovalDraft": {
+      "repository": "apache/shenyu",
+      "branch": "cloudbase/externalize-logging-aliyun-sls",
+      "pullRequest": "https://github.com/apache/shenyu/pull/7501",
+      "role": "core-removal-draft"
+    }
+  },
+  "modulePrefixes": [
+    "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls"
+  ],
+  "starterPrefixes": [
+    "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-aliyun-sls"
+  ],
+  "sql": {
+    "ownership": "plugin metadata rows and plugin-specific upgrade fragments",
+    "pluginId": "34",
+    "pluginName": "loggingAliyunSls",
+    "sourceCommit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+    "installPreflightPairs": [
+      {
+        "dialect": "h2",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-aliyun-sls",
+            "path": "db/plugins/logging-aliyun-sls/h2/install.sql",
+            "exists": true,
+            "sha256": "822561aebc1b0553709a84dac870830284670e6df23a2458220775fbe279cb4d"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-aliyun-sls",
+            "path": "db/plugins/logging-aliyun-sls/h2/preflight.sql",
+            "exists": true,
+            "sha256": "b821d7f2bff4dafc14840c1c1058b6bde406b51f1b8a5a15d76f2cea0268bdc4"
+          }
+        }
+      },
+      {
+        "dialect": "mysql",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-aliyun-sls",
+            "path": "db/plugins/logging-aliyun-sls/mysql/install.sql",
+            "exists": true,
+            "sha256": "b2422662d6206fda87009fe3724564236763106df7cce41b5991aeac339b14cc"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-aliyun-sls",
+            "path": "db/plugins/logging-aliyun-sls/mysql/preflight.sql",
+            "exists": true,
+            "sha256": "29581595f5f324031feed7427a9aa3baded5f06c5b06de86ff74b0e71ee69543"
+          }
+        }
+      },
+      {
+        "dialect": "ob",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-aliyun-sls",
+            "path": "db/plugins/logging-aliyun-sls/ob/install.sql",
+            "exists": true,
+            "sha256": "08823f6eee1dc2c692efa7a4a3b42fd00251b6026e23793968f0b2d692b991ef"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-aliyun-sls",
+            "path": "db/plugins/logging-aliyun-sls/ob/preflight.sql",
+            "exists": true,
+            "sha256": "1404b7d03bdcea52fa37c8e34508514c3fccf48cb1c4565b8281234098c41b35"
+          }
+        }
+      },
+      {
+        "dialect": "og",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-aliyun-sls",
+            "path": "db/plugins/logging-aliyun-sls/og/install.sql",
+            "exists": true,
+            "sha256": "ca9d0364cb7c9a3279474d14463101281ef6faba88ec58177cecfde85e8aa726"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-aliyun-sls",
+            "path": "db/plugins/logging-aliyun-sls/og/preflight.sql",
+            "exists": true,
+            "sha256": "414dbdf1fc93d6e09deb01d4cc18fde6af84db74915ea7790be3cbc50adecfe0"
+          }
+        }
+      },
+      {
+        "dialect": "oracle",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-aliyun-sls",
+            "path": "db/plugins/logging-aliyun-sls/oracle/install.sql",
+            "exists": true,
+            "sha256": "c41aab72ff1802e38c952f6dc4744c71cc3f558d17c31bb2a91a057224f3ec07"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-aliyun-sls",
+            "path": "db/plugins/logging-aliyun-sls/oracle/preflight.sql",
+            "exists": true,
+            "sha256": "7a076188e673cd84939cfd2b25ea4da09e3f5ef89c1662065199e4a7abbdd4bd"
+          }
+        }
+      },
+      {
+        "dialect": "pg",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-aliyun-sls",
+            "path": "db/plugins/logging-aliyun-sls/pg/install.sql",
+            "exists": true,
+            "sha256": "52b12f03b3d0ef5f01ab04b9b7af72027a6737c5e33e7d8108517b0edbad5588"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-aliyun-sls",
+            "path": "db/plugins/logging-aliyun-sls/pg/preflight.sql",
+            "exists": true,
+            "sha256": "ecf8d34366ea1f1d1d81d2bc5bcc6353f5496d38357d747b255738d3eddb1c64"
+          }
+        }
+      }
+    ],
+    "archive": {
+      "kind": "sql-historical-archive",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "db/plugins/logging-aliyun-sls/archive/historical-upgrade-fragments.sql",
+        "exists": true,
+        "sha256": "121173d62da9e882dcd43c6fbac6fefa750494cc02492a76329bdcef865e95ae"
+      }
+    },
+    "dialectRows": {
+      "h2": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 18,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822172"
+          ],
+          "permission": [
+            "1534585531389583361",
+            "1534585531389583362",
+            "1534585531389583363",
+            "1534585531389583364",
+            "1534585531389583365",
+            "1534585531389583366",
+            "1534585531389583367",
+            "1534585531389583368",
+            "1534585531389583369",
+            "1534585531389583370"
+          ],
+          "plugin": [
+            "34"
+          ],
+          "plugin_handle": [
+            "1529402613204172896",
+            "1529402613204172897",
+            "1529402613204172898",
+            "1529402613204172899",
+            "1529402613204172900",
+            "1529402613204172901",
+            "1529402613204172902",
+            "1529402613204172903",
+            "1529402613204172904",
+            "1529402613204172905",
+            "1529402613204172906",
+            "1529402613204172907",
+            "1529402613204172908",
+            "1529402613204172909",
+            "1529402613204172945",
+            "1529402613204172946",
+            "1529402613204172947",
+            "1722804548510507016"
+          ],
+          "resource": [
+            "1534585531108564993",
+            "1534585531108564994",
+            "1534585531108564995",
+            "1534585531108564996",
+            "1534585531108564997",
+            "1534585531108564998",
+            "1534585531108564999",
+            "1534585531108565000",
+            "1534585531108565001",
+            "1534585531108565002"
+          ]
+        },
+        "fallbackTables": [
+          "resource",
+          "permission"
+        ]
+      },
+      "mysql": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 18,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822172"
+          ],
+          "permission": [
+            "1534585531389583361",
+            "1534585531389583362",
+            "1534585531389583363",
+            "1534585531389583364",
+            "1534585531389583365",
+            "1534585531389583366",
+            "1534585531389583367",
+            "1534585531389583368",
+            "1534585531389583369",
+            "1534585531389583370"
+          ],
+          "plugin": [
+            "34"
+          ],
+          "plugin_handle": [
+            "1529402613204172902",
+            "1529402613204172903",
+            "1529402613204172904",
+            "1529402613204172905",
+            "1529402613204172906",
+            "1529402613204172907",
+            "1529402613204172908",
+            "1529402613204172909",
+            "1529402613204172910",
+            "1529402613204172911",
+            "1529402613204172912",
+            "1529402613204172913",
+            "1529402613204172914",
+            "1529402613204172915",
+            "1529402613204172758",
+            "1529402613204172759",
+            "1529402613204172760",
+            "1722804548510507017"
+          ],
+          "resource": [
+            "1534585531108564993",
+            "1534585531108564994",
+            "1534585531108564995",
+            "1534585531108564996",
+            "1534585531108564997",
+            "1534585531108564998",
+            "1534585531108564999",
+            "1534585531108565000",
+            "1534585531108565001",
+            "1534585531108565002"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "ob": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 18,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822172"
+          ],
+          "permission": [
+            "1534585531389583361",
+            "1534585531389583362",
+            "1534585531389583363",
+            "1534585531389583364",
+            "1534585531389583365",
+            "1534585531389583366",
+            "1534585531389583367",
+            "1534585531389583368",
+            "1534585531389583369",
+            "1534585531389583370"
+          ],
+          "plugin": [
+            "34"
+          ],
+          "plugin_handle": [
+            "1529402613204172902",
+            "1529402613204172903",
+            "1529402613204172904",
+            "1529402613204172905",
+            "1529402613204172906",
+            "1529402613204172907",
+            "1529402613204172908",
+            "1529402613204172909",
+            "1529402613204172910",
+            "1529402613204172911",
+            "1529402613204172912",
+            "1529402613204172913",
+            "1529402613204172914",
+            "1529402613204172915",
+            "1529402613204172758",
+            "1529402613204172759",
+            "1529402613204172760",
+            "1722804548510507017"
+          ],
+          "resource": [
+            "1534585531108564993",
+            "1534585531108564994",
+            "1534585531108564995",
+            "1534585531108564996",
+            "1534585531108564997",
+            "1534585531108564998",
+            "1534585531108564999",
+            "1534585531108565000",
+            "1534585531108565001",
+            "1534585531108565002"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "og": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 18,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822172"
+          ],
+          "permission": [
+            "1529403932886044770",
+            "1529403932886044771",
+            "1529403932886044772",
+            "1529403932886044773",
+            "1529403932886044774",
+            "1529403932886044775",
+            "1529403932886044776",
+            "1529403932886044777",
+            "1529403932886044778",
+            "1529403932886044779"
+          ],
+          "plugin": [
+            "34"
+          ],
+          "plugin_handle": [
+            "1529403902783524962",
+            "1529403902783524963",
+            "1529403902783524964",
+            "1529403902783524965",
+            "1529403902783524966",
+            "1529403902783524967",
+            "1529403902783524968",
+            "1529403902783524969",
+            "1529403902783524970",
+            "1529403902783524971",
+            "1529403902783524972",
+            "1529403902783524973",
+            "1529403902783524974",
+            "1529403902783524975",
+            "1529402613204172818",
+            "1529402613204172819",
+            "1529402613204172820",
+            "1722804548510507015"
+          ],
+          "resource": [
+            "1534585531108564993",
+            "1534585531108564994",
+            "1534585531108564995",
+            "1534585531108564996",
+            "1534585531108564997",
+            "1534585531108564998",
+            "1534585531108564999",
+            "1534585531108565000",
+            "1534585531108565001",
+            "1534585531108565002"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "oracle": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 18,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822172"
+          ],
+          "permission": [
+            "1534585531389583361",
+            "1534585531389583362",
+            "1534585531389583363",
+            "1534585531389583364",
+            "1534585531389583365",
+            "1534585531389583366",
+            "1534585531389583367",
+            "1534585531389583368",
+            "1534585531389583369",
+            "1534585531389583370"
+          ],
+          "plugin": [
+            "34"
+          ],
+          "plugin_handle": [
+            "1518229897214468188",
+            "1518229897214468189",
+            "1518229897214468190",
+            "1518229897214468191",
+            "1518229897214468192",
+            "1518229897214468193",
+            "1518229897214468194",
+            "1518229897214468195",
+            "1518229897214468196",
+            "1518229897214468197",
+            "1518229897214468198",
+            "1518229897214468199",
+            "1518229897214468200",
+            "1518229897214468201",
+            "1518229897214468243",
+            "1518229897214468244",
+            "1518229897214468245",
+            "1722804548510507016"
+          ],
+          "resource": [
+            "1534585531108564993",
+            "1534585531108564994",
+            "1534585531108564995",
+            "1534585531108564996",
+            "1534585531108564997",
+            "1534585531108564998",
+            "1534585531108564999",
+            "1534585531108565000",
+            "1534585531108565001",
+            "1534585531108565002"
+          ]
+        },
+        "fallbackTables": [
+          "resource",
+          "permission"
+        ]
+      },
+      "pg": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 18,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822172"
+          ],
+          "permission": [
+            "1529403932886044770",
+            "1529403932886044771",
+            "1529403932886044772",
+            "1529403932886044773",
+            "1529403932886044774",
+            "1529403932886044775",
+            "1529403932886044776",
+            "1529403932886044777",
+            "1529403932886044778",
+            "1529403932886044779"
+          ],
+          "plugin": [
+            "34"
+          ],
+          "plugin_handle": [
+            "1529403902783524962",
+            "1529403902783524963",
+            "1529403902783524964",
+            "1529403902783524965",
+            "1529403902783524966",
+            "1529403902783524967",
+            "1529403902783524968",
+            "1529403902783524969",
+            "1529403902783524970",
+            "1529403902783524971",
+            "1529403902783524972",
+            "1529403902783524973",
+            "1529403902783524974",
+            "1529403902783524975",
+            "1529402613204172818",
+            "1529402613204172819",
+            "1529402613204172820",
+            "1722804548510507015"
+          ],
+          "resource": [
+            "1534585531108564993",
+            "1534585531108564994",
+            "1534585531108564995",
+            "1534585531108564996",
+            "1534585531108564997",
+            "1534585531108564998",
+            "1534585531108564999",
+            "1534585531108565000",
+            "1534585531108565001",
+            "1534585531108565002"
+          ]
+        },
+        "fallbackTables": []
+      }
+    },
+    "idRemaps": {},
+    "omittedDuplicateNaturalKeys": {}
+  },
+  "counts": {
+    "originalAssets": 18,
+    "originalScenarios": 7,
+    "generatedSupportAssets": 24,
+    "installPreflightPairs": 6,
+    "archives": 1
+  },
+  "originalAssets": [
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/pom.xml",
+        "sha256": "6e224ef84fdb6bf5fa0b5ba76d2aa83ed82222db5c9da0aa05223bd2b93452dc"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/pom.xml",
+        "exists": true,
+        "sha256": "b7d40187375e9dcf47c75f847db0e7e487976660a9cc85631d04dba1ff2d7934"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/LoggingAliyunSlsPlugin.java",
+        "sha256": "7cdaedd389d2c1f851f889e600cc93eb9aca5069c36ee70bc1f38885a033c42c"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/LoggingAliyunSlsPlugin.java",
+        "exists": true,
+        "sha256": "7cdaedd389d2c1f851f889e600cc93eb9aca5069c36ee70bc1f38885a033c42c"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/client/AliyunSlsLogCollectClient.java",
+        "sha256": "4969b0d07e55cfb929838161834e84a3db59c1e98e09f207df3fdb8be1c6ded8"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/client/AliyunSlsLogCollectClient.java",
+        "exists": true,
+        "sha256": "4969b0d07e55cfb929838161834e84a3db59c1e98e09f207df3fdb8be1c6ded8"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/collector/AliyunSlsLogCollector.java",
+        "sha256": "ad4bc4845c6006e709467f2712c7b04b41523979e67a0523f74cd03ede8ca7ad"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/collector/AliyunSlsLogCollector.java",
+        "exists": true,
+        "sha256": "ad4bc4845c6006e709467f2712c7b04b41523979e67a0523f74cd03ede8ca7ad"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/config/AliyunLogCollectConfig.java",
+        "sha256": "7a72e433732eea2b1c2c1f003b6d56e326cff9c9a8f99f5e9add85c45a923008"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/config/AliyunLogCollectConfig.java",
+        "exists": true,
+        "sha256": "7a72e433732eea2b1c2c1f003b6d56e326cff9c9a8f99f5e9add85c45a923008"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/handler/LoggingAliyunSlsPluginDataHandler.java",
+        "sha256": "8bfa30b57e86b45579071d98fbc62562b9e06c2665a15ca6d7fe7c8e6b52de5b"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/handler/LoggingAliyunSlsPluginDataHandler.java",
+        "exists": true,
+        "sha256": "8bfa30b57e86b45579071d98fbc62562b9e06c2665a15ca6d7fe7c8e6b52de5b"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/LoggingAliyunSlsPluginTest.java",
+        "sha256": "6401d6f6562094db828c5999b5a6b201993b315242964ef7e761c3fd3f754d77"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/LoggingAliyunSlsPluginTest.java",
+        "exists": true,
+        "sha256": "6401d6f6562094db828c5999b5a6b201993b315242964ef7e761c3fd3f754d77"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/aliyunsls/AliyunSlsLogCollectClientTest.java",
+        "sha256": "d47831e9572216324b431d5ab2eb1c2e8c3c94346f15903fdb024acbf05005e1"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/aliyunsls/AliyunSlsLogCollectClientTest.java",
+        "exists": true,
+        "sha256": "d47831e9572216324b431d5ab2eb1c2e8c3c94346f15903fdb024acbf05005e1"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/client/CloudLogCallbackBackpressureTest.java",
+        "sha256": "3d16ef863cf91753a5449b697a4b3af17f9a85fbf9e4f4c13e3e4575b15a8165"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/client/CloudLogCallbackBackpressureTest.java",
+        "exists": true,
+        "sha256": "3d16ef863cf91753a5449b697a4b3af17f9a85fbf9e4f4c13e3e4575b15a8165"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/collector/AliyunSlsLogCollectorTest.java",
+        "sha256": "aa5762116434ebd80d340adf39fe7c8b637c997cdae14d914a2b13cc69b46055"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/collector/AliyunSlsLogCollectorTest.java",
+        "exists": true,
+        "sha256": "aa5762116434ebd80d340adf39fe7c8b637c997cdae14d914a2b13cc69b46055"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/config/AliyunLogCollectConfigTest.java",
+        "sha256": "72c4d5436527c50a3230dae38824dc37c7cbac25121c4dc72fe093ad76d497f7"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/config/AliyunLogCollectConfigTest.java",
+        "exists": true,
+        "sha256": "72c4d5436527c50a3230dae38824dc37c7cbac25121c4dc72fe093ad76d497f7"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/handler/LoggingAliyunSlsPluginDataHandlerTest.java",
+        "sha256": "e547ba8aa9f24474ca69372eb73097783f1e742dec41815520e2945a8d85737f"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/handler/LoggingAliyunSlsPluginDataHandlerTest.java",
+        "exists": true,
+        "sha256": "e547ba8aa9f24474ca69372eb73097783f1e742dec41815520e2945a8d85737f"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-aliyun-sls/pom.xml",
+        "sha256": "1b554dbaba63b8e0e3067690f4db7e869d1c8647c19a2d10f6aba928815609c1"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-aliyun-sls/pom.xml",
+        "exists": true,
+        "sha256": "f9efa24a7f0aafae3a86893e620541fc59182b96481b4f8207ea17ec0f882c53"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/springboot/starter/plugin/logging/aliyun/sls/LoggingAliyunSlsPluginConfiguration.java",
+        "sha256": "a4a1952a549ba2dcd65e8db8f11ce316dd4bf2761d90a2b372985ece9cfa357f"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/springboot/starter/plugin/logging/aliyun/sls/LoggingAliyunSlsPluginConfiguration.java",
+        "exists": true,
+        "sha256": "a4a1952a549ba2dcd65e8db8f11ce316dd4bf2761d90a2b372985ece9cfa357f"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-aliyun-sls/src/main/resources/META-INF/spring.factories",
+        "sha256": "8d2570a71949c84887a4aee362bf6af7c80dce340018038aafece7f6ebb80d51"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-aliyun-sls/src/main/resources/META-INF/spring.factories",
+        "exists": true,
+        "sha256": "8d2570a71949c84887a4aee362bf6af7c80dce340018038aafece7f6ebb80d51"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-aliyun-sls/src/main/resources/META-INF/spring.provides",
+        "sha256": "cb691e6b1ba05b379a97fce1f155f4738c94e298f05157a4b64712dba5fa8b51"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-aliyun-sls/src/main/resources/META-INF/spring.provides",
+        "exists": true,
+        "sha256": "cb691e6b1ba05b379a97fce1f155f4738c94e298f05157a4b64712dba5fa8b51"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-aliyun-sls/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+        "sha256": "e22895c61aabe614a06c5380b1268fc982759eda9fd944addc7f4731aee8ce24"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-aliyun-sls/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+        "exists": true,
+        "sha256": "e22895c61aabe614a06c5380b1268fc982759eda9fd944addc7f4731aee8ce24"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/springboot/starter/plugin/logging/aliyun/sls/LoggingAliyunSlsPluginConfigurationTest.java",
+        "sha256": "6439ae72a0f95ab7e0cfc9ade03f804fb555bbdbc2c2490289b42d2ef5f1d8ac"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/springboot/starter/plugin/logging/aliyun/sls/LoggingAliyunSlsPluginConfigurationTest.java",
+        "exists": true,
+        "sha256": "6439ae72a0f95ab7e0cfc9ade03f804fb555bbdbc2c2490289b42d2ef5f1d8ac"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    }
+  ],
+  "generatedSupportAssets": [
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "db/plugins/logging-aliyun-sls/PROVENANCE.md",
+        "exists": true,
+        "sha256": "16d2e2266a933ecefe0d8a6063d181ba2205b975db15330e7e1c67f440ffff43"
+      }
+    },
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "db/plugins/logging-aliyun-sls/README.md",
+        "exists": true,
+        "sha256": "b1ffc688ece511d9534d53f1593669c1ff587c86a46a3f8e725e60a6cdfe5daf"
+      }
+    },
+    {
+      "kind": "sql-historical-archive",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "db/plugins/logging-aliyun-sls/archive/historical-upgrade-fragments.sql",
+        "exists": true,
+        "sha256": "121173d62da9e882dcd43c6fbac6fefa750494cc02492a76329bdcef865e95ae"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "db/plugins/logging-aliyun-sls/h2/install.sql",
+        "exists": true,
+        "sha256": "822561aebc1b0553709a84dac870830284670e6df23a2458220775fbe279cb4d"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "db/plugins/logging-aliyun-sls/h2/preflight.sql",
+        "exists": true,
+        "sha256": "b821d7f2bff4dafc14840c1c1058b6bde406b51f1b8a5a15d76f2cea0268bdc4"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "db/plugins/logging-aliyun-sls/mysql/install.sql",
+        "exists": true,
+        "sha256": "b2422662d6206fda87009fe3724564236763106df7cce41b5991aeac339b14cc"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "db/plugins/logging-aliyun-sls/mysql/preflight.sql",
+        "exists": true,
+        "sha256": "29581595f5f324031feed7427a9aa3baded5f06c5b06de86ff74b0e71ee69543"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "db/plugins/logging-aliyun-sls/ob/install.sql",
+        "exists": true,
+        "sha256": "08823f6eee1dc2c692efa7a4a3b42fd00251b6026e23793968f0b2d692b991ef"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "db/plugins/logging-aliyun-sls/ob/preflight.sql",
+        "exists": true,
+        "sha256": "1404b7d03bdcea52fa37c8e34508514c3fccf48cb1c4565b8281234098c41b35"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "db/plugins/logging-aliyun-sls/og/install.sql",
+        "exists": true,
+        "sha256": "ca9d0364cb7c9a3279474d14463101281ef6faba88ec58177cecfde85e8aa726"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "db/plugins/logging-aliyun-sls/og/preflight.sql",
+        "exists": true,
+        "sha256": "414dbdf1fc93d6e09deb01d4cc18fde6af84db74915ea7790be3cbc50adecfe0"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "db/plugins/logging-aliyun-sls/oracle/install.sql",
+        "exists": true,
+        "sha256": "c41aab72ff1802e38c952f6dc4744c71cc3f558d17c31bb2a91a057224f3ec07"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "db/plugins/logging-aliyun-sls/oracle/preflight.sql",
+        "exists": true,
+        "sha256": "7a076188e673cd84939cfd2b25ea4da09e3f5ef89c1662065199e4a7abbdd4bd"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "db/plugins/logging-aliyun-sls/pg/install.sql",
+        "exists": true,
+        "sha256": "52b12f03b3d0ef5f01ab04b9b7af72027a6737c5e33e7d8108517b0edbad5588"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "db/plugins/logging-aliyun-sls/pg/preflight.sql",
+        "exists": true,
+        "sha256": "ecf8d34366ea1f1d1d81d2bc5bcc6353f5496d38357d747b255738d3eddb1c64"
+      }
+    },
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "db/plugins/logging-aliyun-sls/row-manifest.json",
+        "exists": true,
+        "sha256": "465540c82aec115318e1b8a9e0f2ebeacdc0fe6d3074eeeb3cca0e5d63cfff7e"
+      }
+    },
+    {
+      "kind": "migration-doc",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "docs/logging-aliyun-sls-migration.md",
+        "exists": true,
+        "sha256": "186849d98440fab8a3f48c4d69743c827065a5122c87b15ee495c9967cb672f6"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "script/plugin-store/assert-store-fixtures.sh",
+        "exists": true,
+        "sha256": "5d83d6dcb2a3eabb39929fcb93352f6dfe7da20c6d9b5d43ae07563ad2594543"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "script/plugin-store/build-h2-store-sql-fixture.py",
+        "exists": true,
+        "sha256": "2a8be34352851230d43778142db814aa38ede87466db1afe81c49b513f524ecf"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "script/plugin-store/docker-compose.original-suite.yml",
+        "exists": true,
+        "sha256": "40140ff81d1ab4d80884f90bcb231db324e6ce39e8a68058bb74d4da30baee20"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "script/plugin-store/h2-store-sql-fixture.md",
+        "exists": true,
+        "sha256": "26cdad1a4c968fa793a6de5fd448491ba95511db3eb9af68c0a2da5fa061d197"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "script/plugin-store/plugin-sql-seed-manifest.json",
+        "exists": true,
+        "sha256": "76c188143c8cf3ea58ace527bea48bfd645a078ec31e8af7eb2207175394f57f"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "script/plugin-store/run-core-compose.sh",
+        "exists": true,
+        "sha256": "a0cfec67424cff25a0bd1a925ff578979efb2b3fe42e98e455184d7926a8bab3"
+      }
+    },
+    {
+      "kind": "shared-test-helper",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-store-test-support/src/main/java/org/apache/shenyu/plugin/store/test/support/GatewayFixtures.java",
+        "exists": true,
+        "sha256": "bf9bfe9f7aeae47a838f837e3611eb26901ab7b6988452505df70c4390551cbd"
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/LoggingAliyunSlsPluginTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/LoggingAliyunSlsPluginTest.java"
+      },
+      "methods": [
+        "testDoExecute",
+        "testGetOrder",
+        "testNamed"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/aliyunsls/AliyunSlsLogCollectClientTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/aliyunsls/AliyunSlsLogCollectClientTest.java"
+      },
+      "methods": [
+        "testInitClient",
+        "testConsume",
+        "testCloseShutsDownCallbackExecutorAfterPartialInitialization",
+        "testCloseShutsDownCallbackExecutorWhenProducerFails"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/client/CloudLogCallbackBackpressureTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/client/CloudLogCallbackBackpressureTest.java"
+      },
+      "methods": [],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/collector/AliyunSlsLogCollectorTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/collector/AliyunSlsLogCollectorTest.java"
+      },
+      "methods": [
+        "testAbstractLogCollector",
+        "testGetLogConsumeClient"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/config/AliyunLogCollectConfigTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/config/AliyunLogCollectConfigTest.java"
+      },
+      "methods": [
+        "testLogCollectorConfigHost",
+        "testLogCollectorConfigAccessId",
+        "testLogCollectorConfigAccessKey",
+        "testLogCollectorConfigProjectName",
+        "testLogCollectorConfigLogStoreName",
+        "testLogCollectorConfigTtlInDay",
+        "testLogCollectorConfigShardCount",
+        "testLogCollectorConfigTopic",
+        "testThread"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/handler/LoggingAliyunSlsPluginDataHandlerTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/plugin/aliyun/sls/handler/LoggingAliyunSlsPluginDataHandlerTest.java"
+      },
+      "methods": [
+        "testHandlerPlugin",
+        "testPluginNamed",
+        "testGetAliyunSlsLogCollectClient",
+        "testHandlerPluginUpdateSameConfig",
+        "testHandlerPluginUpdateDifferentConfig"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-aliyun-sls",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/springboot/starter/plugin/logging/aliyun/sls/LoggingAliyunSlsPluginConfigurationTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-aliyun-sls",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-aliyun-sls/src/test/java/org/apache/shenyu/springboot/starter/plugin/logging/aliyun/sls/LoggingAliyunSlsPluginConfigurationTest.java"
+      },
+      "methods": [
+        "testLoggingPlugin"
+      ],
+      "originalMayContainDisabledAssertions": false
+    }
+  ],
+  "notes": [
+    "Shared IT/E2E helper closure is recorded as support assets where present; it is profile-scoped test infrastructure, not production runtime code.",
+    "File presence plus hash validation does not claim runtime parity without a matching execution log."
+  ]
+}
