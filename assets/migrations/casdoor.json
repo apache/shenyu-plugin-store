@@ -1,0 +1,1029 @@
+{
+  "schemaVersion": 1,
+  "slug": "casdoor",
+  "issue": 7299,
+  "kind": "plugin",
+  "provenance": {
+    "sourceRepository": "apache/shenyu",
+    "sourceCommit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+    "store": {
+      "repository": "apache/shenyu-plugin-store",
+      "branch": "cloudbase/migrate-casdoor",
+      "head": "e2716df54d3a8d69cf7d59110e753e137732204f",
+      "pullRequest": "https://github.com/apache/shenyu-plugin-store/pull/10"
+    },
+    "coreRemovalDraft": {
+      "repository": "apache/shenyu",
+      "branch": "cloudbase/externalize-casdoor",
+      "pullRequest": "https://github.com/apache/shenyu/pull/7500",
+      "role": "core-removal-draft"
+    }
+  },
+  "modulePrefixes": [
+    "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor"
+  ],
+  "starterPrefixes": [
+    "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-casdoor"
+  ],
+  "sql": {
+    "ownership": "plugin metadata rows and plugin-specific upgrade fragments",
+    "pluginId": "39",
+    "pluginName": "casdoor",
+    "sourceCommit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+    "installPreflightPairs": [
+      {
+        "dialect": "h2",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-casdoor",
+            "path": "db/plugins/casdoor/h2/install.sql",
+            "exists": true,
+            "sha256": "4ddfab8da5d68d7f65e1db9e9e8b405e3192410c36d0032977eafd15073cf8d2"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-casdoor",
+            "path": "db/plugins/casdoor/h2/preflight.sql",
+            "exists": true,
+            "sha256": "d7d45bea7f70590cd5ad89a6055da8e34e616c79ee59dff88ba46b4999f7688d"
+          }
+        }
+      },
+      {
+        "dialect": "mysql",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-casdoor",
+            "path": "db/plugins/casdoor/mysql/install.sql",
+            "exists": true,
+            "sha256": "39bb21345a2d1001123d321fe96f27cc4f1b501a14778f8979cd8f7bf7065acb"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-casdoor",
+            "path": "db/plugins/casdoor/mysql/preflight.sql",
+            "exists": true,
+            "sha256": "1afe86a6d8428defd4c7c7ebc9a0bf8d6559ab8890fe6c42a52f264f403c1709"
+          }
+        }
+      },
+      {
+        "dialect": "ob",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-casdoor",
+            "path": "db/plugins/casdoor/ob/install.sql",
+            "exists": true,
+            "sha256": "f3b83bc7b401437f94f14048f5837bc6177b8e4e60abaf08a7dbadeb9e91fde2"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-casdoor",
+            "path": "db/plugins/casdoor/ob/preflight.sql",
+            "exists": true,
+            "sha256": "4792e441a57fb66bee9ecbcf87bef3489af44e2a17a79123dbfba10fe04fe432"
+          }
+        }
+      },
+      {
+        "dialect": "og",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-casdoor",
+            "path": "db/plugins/casdoor/og/install.sql",
+            "exists": true,
+            "sha256": "545b9ac09c514c364b8f18850b157961108023900ece9bb79a55aeda3277ef8d"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-casdoor",
+            "path": "db/plugins/casdoor/og/preflight.sql",
+            "exists": true,
+            "sha256": "5a93c409b3b80ae79535af871c4c712d34ede0aed501bce9784af4d4112103c7"
+          }
+        }
+      },
+      {
+        "dialect": "oracle",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-casdoor",
+            "path": "db/plugins/casdoor/oracle/install.sql",
+            "exists": true,
+            "sha256": "bb80eb3af070ea83643cf1cc04fbd8f786ac1f0e0c614edf31af3686fc43c3b1"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-casdoor",
+            "path": "db/plugins/casdoor/oracle/preflight.sql",
+            "exists": true,
+            "sha256": "d312f0d9bc556cf6ff984065a13c75b387e6677f86e57e298ebf5e6a900e5750"
+          }
+        }
+      },
+      {
+        "dialect": "pg",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-casdoor",
+            "path": "db/plugins/casdoor/pg/install.sql",
+            "exists": true,
+            "sha256": "3adcbadf0fae315e02a3364f2df10ab9d6b80d5e8c7a3cbacfbd117de5f2730b"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-casdoor",
+            "path": "db/plugins/casdoor/pg/preflight.sql",
+            "exists": true,
+            "sha256": "85c916c2f33101a6559d9259a1f944bb4bfed180a0fe77f27b2a63eadf636964"
+          }
+        }
+      }
+    ],
+    "archive": {
+      "kind": "sql-historical-archive",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "db/plugins/casdoor/archive/historical-upgrade-fragments.sql",
+        "exists": true,
+        "sha256": "27e2b705ac4468906bbd8bc4cf5b19798b30063a161e04964f76498984a37137"
+      }
+    },
+    "dialectRows": {
+      "h2": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 6,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822176"
+          ],
+          "permission": [
+            "1792779493537148928",
+            "1792779493537148929",
+            "1792779493537148930",
+            "1792779493537148931",
+            "1792779493537148932",
+            "1792779493537148933",
+            "1792779493537148934",
+            "1792779493537148935",
+            "1792779493537148936",
+            "1792779493537148937"
+          ],
+          "plugin": [
+            "39"
+          ],
+          "plugin_handle": [
+            "1570590990341775360",
+            "1570591047635968000",
+            "1570591109623586816",
+            "1570591165374275584",
+            "1570591215131303936",
+            "1570591265492312064"
+          ],
+          "resource": [
+            "1792749362361954340",
+            "1792749362445840411",
+            "1792749362445840412",
+            "1792749362445840413",
+            "1792749362445840414",
+            "1792749362445840415",
+            "1792749362445840416",
+            "1792749362445840417",
+            "1792749362445840418",
+            "1792749362445840419"
+          ]
+        },
+        "fallbackTables": [
+          "resource",
+          "permission"
+        ]
+      },
+      "mysql": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 6,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822176"
+          ],
+          "permission": [
+            "1792779493537148928",
+            "1792779493537148929",
+            "1792779493537148930",
+            "1792779493537148931",
+            "1792779493537148932",
+            "1792779493537148933",
+            "1792779493537148934",
+            "1792779493537148935",
+            "1792779493537148936",
+            "1792779493537148937"
+          ],
+          "plugin": [
+            "39"
+          ],
+          "plugin_handle": [
+            "1570590990341775360",
+            "1570591047635968000",
+            "1570591109623586816",
+            "1570591165374275584",
+            "1570591215131303936",
+            "1570591265492312064"
+          ],
+          "resource": [
+            "1792749362361954340",
+            "1792749362445840411",
+            "1792749362445840412",
+            "1792749362445840413",
+            "1792749362445840414",
+            "1792749362445840415",
+            "1792749362445840416",
+            "1792749362445840417",
+            "1792749362445840418",
+            "1792749362445840419"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "ob": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 6,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822176"
+          ],
+          "permission": [
+            "1792779493537148928",
+            "1792779493537148929",
+            "1792779493537148930",
+            "1792779493537148931",
+            "1792779493537148932",
+            "1792779493537148933",
+            "1792779493537148934",
+            "1792779493537148935",
+            "1792779493537148936",
+            "1792779493537148937"
+          ],
+          "plugin": [
+            "39"
+          ],
+          "plugin_handle": [
+            "1570590990341775360",
+            "1570591047635968000",
+            "1570591109623586816",
+            "1570591165374275584",
+            "1570591215131303936",
+            "1570591265492312064"
+          ],
+          "resource": [
+            "1792749362361954340",
+            "1792749362445840411",
+            "1792749362445840412",
+            "1792749362445840413",
+            "1792749362445840414",
+            "1792749362445840415",
+            "1792749362445840416",
+            "1792749362445840417",
+            "1792749362445840418",
+            "1792749362445840419"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "og": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 6,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822176"
+          ],
+          "permission": [
+            "1792779493537148928",
+            "1792779493537148929",
+            "1792779493537148930",
+            "1792779493537148931",
+            "1792779493537148932",
+            "1792779493537148933",
+            "1792779493537148934",
+            "1792779493537148935",
+            "1792779493537148936",
+            "1792779493537148937"
+          ],
+          "plugin": [
+            "39"
+          ],
+          "plugin_handle": [
+            "1570590990341775360",
+            "1570591047635968000",
+            "1570591109623586816",
+            "1570591165374275584",
+            "1570591215131303936",
+            "1570591265492312064"
+          ],
+          "resource": [
+            "1792749362361954340",
+            "1792749362445840411",
+            "1792749362445840412",
+            "1792749362445840413",
+            "1792749362445840414",
+            "1792749362445840415",
+            "1792749362445840416",
+            "1792749362445840417",
+            "1792749362445840418",
+            "1792749362445840419"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "oracle": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 6,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822176"
+          ],
+          "permission": [
+            "1792779493537148928",
+            "1792779493537148929",
+            "1792779493537148930",
+            "1792779493537148931",
+            "1792779493537148932",
+            "1792779493537148933",
+            "1792779493537148934",
+            "1792779493537148935",
+            "1792779493537148936",
+            "1792779493537148937"
+          ],
+          "plugin": [
+            "39"
+          ],
+          "plugin_handle": [
+            "1570590990341775360",
+            "1570591047635968000",
+            "1570591109623586816",
+            "1570591165374275584",
+            "1570591215131303936",
+            "1570591265492312064"
+          ],
+          "resource": [
+            "1792749362361954340",
+            "1792749362445840411",
+            "1792749362445840412",
+            "1792749362445840413",
+            "1792749362445840414",
+            "1792749362445840415",
+            "1792749362445840416",
+            "1792749362445840417",
+            "1792749362445840418",
+            "1792749362445840419"
+          ]
+        },
+        "fallbackTables": [
+          "resource",
+          "permission"
+        ]
+      },
+      "pg": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 6,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822176"
+          ],
+          "permission": [
+            "1792793304205819904",
+            "1792793304205819905",
+            "1792793304205819906",
+            "1792793304210014208",
+            "1792793304210014209",
+            "1792793304210014210",
+            "1792793304210014211",
+            "1792793304210014212",
+            "1792793304210014213",
+            "1792793304210014214"
+          ],
+          "plugin": [
+            "39"
+          ],
+          "plugin_handle": [
+            "1570590990341775360",
+            "1570591047635968000",
+            "1570591109623586816",
+            "1570591165374275584",
+            "1570591215131303936",
+            "1570591265492312064"
+          ],
+          "resource": [
+            "1792749362361954340",
+            "1792749362445840411",
+            "1792749362445840412",
+            "1792749362445840413",
+            "1792749362445840414",
+            "1792749362445840415",
+            "1792749362445840416",
+            "1792749362445840417",
+            "1792749362445840418",
+            "1792749362445840419"
+          ]
+        },
+        "fallbackTables": []
+      }
+    },
+    "idRemaps": {},
+    "omittedDuplicateNaturalKeys": {}
+  },
+  "counts": {
+    "originalAssets": 12,
+    "originalScenarios": 3,
+    "generatedSupportAssets": 24,
+    "installPreflightPairs": 6,
+    "archives": 1
+  },
+  "originalAssets": [
+    {
+      "slug": "casdoor",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/pom.xml",
+        "sha256": "917ae16942a62964fbe7eac72b7e7aac9845843857cd5094a15a03d6705feb4c"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/pom.xml",
+        "exists": true,
+        "sha256": "76553ecc8746c0ce50875297b3f44f5b721d0ae8ec1767212a782c189cc07574"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "casdoor",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/main/java/org/apache/shenyu/plugin/casdoor/CasdoorPlugin.java",
+        "sha256": "33e03ce9a0f17383508af70a32de6782ec006291a2cfa630d306763d8309273b"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/main/java/org/apache/shenyu/plugin/casdoor/CasdoorPlugin.java",
+        "exists": true,
+        "sha256": "33e03ce9a0f17383508af70a32de6782ec006291a2cfa630d306763d8309273b"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "casdoor",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/main/java/org/apache/shenyu/plugin/casdoor/config/CasdoorConfig.java",
+        "sha256": "34089649eac72a60422c2ec3b4a7a499dfabcd47e77be3df1a8aed368edf8d59"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/main/java/org/apache/shenyu/plugin/casdoor/config/CasdoorConfig.java",
+        "exists": true,
+        "sha256": "34089649eac72a60422c2ec3b4a7a499dfabcd47e77be3df1a8aed368edf8d59"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "casdoor",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/main/java/org/apache/shenyu/plugin/casdoor/handle/CasdoorPluginDateHandler.java",
+        "sha256": "f7c86b06895b98215f9251cf00aa07e917778bb3b9e0e59e275e1818991d7cb1"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/main/java/org/apache/shenyu/plugin/casdoor/handle/CasdoorPluginDateHandler.java",
+        "exists": true,
+        "sha256": "f7c86b06895b98215f9251cf00aa07e917778bb3b9e0e59e275e1818991d7cb1"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "casdoor",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/test/java/org/apache/shenyu/plugin/casdoor/CasdoorPluginTest.java",
+        "sha256": "412d33c74083f7efcf8370ee06a2e7f2f955bc21327bb30f43bae60d1b7a80cb"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/test/java/org/apache/shenyu/plugin/casdoor/CasdoorPluginTest.java",
+        "exists": true,
+        "sha256": "412d33c74083f7efcf8370ee06a2e7f2f955bc21327bb30f43bae60d1b7a80cb"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "casdoor",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/test/java/org/apache/shenyu/plugin/casdoor/config/CasdoorConfigTest.java",
+        "sha256": "2d4f4ea031962714a5365d947c2b381a1b8b74445609d8695713ac4100e01069"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/test/java/org/apache/shenyu/plugin/casdoor/config/CasdoorConfigTest.java",
+        "exists": true,
+        "sha256": "2d4f4ea031962714a5365d947c2b381a1b8b74445609d8695713ac4100e01069"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "casdoor",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/test/java/org/apache/shenyu/plugin/casdoor/handle/CasdoorPluginDateHandlerTest.java",
+        "sha256": "17398375d3345a7bf249c6a6f92fea1dc6adaa1b032aa968fdc480ebbcd300ca"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/test/java/org/apache/shenyu/plugin/casdoor/handle/CasdoorPluginDateHandlerTest.java",
+        "exists": true,
+        "sha256": "17398375d3345a7bf249c6a6f92fea1dc6adaa1b032aa968fdc480ebbcd300ca"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "casdoor",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-casdoor/pom.xml",
+        "sha256": "8b3d9e5084a16c857755f22484ce1224082474a833e628a9ebc11c6b51e50ea9"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-casdoor/pom.xml",
+        "exists": true,
+        "sha256": "c4d78596c700e5a7ce2bf8873d4e87a0c1f492fc3d6802f3d61955a591888a68"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "casdoor",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-casdoor/src/main/java/org/apache/shenyu/springboot/starter/plugin/casdoor/CasdoorPluginConfiguration.java",
+        "sha256": "92cd8e52196db21bfc39aa0f9e6720f00b2cc8ae99a6fae4196db720fcd22bcc"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-casdoor/src/main/java/org/apache/shenyu/springboot/starter/plugin/casdoor/CasdoorPluginConfiguration.java",
+        "exists": true,
+        "sha256": "92cd8e52196db21bfc39aa0f9e6720f00b2cc8ae99a6fae4196db720fcd22bcc"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "casdoor",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-casdoor/src/main/resources/META-INF/spring.factories",
+        "sha256": "5c1039076c56e46e5c7211fd8c751586d0003378b6fa6f538897f1ef1871d424"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-casdoor/src/main/resources/META-INF/spring.factories",
+        "exists": true,
+        "sha256": "5c1039076c56e46e5c7211fd8c751586d0003378b6fa6f538897f1ef1871d424"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "casdoor",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-casdoor/src/main/resources/META-INF/spring.provides",
+        "sha256": "e4755f1e2c97bdb17fd7478874200960db2b18c86d6e67da76536931d64d2f37"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-casdoor/src/main/resources/META-INF/spring.provides",
+        "exists": true,
+        "sha256": "e4755f1e2c97bdb17fd7478874200960db2b18c86d6e67da76536931d64d2f37"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "casdoor",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-casdoor/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+        "sha256": "a57369cf962b54f68a646aac149d54744178a19183db1dc78166b24edb7e21ac"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-casdoor/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+        "exists": true,
+        "sha256": "a57369cf962b54f68a646aac149d54744178a19183db1dc78166b24edb7e21ac"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    }
+  ],
+  "generatedSupportAssets": [
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "db/plugins/casdoor/PROVENANCE.md",
+        "exists": true,
+        "sha256": "1377f308e83a8a6abc21edb9b879f232b532c20decc17c99f15e8f75bb277fd1"
+      }
+    },
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "db/plugins/casdoor/README.md",
+        "exists": true,
+        "sha256": "b99e7ffa3d3cb41e314d426ab17eedf376a6892f300605bd748700cea2c8aa12"
+      }
+    },
+    {
+      "kind": "sql-historical-archive",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "db/plugins/casdoor/archive/historical-upgrade-fragments.sql",
+        "exists": true,
+        "sha256": "27e2b705ac4468906bbd8bc4cf5b19798b30063a161e04964f76498984a37137"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "db/plugins/casdoor/h2/install.sql",
+        "exists": true,
+        "sha256": "4ddfab8da5d68d7f65e1db9e9e8b405e3192410c36d0032977eafd15073cf8d2"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "db/plugins/casdoor/h2/preflight.sql",
+        "exists": true,
+        "sha256": "d7d45bea7f70590cd5ad89a6055da8e34e616c79ee59dff88ba46b4999f7688d"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "db/plugins/casdoor/mysql/install.sql",
+        "exists": true,
+        "sha256": "39bb21345a2d1001123d321fe96f27cc4f1b501a14778f8979cd8f7bf7065acb"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "db/plugins/casdoor/mysql/preflight.sql",
+        "exists": true,
+        "sha256": "1afe86a6d8428defd4c7c7ebc9a0bf8d6559ab8890fe6c42a52f264f403c1709"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "db/plugins/casdoor/ob/install.sql",
+        "exists": true,
+        "sha256": "f3b83bc7b401437f94f14048f5837bc6177b8e4e60abaf08a7dbadeb9e91fde2"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "db/plugins/casdoor/ob/preflight.sql",
+        "exists": true,
+        "sha256": "4792e441a57fb66bee9ecbcf87bef3489af44e2a17a79123dbfba10fe04fe432"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "db/plugins/casdoor/og/install.sql",
+        "exists": true,
+        "sha256": "545b9ac09c514c364b8f18850b157961108023900ece9bb79a55aeda3277ef8d"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "db/plugins/casdoor/og/preflight.sql",
+        "exists": true,
+        "sha256": "5a93c409b3b80ae79535af871c4c712d34ede0aed501bce9784af4d4112103c7"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "db/plugins/casdoor/oracle/install.sql",
+        "exists": true,
+        "sha256": "bb80eb3af070ea83643cf1cc04fbd8f786ac1f0e0c614edf31af3686fc43c3b1"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "db/plugins/casdoor/oracle/preflight.sql",
+        "exists": true,
+        "sha256": "d312f0d9bc556cf6ff984065a13c75b387e6677f86e57e298ebf5e6a900e5750"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "db/plugins/casdoor/pg/install.sql",
+        "exists": true,
+        "sha256": "3adcbadf0fae315e02a3364f2df10ab9d6b80d5e8c7a3cbacfbd117de5f2730b"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "db/plugins/casdoor/pg/preflight.sql",
+        "exists": true,
+        "sha256": "85c916c2f33101a6559d9259a1f944bb4bfed180a0fe77f27b2a63eadf636964"
+      }
+    },
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "db/plugins/casdoor/row-manifest.json",
+        "exists": true,
+        "sha256": "63f030acca384be33f6fe12689b96a75009632cfa8eeb3226765b4a3220dae8b"
+      }
+    },
+    {
+      "kind": "migration-doc",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "docs/casdoor-migration.md",
+        "exists": true,
+        "sha256": "616b356e2209e9c06908237317995d7f0cbd2b6840b70860004ae52f28ebe3a0"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "script/plugin-store/assert-store-fixtures.sh",
+        "exists": true,
+        "sha256": "5d83d6dcb2a3eabb39929fcb93352f6dfe7da20c6d9b5d43ae07563ad2594543"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "script/plugin-store/build-h2-store-sql-fixture.py",
+        "exists": true,
+        "sha256": "2a8be34352851230d43778142db814aa38ede87466db1afe81c49b513f524ecf"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "script/plugin-store/docker-compose.original-suite.yml",
+        "exists": true,
+        "sha256": "40140ff81d1ab4d80884f90bcb231db324e6ce39e8a68058bb74d4da30baee20"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "script/plugin-store/h2-store-sql-fixture.md",
+        "exists": true,
+        "sha256": "26cdad1a4c968fa793a6de5fd448491ba95511db3eb9af68c0a2da5fa061d197"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "script/plugin-store/plugin-sql-seed-manifest.json",
+        "exists": true,
+        "sha256": "76c188143c8cf3ea58ace527bea48bfd645a078ec31e8af7eb2207175394f57f"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "script/plugin-store/run-core-compose.sh",
+        "exists": true,
+        "sha256": "a0cfec67424cff25a0bd1a925ff578979efb2b3fe42e98e455184d7926a8bab3"
+      }
+    },
+    {
+      "kind": "shared-test-helper",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "shenyu-plugin/shenyu-plugin-store-test-support/src/main/java/org/apache/shenyu/plugin/store/test/support/GatewayFixtures.java",
+        "exists": true,
+        "sha256": "bf9bfe9f7aeae47a838f837e3611eb26901ab7b6988452505df70c4390551cbd"
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "slug": "casdoor",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/test/java/org/apache/shenyu/plugin/casdoor/CasdoorPluginTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/test/java/org/apache/shenyu/plugin/casdoor/CasdoorPluginTest.java"
+      },
+      "methods": [
+        "testNamed",
+        "testGetOrder"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "casdoor",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/test/java/org/apache/shenyu/plugin/casdoor/config/CasdoorConfigTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/test/java/org/apache/shenyu/plugin/casdoor/config/CasdoorConfigTest.java"
+      },
+      "methods": [],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "casdoor",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/test/java/org/apache/shenyu/plugin/casdoor/handle/CasdoorPluginDateHandlerTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-casdoor",
+        "path": "shenyu-plugin/shenyu-plugin-security/shenyu-plugin-casdoor/src/test/java/org/apache/shenyu/plugin/casdoor/handle/CasdoorPluginDateHandlerTest.java"
+      },
+      "methods": [
+        "testPluginNamed"
+      ],
+      "originalMayContainDisabledAssertions": false
+    }
+  ],
+  "notes": [
+    "Shared IT/E2E helper closure is recorded as support assets where present; it is profile-scoped test infrastructure, not production runtime code.",
+    "File presence plus hash validation does not claim runtime parity without a matching execution log."
+  ]
+}
