@@ -1,0 +1,1184 @@
+{
+  "schemaVersion": 1,
+  "slug": "tars",
+  "issue": 7296,
+  "kind": "plugin",
+  "provenance": {
+    "sourceRepository": "apache/shenyu",
+    "sourceCommit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+    "store": {
+      "repository": "apache/shenyu-plugin-store",
+      "branch": "cloudbase/migrate-sofa-tars-plugins",
+      "baselineHeadAtGeneration": "9b10b3b091acf8e4f0628da4dbcb9da3c646b75b",
+      "headSemantics": "Git HEAD observed before this generator wrote receiving manifests; this is a provenance baseline, not a delivery head, and may intentionally predate a later manifest commit.",
+      "pullRequest": "https://github.com/apache/shenyu-plugin-store/pull/6"
+    },
+    "coreRemovalDraft": {
+      "repository": "apache/shenyu",
+      "branch": "cloudbase/migrate-sofa-tars-to-store",
+      "pullRequest": "https://github.com/apache/shenyu/pull/7494",
+      "role": "core-removal-draft"
+    }
+  },
+  "modulePrefixes": [
+    "shenyu-plugin/shenyu-plugin-proxy/shenyu-plugin-tars"
+  ],
+  "starterPrefixes": [
+    "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-tars"
+  ],
+  "sql": {
+    "ownership": "plugin metadata rows and plugin-specific upgrade fragments",
+    "pluginId": "13",
+    "pluginName": "tars",
+    "sourceCommit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+    "installPreflightPairs": [
+      {
+        "dialect": "h2",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-sofa-tars",
+            "path": "db/plugins/tars/h2/install.sql",
+            "exists": true,
+            "sha256": "cc52c2357a40cb209601255ce51a373d501dca8096bece6f20720654202b3d18"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-sofa-tars",
+            "path": "db/plugins/tars/h2/preflight.sql",
+            "exists": true,
+            "sha256": "39d3d2973627d9a367679b520136d4723600849adf21a07ca8a4420ef04e6ae7"
+          }
+        }
+      },
+      {
+        "dialect": "mysql",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-sofa-tars",
+            "path": "db/plugins/tars/mysql/install.sql",
+            "exists": true,
+            "sha256": "8108d214feb739e226d6091260f489f2afa1ac2dbebc496c2f9aba16717a43aa"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-sofa-tars",
+            "path": "db/plugins/tars/mysql/preflight.sql",
+            "exists": true,
+            "sha256": "5f930b40437c7797ef1ac31f8a3feab2fef6ff3132055f2cad60c58cdfcd5dbd"
+          }
+        }
+      },
+      {
+        "dialect": "ob",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-sofa-tars",
+            "path": "db/plugins/tars/ob/install.sql",
+            "exists": true,
+            "sha256": "9f4285f9af805e3b1d58a2ffb518c4265a6b974a7d1fbaa43868bbbd24071dfd"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-sofa-tars",
+            "path": "db/plugins/tars/ob/preflight.sql",
+            "exists": true,
+            "sha256": "a377a553e85c2c878fbc75f509dd41f313ea81be48c2889295c6aabfb1135f97"
+          }
+        }
+      },
+      {
+        "dialect": "og",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-sofa-tars",
+            "path": "db/plugins/tars/og/install.sql",
+            "exists": true,
+            "sha256": "552f21801e263a097826497f0be9e26a12f2afc0b0cef54405fd46f02dc66e73"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-sofa-tars",
+            "path": "db/plugins/tars/og/preflight.sql",
+            "exists": true,
+            "sha256": "3a872330a20c34b49de5e689fa1781a40b9b938fe4b4f36b182f9601f7c1a8ed"
+          }
+        }
+      },
+      {
+        "dialect": "oracle",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-sofa-tars",
+            "path": "db/plugins/tars/oracle/install.sql",
+            "exists": true,
+            "sha256": "cad65deceace5664438dacafdbf241eb22e900fcbeae0ef30872e9f98b542724"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-sofa-tars",
+            "path": "db/plugins/tars/oracle/preflight.sql",
+            "exists": true,
+            "sha256": "ca24ff99b7ee19d2edc35ec298480bb9b78ffeb7def2a31fb517e483c431b093"
+          }
+        }
+      },
+      {
+        "dialect": "pg",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-sofa-tars",
+            "path": "db/plugins/tars/pg/install.sql",
+            "exists": true,
+            "sha256": "441b2341fdb06c3e8d7156601744d35449e6a19923197f66750f862723b7d017"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-sofa-tars",
+            "path": "db/plugins/tars/pg/preflight.sql",
+            "exists": true,
+            "sha256": "ec80e0924d8293ee67980539aef1553db79d6694e76e0acb152e686f4eb6a4bc"
+          }
+        }
+      }
+    ],
+    "archive": {
+      "kind": "sql-historical-archive",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "db/plugins/tars/archive/historical-upgrade-fragments.sql",
+        "exists": true,
+        "sha256": "0e45775664bbbf154099d38fb34dee05fe9a6b5552466a99006376934559a452"
+      }
+    },
+    "dialectRows": {
+      "h2": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 16,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822149"
+          ],
+          "permission": [
+            "1529402639305326596",
+            "1529402639372435699",
+            "1529402639372435700",
+            "1529402639372435701",
+            "1529402639372435702",
+            "1529402639372435703",
+            "1529402639372435704",
+            "1529402639372435705",
+            "1529402639372435706",
+            "1529402639372435707"
+          ],
+          "plugin": [
+            "13"
+          ],
+          "plugin_handle": [
+            "1529402613199978555",
+            "1529402613199978556",
+            "1529402613199978557",
+            "1529402613199978558",
+            "1529402613199978559",
+            "1529402613199978560",
+            "1529402613199978561",
+            "1529402613199978562",
+            "1529402613199978563",
+            "1529402613199978564",
+            "1529402613199978565",
+            "1529402613199978566",
+            "1529402613204172868",
+            "1529402613204172869",
+            "1529402613204172870",
+            "1529402613204172871"
+          ],
+          "resource": [
+            "1529402639284355075",
+            "1529402639368241188",
+            "1529402639368241189",
+            "1529402639368241190",
+            "1529402639368241191",
+            "1529402639368241192",
+            "1529402639368241193",
+            "1529402639368241194",
+            "1529402639368241195",
+            "1529402639368241196"
+          ]
+        },
+        "fallbackTables": [
+          "resource",
+          "permission"
+        ]
+      },
+      "mysql": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 16,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822149"
+          ],
+          "permission": [
+            "1529402639305326596",
+            "1529402639372435699",
+            "1529402639372435700",
+            "1529402639372435701",
+            "1529402639372435702",
+            "1529402639372435703",
+            "1529402639372435704",
+            "1529402639372435705",
+            "1529402639372435706",
+            "1529402639372435707"
+          ],
+          "plugin": [
+            "13"
+          ],
+          "plugin_handle": [
+            "1529402613199978555",
+            "1529402613199978556",
+            "1529402613199978557",
+            "1529402613199978558",
+            "1529402613199978559",
+            "1529402613199978560",
+            "1529402613199978561",
+            "1529402613199978562",
+            "1529402613199978563",
+            "1529402613199978564",
+            "1529402613199978565",
+            "1529402613199978566",
+            "1529402613204172870",
+            "1529402613204172871",
+            "1529402613204172872",
+            "1529402613204172873"
+          ],
+          "resource": [
+            "1529402639284355075",
+            "1529402639368241188",
+            "1529402639368241189",
+            "1529402639368241190",
+            "1529402639368241191",
+            "1529402639368241192",
+            "1529402639368241193",
+            "1529402639368241194",
+            "1529402639368241195",
+            "1529402639368241196"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "ob": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 16,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822149"
+          ],
+          "permission": [
+            "1529402639305326596",
+            "1529402639372435699",
+            "1529402639372435700",
+            "1529402639372435701",
+            "1529402639372435702",
+            "1529402639372435703",
+            "1529402639372435704",
+            "1529402639372435705",
+            "1529402639372435706",
+            "1529402639372435707"
+          ],
+          "plugin": [
+            "13"
+          ],
+          "plugin_handle": [
+            "1529402613199978555",
+            "1529402613199978556",
+            "1529402613199978557",
+            "1529402613199978558",
+            "1529402613199978559",
+            "1529402613199978560",
+            "1529402613199978561",
+            "1529402613199978562",
+            "1529402613199978563",
+            "1529402613199978564",
+            "1529402613199978565",
+            "1529402613199978566",
+            "1529402613204172870",
+            "1529402613204172871",
+            "1529402613204172872",
+            "1529402613204172873"
+          ],
+          "resource": [
+            "1529402639284355075",
+            "1529402639368241188",
+            "1529402639368241189",
+            "1529402639368241190",
+            "1529402639368241191",
+            "1529402639368241192",
+            "1529402639368241193",
+            "1529402639368241194",
+            "1529402639368241195",
+            "1529402639368241196"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "og": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 16,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822149"
+          ],
+          "permission": [
+            "1529403932797964292",
+            "1529403932881850548",
+            "1529403932881850549",
+            "1529403932881850550",
+            "1529403932881850551",
+            "1529403932881850552",
+            "1529403932881850553",
+            "1529403932881850554",
+            "1529403932881850555",
+            "1529403932881850556"
+          ],
+          "plugin": [
+            "13"
+          ],
+          "plugin_handle": [
+            "1529403902779330568",
+            "1529403902779330569",
+            "1529403902779330570",
+            "1529403902779330571",
+            "1529403902779330572",
+            "1529403902779330573",
+            "1529403902779330574",
+            "1529403902779330575",
+            "1529403902779330576",
+            "1529403902779330577",
+            "1529403902779330578",
+            "1529403902779330579",
+            "1529403902783524913",
+            "1529403902783524914",
+            "1529403902783524915",
+            "1529403902783524916"
+          ],
+          "resource": [
+            "1529403932781187075",
+            "1529403932877656100",
+            "1529403932877656101",
+            "1529403932877656102",
+            "1529403932877656103",
+            "1529403932877656104",
+            "1529403932877656105",
+            "1529403932877656106",
+            "1529403932877656107",
+            "1529403932877656108"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "oracle": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 16,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822149"
+          ],
+          "permission": [
+            "1529402639305326596",
+            "1529402639372435699",
+            "1529402639372435700",
+            "1529402639372435701",
+            "1529402639372435702",
+            "1529402639372435703",
+            "1529402639372435704",
+            "1529402639372435705",
+            "1529402639372435706",
+            "1529402639372435707"
+          ],
+          "plugin": [
+            "13"
+          ],
+          "plugin_handle": [
+            "1518229897210273846",
+            "1518229897210273847",
+            "1518229897210273848",
+            "1518229897210273849",
+            "1518229897210273850",
+            "1518229897210273851",
+            "1518229897210273852",
+            "1518229897210273853",
+            "1518229897210273854",
+            "1518229897210273855",
+            "1518229897210273856",
+            "1518229897210273857",
+            "1518229897210273858",
+            "1518229897210273859",
+            "1518229897210273860",
+            "1518229897210273861"
+          ],
+          "resource": [
+            "1529402639284355075",
+            "1529402639368241188",
+            "1529402639368241189",
+            "1529402639368241190",
+            "1529402639368241191",
+            "1529402639368241192",
+            "1529402639368241193",
+            "1529402639368241194",
+            "1529402639368241195",
+            "1529402639368241196"
+          ]
+        },
+        "fallbackTables": [
+          "resource",
+          "permission"
+        ]
+      },
+      "pg": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 16,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822149"
+          ],
+          "permission": [
+            "1529403932797964292",
+            "1529403932881850548",
+            "1529403932881850549",
+            "1529403932881850550",
+            "1529403932881850551",
+            "1529403932881850552",
+            "1529403932881850553",
+            "1529403932881850554",
+            "1529403932881850555",
+            "1529403932881850556"
+          ],
+          "plugin": [
+            "13"
+          ],
+          "plugin_handle": [
+            "1529403902779330568",
+            "1529403902779330569",
+            "1529403902779330570",
+            "1529403902779330571",
+            "1529403902779330572",
+            "1529403902779330573",
+            "1529403902779330574",
+            "1529403902779330575",
+            "1529403902779330576",
+            "1529403902779330577",
+            "1529403902779330578",
+            "1529403902779330579",
+            "1529403902783524913",
+            "1529403902783524914",
+            "1529403902783524915",
+            "1529403902783524916"
+          ],
+          "resource": [
+            "1529403932781187075",
+            "1529403932877656100",
+            "1529403932877656101",
+            "1529403932877656102",
+            "1529403932877656103",
+            "1529403932877656104",
+            "1529403932877656105",
+            "1529403932877656106",
+            "1529403932877656107",
+            "1529403932877656108"
+          ]
+        },
+        "fallbackTables": []
+      }
+    },
+    "idRemaps": {},
+    "omittedDuplicateNaturalKeys": {}
+  },
+  "counts": {
+    "originalAssets": 19,
+    "originalScenarios": 1,
+    "generatedSupportAssets": 23,
+    "installPreflightPairs": 6,
+    "archives": 1
+  },
+  "originalAssets": [
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-examples/shenyu-examples-tars/README.md",
+        "sha256": "3433c3cf466c2eff912c9baabbf1b8d3d36c4fa1f7fd5db705a13395c846a437"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-examples/shenyu-examples-tars/README.md",
+        "exists": true,
+        "sha256": "3433c3cf466c2eff912c9baabbf1b8d3d36c4fa1f7fd5db705a13395c846a437"
+      },
+      "kind": "example",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-examples/shenyu-examples-tars/pom.xml",
+        "sha256": "7181be4b44fdc6bcc7470904400165759eaff0d5d24771766c5ddcb818f3ff8b"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-examples/shenyu-examples-tars/pom.xml",
+        "exists": true,
+        "sha256": "c398a8b8b1dd2c7fb4122b2306a32c6e2b5edf3c9343eb4bdbdd056dd38bc19c"
+      },
+      "kind": "example",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/http/tars-test-api.http",
+        "sha256": "f0d685f4441816441afcf2badf6b96d538fb511e8608972b7b4f00d65854f5e4"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/http/tars-test-api.http",
+        "exists": true,
+        "sha256": "f0d685f4441816441afcf2badf6b96d538fb511e8608972b7b4f00d65854f5e4"
+      },
+      "kind": "example",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/java/org/apache/shenyu/examples/tars/ShenyuTestTarsApplication.java",
+        "sha256": "58ba2173414caf77efbe5b1e458b68e94b3e3445586fb33d478840a91f5177b6"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/java/org/apache/shenyu/examples/tars/ShenyuTestTarsApplication.java",
+        "exists": true,
+        "sha256": "58ba2173414caf77efbe5b1e458b68e94b3e3445586fb33d478840a91f5177b6"
+      },
+      "kind": "example",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/java/org/apache/shenyu/examples/tars/servant/testapp/HelloServant.java",
+        "sha256": "096f1b52bfd37edb4b2a1c0d26b9f964e8724cc90dfd6a8666e4c4210dd0d3a7"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/java/org/apache/shenyu/examples/tars/servant/testapp/HelloServant.java",
+        "exists": true,
+        "sha256": "096f1b52bfd37edb4b2a1c0d26b9f964e8724cc90dfd6a8666e4c4210dd0d3a7"
+      },
+      "kind": "example",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/java/org/apache/shenyu/examples/tars/servant/testapp/OrderServant.java",
+        "sha256": "7eefc14cb6aa050caedb4e3b2b24561fee98a4626158fbe8c93c3a5a270cec84"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/java/org/apache/shenyu/examples/tars/servant/testapp/OrderServant.java",
+        "exists": true,
+        "sha256": "7eefc14cb6aa050caedb4e3b2b24561fee98a4626158fbe8c93c3a5a270cec84"
+      },
+      "kind": "example",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/java/org/apache/shenyu/examples/tars/servant/testapp/UserServant.java",
+        "sha256": "611c0cea5d257631e65777994886ed1e0fdcb3725f51aec90b9b1e63bbb4361e"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/java/org/apache/shenyu/examples/tars/servant/testapp/UserServant.java",
+        "exists": true,
+        "sha256": "63b4a95b094eeefd39af09abe71c2cb760899ed9d3db9086af3e992ee8c70591"
+      },
+      "kind": "example",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/java/org/apache/shenyu/examples/tars/servant/testapp/impl/HelloServantImpl.java",
+        "sha256": "0407a5394d341f46cc7f5a546c9612a04f18814ae3535df298ba9d9dbc318a4a"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/java/org/apache/shenyu/examples/tars/servant/testapp/impl/HelloServantImpl.java",
+        "exists": true,
+        "sha256": "0407a5394d341f46cc7f5a546c9612a04f18814ae3535df298ba9d9dbc318a4a"
+      },
+      "kind": "example",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/java/org/apache/shenyu/examples/tars/servant/testapp/impl/OrderServantImpl.java",
+        "sha256": "c3509852738f8b67f5d33f39c9138d399ade50786a91e077b870097f3d7d54a7"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/java/org/apache/shenyu/examples/tars/servant/testapp/impl/OrderServantImpl.java",
+        "exists": true,
+        "sha256": "c3509852738f8b67f5d33f39c9138d399ade50786a91e077b870097f3d7d54a7"
+      },
+      "kind": "example",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/java/org/apache/shenyu/examples/tars/servant/testapp/impl/UserServantImpl.java",
+        "sha256": "0318daa5008c67a7a85a43d4771d85dea14e842246b676fc1d86d690c8fb7e1a"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/java/org/apache/shenyu/examples/tars/servant/testapp/impl/UserServantImpl.java",
+        "exists": true,
+        "sha256": "b236bfb61e0029f5b6edddfe72c87162ea33dd7a282b13c402ffda699beae94a"
+      },
+      "kind": "example",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/resources/ShenyuExampleServer.ShenyuExampleApp.config.conf",
+        "sha256": "9479e6d7c9495537548da507bf4a3f08c1277fa595c662f4321c9987df4ec24a"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/resources/ShenyuExampleServer.ShenyuExampleApp.config.conf",
+        "exists": true,
+        "sha256": "9479e6d7c9495537548da507bf4a3f08c1277fa595c662f4321c9987df4ec24a"
+      },
+      "kind": "example",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/resources/application.yml",
+        "sha256": "7e2294e2c7333baaf7dec17d92a4832a174b974366fff3cb04ff938548161415"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/resources/application.yml",
+        "exists": true,
+        "sha256": "7e2294e2c7333baaf7dec17d92a4832a174b974366fff3cb04ff938548161415"
+      },
+      "kind": "example",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/resources/test.tars",
+        "sha256": "c06d1c9662036a2aa86fa9d6d4222e8a95a8d5eded04d9f5d6af957b67aa360c"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-examples/shenyu-examples-tars/src/main/resources/test.tars",
+        "exists": true,
+        "sha256": "c06d1c9662036a2aa86fa9d6d4222e8a95a8d5eded04d9f5d6af957b67aa360c"
+      },
+      "kind": "example",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-tars/pom.xml",
+        "sha256": "c05b3006d730a3b7a92d83f588105126bc8af720b0ebff0a17d219a028996529"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-tars/pom.xml",
+        "exists": true,
+        "sha256": "57954997de3ef5f4f1d01b4bc8906aabd2986d9ae9c97af6cc527f3c1884fd8c"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-tars/src/main/java/org/apache/shenyu/springboot/starter/plugin/tars/TarsPluginConfiguration.java",
+        "sha256": "6abc1baaa5e179cee6cc7d36faaccef2b353731eff4f080673ffb0c1b5698d04"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-tars/src/main/java/org/apache/shenyu/springboot/starter/plugin/tars/TarsPluginConfiguration.java",
+        "exists": true,
+        "sha256": "6abc1baaa5e179cee6cc7d36faaccef2b353731eff4f080673ffb0c1b5698d04"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-tars/src/main/resources/META-INF/spring.factories",
+        "sha256": "8ef53b99ef61c7879f13809598aad8a83119c90d33edb796b6a55b0e7aa4b629"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-tars/src/main/resources/META-INF/spring.factories",
+        "exists": true,
+        "sha256": "8ef53b99ef61c7879f13809598aad8a83119c90d33edb796b6a55b0e7aa4b629"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-tars/src/main/resources/META-INF/spring.provides",
+        "sha256": "c3b3ef0179ad9f6cdb9769a3239a2ca5b8f70006807eca9503772018ee0ea5f5"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-tars/src/main/resources/META-INF/spring.provides",
+        "exists": true,
+        "sha256": "c3b3ef0179ad9f6cdb9769a3239a2ca5b8f70006807eca9503772018ee0ea5f5"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-tars/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+        "sha256": "019ddb80da698b79911f0409b842e4b569a01b12513bde91a6ac5dab0fa74261"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-tars/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+        "exists": true,
+        "sha256": "019ddb80da698b79911f0409b842e4b569a01b12513bde91a6ac5dab0fa74261"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-tars/src/test/java/org/apache/shenyu/springboot/starter/plugin/tars/TarsPluginConfigurationTest.java",
+        "sha256": "7c64c3b42b0274e6b8233f05967e5dc0f1c65c154db5ef9e7ef2045e195f0cb4"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-tars/src/test/java/org/apache/shenyu/springboot/starter/plugin/tars/TarsPluginConfigurationTest.java",
+        "exists": true,
+        "sha256": "c539e28885bf6c18429468b441c5b38d958ad549d995962fead308dd20094ea2"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    }
+  ],
+  "generatedSupportAssets": [
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "db/plugins/tars/PROVENANCE.md",
+        "exists": true,
+        "sha256": "58d8d4f203cc58ae4ddbe37bbfa7101265acad43a5d0a0b7a21f71f4de0ff1e6"
+      }
+    },
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "db/plugins/tars/README.md",
+        "exists": true,
+        "sha256": "4d4d2a638bdc718f015a2b0b70dc2eaf8729df36646e4a8213ce4637cc72a991"
+      }
+    },
+    {
+      "kind": "sql-historical-archive",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "db/plugins/tars/archive/historical-upgrade-fragments.sql",
+        "exists": true,
+        "sha256": "0e45775664bbbf154099d38fb34dee05fe9a6b5552466a99006376934559a452"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "db/plugins/tars/h2/install.sql",
+        "exists": true,
+        "sha256": "cc52c2357a40cb209601255ce51a373d501dca8096bece6f20720654202b3d18"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "db/plugins/tars/h2/preflight.sql",
+        "exists": true,
+        "sha256": "39d3d2973627d9a367679b520136d4723600849adf21a07ca8a4420ef04e6ae7"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "db/plugins/tars/mysql/install.sql",
+        "exists": true,
+        "sha256": "8108d214feb739e226d6091260f489f2afa1ac2dbebc496c2f9aba16717a43aa"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "db/plugins/tars/mysql/preflight.sql",
+        "exists": true,
+        "sha256": "5f930b40437c7797ef1ac31f8a3feab2fef6ff3132055f2cad60c58cdfcd5dbd"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "db/plugins/tars/ob/install.sql",
+        "exists": true,
+        "sha256": "9f4285f9af805e3b1d58a2ffb518c4265a6b974a7d1fbaa43868bbbd24071dfd"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "db/plugins/tars/ob/preflight.sql",
+        "exists": true,
+        "sha256": "a377a553e85c2c878fbc75f509dd41f313ea81be48c2889295c6aabfb1135f97"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "db/plugins/tars/og/install.sql",
+        "exists": true,
+        "sha256": "552f21801e263a097826497f0be9e26a12f2afc0b0cef54405fd46f02dc66e73"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "db/plugins/tars/og/preflight.sql",
+        "exists": true,
+        "sha256": "3a872330a20c34b49de5e689fa1781a40b9b938fe4b4f36b182f9601f7c1a8ed"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "db/plugins/tars/oracle/install.sql",
+        "exists": true,
+        "sha256": "cad65deceace5664438dacafdbf241eb22e900fcbeae0ef30872e9f98b542724"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "db/plugins/tars/oracle/preflight.sql",
+        "exists": true,
+        "sha256": "ca24ff99b7ee19d2edc35ec298480bb9b78ffeb7def2a31fb517e483c431b093"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "db/plugins/tars/pg/install.sql",
+        "exists": true,
+        "sha256": "441b2341fdb06c3e8d7156601744d35449e6a19923197f66750f862723b7d017"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "db/plugins/tars/pg/preflight.sql",
+        "exists": true,
+        "sha256": "ec80e0924d8293ee67980539aef1553db79d6694e76e0acb152e686f4eb6a4bc"
+      }
+    },
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "db/plugins/tars/row-manifest.json",
+        "exists": true,
+        "sha256": "04565e447f3189b194791dc884192f6a3280d158003167240812ddfab693db9a"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "script/plugin-store/assert-store-fixtures.sh",
+        "exists": true,
+        "sha256": "5d83d6dcb2a3eabb39929fcb93352f6dfe7da20c6d9b5d43ae07563ad2594543"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "script/plugin-store/build-h2-store-sql-fixture.py",
+        "exists": true,
+        "sha256": "eb914c5eea758e6ad77b4e65d89792cf2a575ce2dd1fe76dc9d0d4258b2e093b"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "script/plugin-store/docker-compose.original-suite.yml",
+        "exists": true,
+        "sha256": "409db3ebfcc82d71a7f62589709eb7476f4a18c2ca2916a8ce3130c08d05221c"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "script/plugin-store/h2-store-sql-fixture.md",
+        "exists": true,
+        "sha256": "bee24995be38656fa85d8666056cac863f0408071de47113d79ddf12b26830b4"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "script/plugin-store/plugin-sql-seed-manifest.json",
+        "exists": true,
+        "sha256": "a23a4b6edda4381fa2566988e0c51bb333d5eaf535896064a9dc935d6f9f64bf"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "script/plugin-store/run-core-compose.sh",
+        "exists": true,
+        "sha256": "ded518505229c6d659501a655febacb4458efa0c5e5ec321fe50afe924d218d6"
+      }
+    },
+    {
+      "kind": "shared-test-helper",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-plugin/shenyu-plugin-store-test-support/src/main/java/org/apache/shenyu/plugin/store/test/support/GatewayFixtures.java",
+        "exists": true,
+        "sha256": "bf9bfe9f7aeae47a838f837e3611eb26901ab7b6988452505df70c4390551cbd"
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "slug": "tars",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-tars/src/test/java/org/apache/shenyu/springboot/starter/plugin/tars/TarsPluginConfigurationTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-sofa-tars",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-tars/src/test/java/org/apache/shenyu/springboot/starter/plugin/tars/TarsPluginConfigurationTest.java"
+      },
+      "methods": [
+        "testTarsPlugin",
+        "testTarsMetaDataHandler",
+        "testTarsPluginDataHandler",
+        "testTarsShenyuContextDecorator"
+      ],
+      "originalMayContainDisabledAssertions": false
+    }
+  ],
+  "notes": [
+    "SOFA and TARS share the store PR worktree and core-removal draft PR, but each manifest records only its own plugin SQL rows and original asset destinations.",
+    "Shared IT/E2E helper closure is recorded as support assets where present; it is profile-scoped test infrastructure, not production runtime code.",
+    "File presence plus hash validation does not claim runtime parity without a matching execution log."
+  ]
+}

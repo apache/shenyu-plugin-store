@@ -30,6 +30,10 @@ public class MotanUpstream {
 
     private String registerAddress;
 
+    private String directUrl;
+
+    private String serialization;
+
     public String getProtocol() {
         return protocol;
     }
@@ -54,6 +58,22 @@ public class MotanUpstream {
         this.registerAddress = registerAddress;
     }
 
+    public String getDirectUrl() {
+        return directUrl;
+    }
+
+    public void setDirectUrl(final String directUrl) {
+        this.directUrl = directUrl;
+    }
+
+    public String getSerialization() {
+        return serialization;
+    }
+
+    public void setSerialization(final String serialization) {
+        this.serialization = serialization;
+    }
+
     @Override
     public boolean equals(final Object other) {
         if (this == other) {
@@ -65,11 +85,13 @@ public class MotanUpstream {
         MotanUpstream that = (MotanUpstream) other;
         return Objects.equals(protocol, that.protocol)
                 && Objects.equals(registerProtocol, that.registerProtocol)
-                && Objects.equals(registerAddress, that.registerAddress);
+                && Objects.equals(registerAddress, that.registerAddress)
+                && Objects.equals(directUrl, that.directUrl)
+                && Objects.equals(serialization, that.serialization);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(protocol, registerProtocol, registerAddress);
+        return Objects.hash(protocol, registerProtocol, registerAddress, directUrl, serialization);
     }
 }

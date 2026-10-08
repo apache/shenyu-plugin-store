@@ -31,6 +31,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <modules>
+        <module>shenyu-plugin-store-test-support</module>
         <module>shenyu-plugin-proxy</module>
     </modules>
 
