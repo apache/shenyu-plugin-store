@@ -60,11 +60,12 @@
     <modules>
         <module>shenyu-plugin</module>
         <module>shenyu-spring-boot-starter-plugin</module>
+        <module>shenyu-extension</module>
     </modules>
 
     <properties>
         <java.version>17</java.version>
-        <shenyu.version>2.7.0</shenyu.version>
+        <shenyu.version>2.7.2-SNAPSHOT</shenyu.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -96,6 +97,7 @@
         <bytebuddy.version>1.14.11</bytebuddy.version>
         <tars.version>1.7.2</tars.version>
         <testcontainers.version>1.19.8</testcontainers.version>
+        <polaris.version>1.13.0</polaris.version>
         <!-- dependency version end -->
     </properties>
 
@@ -136,6 +138,11 @@
                 <groupId>com.tencent.tars</groupId>
                 <artifactId>tars-spring-boot-starter</artifactId>
                 <version>${tars.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tencent.polaris</groupId>
+                <artifactId>polaris-all</artifactId>
+                <version>${polaris.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
