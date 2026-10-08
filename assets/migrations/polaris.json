@@ -1,0 +1,926 @@
+{
+  "schemaVersion": 1,
+  "slug": "polaris",
+  "issue": 7305,
+  "kind": "extension",
+  "provenance": {
+    "sourceRepository": "apache/shenyu",
+    "sourceCommit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+    "store": {
+      "repository": "apache/shenyu-plugin-store",
+      "branch": "cloudbase/migrate-polaris",
+      "head": "526c11f2764106f38bbf4cf981e442163132181e",
+      "pullRequest": "https://github.com/apache/shenyu-plugin-store/pull/18"
+    },
+    "coreRemovalDraft": {
+      "repository": "apache/shenyu",
+      "branch": "cloudbase/externalize-polaris",
+      "pullRequest": "https://github.com/apache/shenyu/pull/7509",
+      "role": "core-removal-draft"
+    }
+  },
+  "modulePrefixes": [
+    "shenyu-admin-listener/shenyu-admin-listener-polaris",
+    "shenyu-sync-data-center/shenyu-sync-data-polaris",
+    "shenyu-registry/shenyu-registry-polaris"
+  ],
+  "starterPrefixes": [
+    "shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-polaris"
+  ],
+  "sql": {
+    "ownership": "none: shared core schema only",
+    "noSqlExplanation": "Polaris is a sync/registry extension and has no plugin row, plugin_handle, resource, permission, or namespace_plugin_rel seed rows in the pinned source.",
+    "installPreflightPairs": [],
+    "archive": null,
+    "noSqlArchiveNote": {
+      "kind": "no-sql-archive-note",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "db/plugins/polaris/archive/historical-upgrade-fragments.sql",
+        "exists": true,
+        "sha256": "20c00dcc8b50cb39f8e84c5831f65c3db2e233b54e1a6de89eda9a48005dd4c2"
+      }
+    },
+    "dialectRows": {},
+    "idRemaps": {},
+    "omittedDuplicateNaturalKeys": {}
+  },
+  "counts": {
+    "originalAssets": 29,
+    "originalScenarios": 10,
+    "generatedSupportAssets": 14,
+    "installPreflightPairs": 0,
+    "archives": 0
+  },
+  "originalAssets": [
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-admin-listener/shenyu-admin-listener-polaris/pom.xml",
+        "sha256": "7d06efef38ea1dee88f2ec9a3aa2c01b7f401169bdcf1015071783dcc6d661cf"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-admin-listener-polaris/pom.xml",
+        "exists": true,
+        "sha256": "d376f701590a2a4e808872624cd02f9dbdf6c20ee74c024d2e92b0003acdb093"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-admin-listener/shenyu-admin-listener-polaris/src/main/java/org/apache/shenyu/admin/config/PolarisSyncConfiguration.java",
+        "sha256": "6bbd22dc5a7a70aa55b9077b08c6d2e533f49d2102a6aa0dd95c50a5b14d2dbe"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-admin-listener-polaris/src/main/java/org/apache/shenyu/admin/config/PolarisSyncConfiguration.java",
+        "exists": true,
+        "sha256": "6bbd22dc5a7a70aa55b9077b08c6d2e533f49d2102a6aa0dd95c50a5b14d2dbe"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-admin-listener/shenyu-admin-listener-polaris/src/main/java/org/apache/shenyu/admin/config/properties/PolarisProperties.java",
+        "sha256": "480e3f13976d0abd13a9a3c105ab0feb813ff4c39a1078db701a71d853ee575a"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-admin-listener-polaris/src/main/java/org/apache/shenyu/admin/config/properties/PolarisProperties.java",
+        "exists": true,
+        "sha256": "480e3f13976d0abd13a9a3c105ab0feb813ff4c39a1078db701a71d853ee575a"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-admin-listener/shenyu-admin-listener-polaris/src/main/java/org/apache/shenyu/admin/listener/polaris/PolarisDataChangedInit.java",
+        "sha256": "6ef278a1398ca9ed9f2bc66299cac6b852a1f669f0fd9f4e8679cc6fd5eace21"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-admin-listener-polaris/src/main/java/org/apache/shenyu/admin/listener/polaris/PolarisDataChangedInit.java",
+        "exists": true,
+        "sha256": "6ef278a1398ca9ed9f2bc66299cac6b852a1f669f0fd9f4e8679cc6fd5eace21"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-admin-listener/shenyu-admin-listener-polaris/src/main/java/org/apache/shenyu/admin/listener/polaris/PolarisDataChangedListener.java",
+        "sha256": "8a1a175d8bac6ba6541b6b133525ad03a250e41a55b631e2fe671a3e5e6493b6"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-admin-listener-polaris/src/main/java/org/apache/shenyu/admin/listener/polaris/PolarisDataChangedListener.java",
+        "exists": true,
+        "sha256": "8a1a175d8bac6ba6541b6b133525ad03a250e41a55b631e2fe671a3e5e6493b6"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-admin-listener/shenyu-admin-listener-polaris/src/main/resources/META-INF/spring.factories",
+        "sha256": "e7b88ed42f074380928e3b836d4c23a7306da200dac47dae8ba88ce4afa2e706"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-admin-listener-polaris/src/main/resources/META-INF/spring.factories",
+        "exists": true,
+        "sha256": "e7b88ed42f074380928e3b836d4c23a7306da200dac47dae8ba88ce4afa2e706"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-admin-listener/shenyu-admin-listener-polaris/src/main/resources/META-INF/spring.provides",
+        "sha256": "503a292933ea909bc01fe5815b22dbbaf1b892f4b4d8f4103ff601a39f364dfb"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-admin-listener-polaris/src/main/resources/META-INF/spring.provides",
+        "exists": true,
+        "sha256": "503a292933ea909bc01fe5815b22dbbaf1b892f4b4d8f4103ff601a39f364dfb"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-admin-listener/shenyu-admin-listener-polaris/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+        "sha256": "6ffea6f3c49f856ec0324a3245f606e09a5d5f2f0005a10b043581d67bd7332e"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-admin-listener-polaris/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+        "exists": true,
+        "sha256": "6ffea6f3c49f856ec0324a3245f606e09a5d5f2f0005a10b043581d67bd7332e"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-admin-listener/shenyu-admin-listener-polaris/src/test/java/org/apache/shenyu/admin/config/PolarisSyncConfigurationTest.java",
+        "sha256": "e599dc4485be09edcae57c192312e055a2cee244423e688674b44f15e964b9aa"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-admin-listener-polaris/src/test/java/org/apache/shenyu/admin/config/PolarisSyncConfigurationTest.java",
+        "exists": true,
+        "sha256": "5ae8ae6ba726471a6d063342886c685082dd34bfec23ecf7b9c25fc25bc8c0c8"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-admin-listener/shenyu-admin-listener-polaris/src/test/java/org/apache/shenyu/admin/config/properties/PolarisPropertiesTest.java",
+        "sha256": "389a4373cdfb62ce4f9e174153284eececaa4aeee8514a73bcae5a277bc67657"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-admin-listener-polaris/src/test/java/org/apache/shenyu/admin/config/properties/PolarisPropertiesTest.java",
+        "exists": true,
+        "sha256": "389a4373cdfb62ce4f9e174153284eececaa4aeee8514a73bcae5a277bc67657"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-admin-listener/shenyu-admin-listener-polaris/src/test/java/org/apache/shenyu/admin/listener/polaris/PolarisDataChangedInitTest.java",
+        "sha256": "c774ab42b1cd88b237d8b2b69c406ba9adc55b38366e3ed473993789774f3af7"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-admin-listener-polaris/src/test/java/org/apache/shenyu/admin/listener/polaris/PolarisDataChangedInitTest.java",
+        "exists": true,
+        "sha256": "c774ab42b1cd88b237d8b2b69c406ba9adc55b38366e3ed473993789774f3af7"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-admin-listener/shenyu-admin-listener-polaris/src/test/java/org/apache/shenyu/admin/listener/polaris/PolarisDataChangedListenerTest.java",
+        "sha256": "39c5fa26b8c77ff298929faa999f879565e4fec09529b9d071371f29b4b62d32"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-admin-listener-polaris/src/test/java/org/apache/shenyu/admin/listener/polaris/PolarisDataChangedListenerTest.java",
+        "exists": true,
+        "sha256": "39c5fa26b8c77ff298929faa999f879565e4fec09529b9d071371f29b4b62d32"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-registry/shenyu-registry-polaris/pom.xml",
+        "sha256": "35df5a7f5de074efaa9bad5a7b5087e429d7ad1556789595adb4f2ea5ce34e6a"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-registry-polaris/pom.xml",
+        "exists": true,
+        "sha256": "2978d500b3f309403e71685bbc55c8a91dedcbd3a05be49dde41287036fe305d"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-registry/shenyu-registry-polaris/src/main/java/org/apache/shenyu/registry/polaris/PolarisInstanceRegisterRepository.java",
+        "sha256": "d0e9c29d8a1338cf3ceec93e7918ac83be29a35ca96f9cc4a3cfa60440494dcf"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-registry-polaris/src/main/java/org/apache/shenyu/registry/polaris/PolarisInstanceRegisterRepository.java",
+        "exists": true,
+        "sha256": "dfbc3b5caa9e337fb69c1714195928bfebbe7f7bfc297bee073470c7b2246983"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-registry/shenyu-registry-polaris/src/main/resources/META-INF/shenyu/org.apache.shenyu.registry.api.ShenyuInstanceRegisterRepository",
+        "sha256": "b03b8057443127913f8735478f7b975c0e9f1b14dedfbef09e36214666860cd2"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-registry-polaris/src/main/resources/META-INF/shenyu/org.apache.shenyu.registry.api.ShenyuInstanceRegisterRepository",
+        "exists": true,
+        "sha256": "b03b8057443127913f8735478f7b975c0e9f1b14dedfbef09e36214666860cd2"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-registry/shenyu-registry-polaris/src/test/java/org/apache/shenyu/registry/polaris/PolarisInstanceRegisterRepositoryTest.java",
+        "sha256": "2c5b8ddd6ddbf04e60323370434473f0927f98d4142d74accff64346066726c1"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-registry-polaris/src/test/java/org/apache/shenyu/registry/polaris/PolarisInstanceRegisterRepositoryTest.java",
+        "exists": true,
+        "sha256": "2c5b8ddd6ddbf04e60323370434473f0927f98d4142d74accff64346066726c1"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-polaris/pom.xml",
+        "sha256": "4c4caf8160fc70241afc09e3c37ae3d8904f787cf27da5f6145b30970a0e3641"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-spring-boot-starter-sync-data-polaris/pom.xml",
+        "exists": true,
+        "sha256": "83ec81dcee989192ed59359cc3c48b011eeb3a5797282c685aa84fd3deac3867"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-polaris/src/main/java/org/apache/shenyu/springboot/starter/sync/data/polaris/PolarisSyncDataConfiguration.java",
+        "sha256": "1c20e8ca47da270377454aecb7bc003c9d8635525780f801f9fba9b9514cd5dc"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-spring-boot-starter-sync-data-polaris/src/main/java/org/apache/shenyu/springboot/starter/sync/data/polaris/PolarisSyncDataConfiguration.java",
+        "exists": true,
+        "sha256": "1c20e8ca47da270377454aecb7bc003c9d8635525780f801f9fba9b9514cd5dc"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-polaris/src/main/resources/META-INF/spring.factories",
+        "sha256": "d29f03518ae29448d8704cd4a83d3d3d9fef9e48fcd5a196d77b1448245944c1"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-spring-boot-starter-sync-data-polaris/src/main/resources/META-INF/spring.factories",
+        "exists": true,
+        "sha256": "d29f03518ae29448d8704cd4a83d3d3d9fef9e48fcd5a196d77b1448245944c1"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-polaris/src/main/resources/META-INF/spring.provides",
+        "sha256": "307ccd7c081abf85eb1085820f9233432e8806b9d0de5c0c55e13d592b123fc6"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-spring-boot-starter-sync-data-polaris/src/main/resources/META-INF/spring.provides",
+        "exists": true,
+        "sha256": "307ccd7c081abf85eb1085820f9233432e8806b9d0de5c0c55e13d592b123fc6"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-polaris/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+        "sha256": "d4ca17dd7498a26959402639ee2a08939a8e9b1fa21b18e9d0df6aa0b8fb620a"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-spring-boot-starter-sync-data-polaris/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+        "exists": true,
+        "sha256": "d4ca17dd7498a26959402639ee2a08939a8e9b1fa21b18e9d0df6aa0b8fb620a"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-polaris/src/test/java/org/apache/shenyu/springboot/stater/sync/data/polaris/PolarisSyncDataConfigurationTest.java",
+        "sha256": "2e93932b9d394a25cdbc14bf8c98af4f84c72bf037f74ac9fb2e0f54c512b1ae"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-spring-boot-starter-sync-data-polaris/src/test/java/org/apache/shenyu/springboot/stater/sync/data/polaris/PolarisSyncDataConfigurationTest.java",
+        "exists": true,
+        "sha256": "a923fcd5c8e98c332afd1b62a5c2c41ce36e802883b9887b8fde44ce36ef5de9"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-sync-data-center/shenyu-sync-data-polaris/pom.xml",
+        "sha256": "70b5b97b79653189554624afff83aece9c0c6d4256743a5344a113665a962a59"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-sync-data-polaris/pom.xml",
+        "exists": true,
+        "sha256": "95dbd8a73b17178e90c67ad8160b2b783c889335b9bb498ef637699db3dfcc2b"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-sync-data-center/shenyu-sync-data-polaris/src/main/java/org/apache/shenyu/sync/data/polaris/PolarisSyncDataService.java",
+        "sha256": "af3118fc03c58fd65c6f6410bb4780b6aca1c23f3c1bbae91f0c56d7e869aa4e"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-sync-data-polaris/src/main/java/org/apache/shenyu/sync/data/polaris/PolarisSyncDataService.java",
+        "exists": true,
+        "sha256": "932b2d03d06e9aea08f176df26fdfefeeecf9fb6116f8b51da3f957ae8cc893b"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-sync-data-center/shenyu-sync-data-polaris/src/main/java/org/apache/shenyu/sync/data/polaris/config/PolarisConfig.java",
+        "sha256": "4c8d70db42ad38fd3fc0740360d941d9947058582fc45f2a6a83ad228d88dc82"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-sync-data-polaris/src/main/java/org/apache/shenyu/sync/data/polaris/config/PolarisConfig.java",
+        "exists": true,
+        "sha256": "4c8d70db42ad38fd3fc0740360d941d9947058582fc45f2a6a83ad228d88dc82"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-sync-data-center/shenyu-sync-data-polaris/src/test/java/org/apache/shenyu/sync/data/polaris/PolarisSyncDataServiceTest.java",
+        "sha256": "1255b1c25dc310f7fc055a77c70976148ecbf27a006227cc982b7446ff6eb002"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-sync-data-polaris/src/test/java/org/apache/shenyu/sync/data/polaris/PolarisSyncDataServiceTest.java",
+        "exists": true,
+        "sha256": "1255b1c25dc310f7fc055a77c70976148ecbf27a006227cc982b7446ff6eb002"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-sync-data-center/shenyu-sync-data-polaris/src/test/java/org/apache/shenyu/sync/data/polaris/config/PolarisConfigTest.java",
+        "sha256": "0c0e23c7f195d11e9c3a56ab9fdf713abcb58646b1bbbc95c576389b24c3e517"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-sync-data-polaris/src/test/java/org/apache/shenyu/sync/data/polaris/config/PolarisConfigTest.java",
+        "exists": true,
+        "sha256": "0c0e23c7f195d11e9c3a56ab9fdf713abcb58646b1bbbc95c576389b24c3e517"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-sync-data-center/shenyu-sync-data-polaris/src/test/java/org/apache/shenyu/sync/data/polaris/handler/PolarisMockConfigFile.java",
+        "sha256": "d8f1e58ced9bc0c40102eed36fa0ef150bed5d58bd10e4c78cb2c15e8dc73122"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-sync-data-polaris/src/test/java/org/apache/shenyu/sync/data/polaris/handler/PolarisMockConfigFile.java",
+        "exists": true,
+        "sha256": "d8f1e58ced9bc0c40102eed36fa0ef150bed5d58bd10e4c78cb2c15e8dc73122"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-sync-data-center/shenyu-sync-data-polaris/src/test/java/org/apache/shenyu/sync/data/polaris/handler/PolarisMockConfigService.java",
+        "sha256": "21b63c9ab75ad405c1a8b08437ea7297ac37e23500947f7881bc77fba1cb314f"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-sync-data-polaris/src/test/java/org/apache/shenyu/sync/data/polaris/handler/PolarisMockConfigService.java",
+        "exists": true,
+        "sha256": "21b63c9ab75ad405c1a8b08437ea7297ac37e23500947f7881bc77fba1cb314f"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    }
+  ],
+  "generatedSupportAssets": [
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "db/plugins/polaris/PROVENANCE.md",
+        "exists": true,
+        "sha256": "a722d20eafe543804912ccc21d28d1e871a7954f6ed665e6e7fa2943fa043f9c"
+      }
+    },
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "db/plugins/polaris/README.md",
+        "exists": true,
+        "sha256": "ddaf69415a56eae3f9748b3dd99c2262f0e685c5017dd5300aa9a671617aac1e"
+      }
+    },
+    {
+      "kind": "no-sql-archive-note",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "db/plugins/polaris/archive/historical-upgrade-fragments.sql",
+        "exists": true,
+        "sha256": "20c00dcc8b50cb39f8e84c5831f65c3db2e233b54e1a6de89eda9a48005dd4c2"
+      }
+    },
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "db/plugins/polaris/row-manifest.json",
+        "exists": true,
+        "sha256": "8f054c9641f52c6fedc46d92b72794a3faa223d11ed2ef319c3c98e0185b3d91"
+      }
+    },
+    {
+      "kind": "config-fragment",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "examples/polaris/admin/application.yml",
+        "exists": true,
+        "sha256": "5d025aff0dd14a7196083b73f7fdd78ee3f49894f3cedf6a84f2044f2d5717f7"
+      }
+    },
+    {
+      "kind": "config-fragment",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "examples/polaris/gateway/application.yml",
+        "exists": true,
+        "sha256": "5549d22ed045dea635d92887bcbdeacaacfe20d07f08d3650a9681d96e8ac488"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "script/plugin-store/assert-store-fixtures.sh",
+        "exists": true,
+        "sha256": "5d83d6dcb2a3eabb39929fcb93352f6dfe7da20c6d9b5d43ae07563ad2594543"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "script/plugin-store/build-h2-store-sql-fixture.py",
+        "exists": true,
+        "sha256": "2a8be34352851230d43778142db814aa38ede87466db1afe81c49b513f524ecf"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "script/plugin-store/docker-compose.original-suite.yml",
+        "exists": true,
+        "sha256": "40140ff81d1ab4d80884f90bcb231db324e6ce39e8a68058bb74d4da30baee20"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "script/plugin-store/h2-store-sql-fixture.md",
+        "exists": true,
+        "sha256": "26cdad1a4c968fa793a6de5fd448491ba95511db3eb9af68c0a2da5fa061d197"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "script/plugin-store/plugin-sql-seed-manifest.json",
+        "exists": true,
+        "sha256": "76c188143c8cf3ea58ace527bea48bfd645a078ec31e8af7eb2207175394f57f"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "script/plugin-store/run-core-compose.sh",
+        "exists": true,
+        "sha256": "a0cfec67424cff25a0bd1a925ff578979efb2b3fe42e98e455184d7926a8bab3"
+      }
+    },
+    {
+      "kind": "migration-doc",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/POLARIS_PLUGIN_STORE_MIGRATION.md",
+        "exists": true,
+        "sha256": "35305535fb963474dc22736f579d01a3dd9a631f100bf939c3b9cdd385aa3bfb"
+      }
+    },
+    {
+      "kind": "shared-test-helper",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-plugin/shenyu-plugin-store-test-support/src/main/java/org/apache/shenyu/plugin/store/test/support/GatewayFixtures.java",
+        "exists": true,
+        "sha256": "bf9bfe9f7aeae47a838f837e3611eb26901ab7b6988452505df70c4390551cbd"
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-admin-listener/shenyu-admin-listener-polaris/src/test/java/org/apache/shenyu/admin/config/PolarisSyncConfigurationTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-admin-listener-polaris/src/test/java/org/apache/shenyu/admin/config/PolarisSyncConfigurationTest.java"
+      },
+      "methods": [
+        "testPolarisDataChangedListener",
+        "testPolarisDataInit"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-admin-listener/shenyu-admin-listener-polaris/src/test/java/org/apache/shenyu/admin/config/properties/PolarisPropertiesTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-admin-listener-polaris/src/test/java/org/apache/shenyu/admin/config/properties/PolarisPropertiesTest.java"
+      },
+      "methods": [],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-admin-listener/shenyu-admin-listener-polaris/src/test/java/org/apache/shenyu/admin/listener/polaris/PolarisDataChangedInitTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-admin-listener-polaris/src/test/java/org/apache/shenyu/admin/listener/polaris/PolarisDataChangedInitTest.java"
+      },
+      "methods": [
+        "testNotExist",
+        "testExist"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-admin-listener/shenyu-admin-listener-polaris/src/test/java/org/apache/shenyu/admin/listener/polaris/PolarisDataChangedListenerTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-admin-listener-polaris/src/test/java/org/apache/shenyu/admin/listener/polaris/PolarisDataChangedListenerTest.java"
+      },
+      "methods": [
+        "testOnAppAuthChanged",
+        "testOnPluginChanged",
+        "testOnSelectorChanged",
+        "testOnMetaDataChanged",
+        "testOnRuleChanged"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-registry/shenyu-registry-polaris/src/test/java/org/apache/shenyu/registry/polaris/PolarisInstanceRegisterRepositoryTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-registry-polaris/src/test/java/org/apache/shenyu/registry/polaris/PolarisInstanceRegisterRepositoryTest.java"
+      },
+      "methods": [
+        "testPersistInstance",
+        "testSelectInstancesAndWatcher"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-polaris/src/test/java/org/apache/shenyu/springboot/stater/sync/data/polaris/PolarisSyncDataConfigurationTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-spring-boot-starter-sync-data-polaris/src/test/java/org/apache/shenyu/springboot/stater/sync/data/polaris/PolarisSyncDataConfigurationTest.java"
+      },
+      "methods": [],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-sync-data-center/shenyu-sync-data-polaris/src/test/java/org/apache/shenyu/sync/data/polaris/PolarisSyncDataServiceTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-sync-data-polaris/src/test/java/org/apache/shenyu/sync/data/polaris/PolarisSyncDataServiceTest.java"
+      },
+      "methods": [],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-sync-data-center/shenyu-sync-data-polaris/src/test/java/org/apache/shenyu/sync/data/polaris/config/PolarisConfigTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-sync-data-polaris/src/test/java/org/apache/shenyu/sync/data/polaris/config/PolarisConfigTest.java"
+      },
+      "methods": [
+        "testGetterSetter"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-sync-data-center/shenyu-sync-data-polaris/src/test/java/org/apache/shenyu/sync/data/polaris/handler/PolarisMockConfigFile.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-sync-data-polaris/src/test/java/org/apache/shenyu/sync/data/polaris/handler/PolarisMockConfigFile.java"
+      },
+      "methods": [],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "polaris",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-sync-data-center/shenyu-sync-data-polaris/src/test/java/org/apache/shenyu/sync/data/polaris/handler/PolarisMockConfigService.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-polaris",
+        "path": "shenyu-extension/shenyu-extension-polaris/shenyu-sync-data-polaris/src/test/java/org/apache/shenyu/sync/data/polaris/handler/PolarisMockConfigService.java"
+      },
+      "methods": [],
+      "originalMayContainDisabledAssertions": false
+    }
+  ],
+  "notes": [
+    "Sync/registry extension: no plugin metadata seed rows in the pinned source; only shared core schema remains core-owned.",
+    "Example admin/gateway application.yml fragments are recorded as generated support config fragments.",
+    "Shared IT/E2E helper closure is recorded as support assets where present; it is profile-scoped test infrastructure, not production runtime code.",
+    "File presence plus hash validation does not claim runtime parity without a matching execution log."
+  ]
+}
