@@ -9,7 +9,8 @@
     "store": {
       "repository": "apache/shenyu-plugin-store",
       "branch": "cloudbase/migrate-logging-tencent-cls",
-      "head": "d1e8d6bf41b2fd8cfdabd2f7da0c4c0c5665badc",
+      "baselineHeadAtGeneration": "5aaa067ae00e20108b9445d9d2787f69d7076942",
+      "headSemantics": "Git HEAD observed before this generator wrote receiving manifests; this is a provenance baseline, not a delivery head, and may intentionally predate a later manifest commit.",
       "pullRequest": "https://github.com/apache/shenyu-plugin-store/pull/12"
     },
     "coreRemovalDraft": {
@@ -40,7 +41,7 @@
             "worktreeId": "store-logging-tencent-cls",
             "path": "db/plugins/logging-tencent-cls/h2/install.sql",
             "exists": true,
-            "sha256": "753ccd36a459f58f7a9c12d9e5a5ed23e193152a11a7b7e42aed06d51fc51a9e"
+            "sha256": "4e8d29f51c84c9ff4613abcf647306d5529392d7d37118b0cf7760e7ce139da8"
           }
         },
         "preflight": {
@@ -50,7 +51,7 @@
             "worktreeId": "store-logging-tencent-cls",
             "path": "db/plugins/logging-tencent-cls/h2/preflight.sql",
             "exists": true,
-            "sha256": "5458d97188e4ace0b7e1e5b9511a4259f6beca1fa9f3845054a6cbfd5fcda2a1"
+            "sha256": "2a36a4a485366519d1efc55418507cd4ff65559eb1a8d1d18c0653d1eb1f7f80"
           }
         }
       },
@@ -215,11 +216,11 @@
             "1529402613204172919",
             "1529402613204172920",
             "1529402613204172921",
-            "1529402613204172922",
+            "369402613204172922",
             "1529402613204172923",
             "1529402613204172924",
             "1529402613204172925",
-            "369402613204172922",
+            "369402613204172923",
             "1529402613204172926",
             "1529402613204172927",
             "1529402613204172929",
@@ -577,7 +578,13 @@
         {
           "newId": "369402613204172922",
           "oldId": "1529402613204172922",
-          "reason": "source id also used by logging-tencent-cls maxSendThreadCount/3",
+          "reason": "source id also used by source core plugin_id=36 lingerMs/3; selected logging-tencent-cls plugin_id=36 lingerMs/3",
+          "table": "plugin_handle"
+        },
+        {
+          "newId": "369402613204172923",
+          "oldId": "1529402613204172922",
+          "reason": "source id also used by source core plugin_id=36 maxSendThreadCount/3; selected logging-tencent-cls plugin_id=36 maxSendThreadCount/3",
           "table": "plugin_handle"
         }
       ]
@@ -990,7 +997,7 @@
         "worktreeId": "store-logging-tencent-cls",
         "path": "db/plugins/logging-tencent-cls/h2/install.sql",
         "exists": true,
-        "sha256": "753ccd36a459f58f7a9c12d9e5a5ed23e193152a11a7b7e42aed06d51fc51a9e"
+        "sha256": "4e8d29f51c84c9ff4613abcf647306d5529392d7d37118b0cf7760e7ce139da8"
       }
     },
     {
@@ -1000,7 +1007,7 @@
         "worktreeId": "store-logging-tencent-cls",
         "path": "db/plugins/logging-tencent-cls/h2/preflight.sql",
         "exists": true,
-        "sha256": "5458d97188e4ace0b7e1e5b9511a4259f6beca1fa9f3845054a6cbfd5fcda2a1"
+        "sha256": "2a36a4a485366519d1efc55418507cd4ff65559eb1a8d1d18c0653d1eb1f7f80"
       }
     },
     {
@@ -1110,7 +1117,7 @@
         "worktreeId": "store-logging-tencent-cls",
         "path": "db/plugins/logging-tencent-cls/row-manifest.json",
         "exists": true,
-        "sha256": "596984f8e201309811177372152fa7ee25488a743f9d2a96c6d3cdbc4d1942a9"
+        "sha256": "4383f7afbd0d3eece9f9dca42ff3f5446c58f6fb10d9806338d1960078357212"
       }
     },
     {
@@ -1140,7 +1147,7 @@
         "worktreeId": "store-logging-tencent-cls",
         "path": "script/plugin-store/build-h2-store-sql-fixture.py",
         "exists": true,
-        "sha256": "2a8be34352851230d43778142db814aa38ede87466db1afe81c49b513f524ecf"
+        "sha256": "eb914c5eea758e6ad77b4e65d89792cf2a575ce2dd1fe76dc9d0d4258b2e093b"
       }
     },
     {
@@ -1150,7 +1157,7 @@
         "worktreeId": "store-logging-tencent-cls",
         "path": "script/plugin-store/docker-compose.original-suite.yml",
         "exists": true,
-        "sha256": "40140ff81d1ab4d80884f90bcb231db324e6ce39e8a68058bb74d4da30baee20"
+        "sha256": "409db3ebfcc82d71a7f62589709eb7476f4a18c2ca2916a8ce3130c08d05221c"
       }
     },
     {
@@ -1160,7 +1167,7 @@
         "worktreeId": "store-logging-tencent-cls",
         "path": "script/plugin-store/h2-store-sql-fixture.md",
         "exists": true,
-        "sha256": "26cdad1a4c968fa793a6de5fd448491ba95511db3eb9af68c0a2da5fa061d197"
+        "sha256": "bee24995be38656fa85d8666056cac863f0408071de47113d79ddf12b26830b4"
       }
     },
     {
@@ -1170,7 +1177,7 @@
         "worktreeId": "store-logging-tencent-cls",
         "path": "script/plugin-store/plugin-sql-seed-manifest.json",
         "exists": true,
-        "sha256": "76c188143c8cf3ea58ace527bea48bfd645a078ec31e8af7eb2207175394f57f"
+        "sha256": "a23a4b6edda4381fa2566988e0c51bb333d5eaf535896064a9dc935d6f9f64bf"
       }
     },
     {
@@ -1180,7 +1187,7 @@
         "worktreeId": "store-logging-tencent-cls",
         "path": "script/plugin-store/run-core-compose.sh",
         "exists": true,
-        "sha256": "a0cfec67424cff25a0bd1a925ff578979efb2b3fe42e98e455184d7926a8bab3"
+        "sha256": "ded518505229c6d659501a655febacb4458efa0c5e5ec321fe50afe924d218d6"
       }
     },
     {

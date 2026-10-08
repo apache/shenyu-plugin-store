@@ -38,11 +38,11 @@
           "1529402613204172919",
           "1529402613204172920",
           "1529402613204172921",
-          "1529402613204172922",
+          "369402613204172922",
           "1529402613204172923",
           "1529402613204172924",
           "1529402613204172925",
-          "369402613204172922",
+          "369402613204172923",
           "1529402613204172926",
           "1529402613204172927",
           "1529402613204172929",
@@ -396,7 +396,13 @@
       {
         "newId": "369402613204172922",
         "oldId": "1529402613204172922",
-        "reason": "source id also used by logging-tencent-cls maxSendThreadCount/3",
+        "reason": "source id also used by source core plugin_id=36 lingerMs/3; selected logging-tencent-cls plugin_id=36 lingerMs/3",
+        "table": "plugin_handle"
+      },
+      {
+        "newId": "369402613204172923",
+        "oldId": "1529402613204172922",
+        "reason": "source id also used by source core plugin_id=36 maxSendThreadCount/3; selected logging-tencent-cls plugin_id=36 maxSendThreadCount/3",
         "table": "plugin_handle"
       }
     ]
@@ -431,5 +437,5 @@
   "pluginName": "loggingTencentCls",
   "sourceSHA": "ec198d442894fd9617947ed73c6c8fe3b206f665",
   "sourceVersion": "2.7.2-SNAPSHOT",
-  "store": "/private/tmp/shenyu-remaining-store-logging-tencent-cls"
+  "storeRepository": "apache/shenyu-plugin-store"
 }
