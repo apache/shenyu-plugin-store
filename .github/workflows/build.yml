@@ -56,6 +56,8 @@ jobs:
         run: |
           CORE_API_DIR="${RUNNER_TEMP}/shenyu-core-api"
           "${CORE_API_DIR}/mvnw" -B -ntp -f "${CORE_API_DIR}/pom.xml" -pl shenyu-admin,shenyu-kubernetes-controller,shenyu-spring-boot-starter/shenyu-spring-boot-starter-k8s,shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-common -am install -DskipTests -Dmaven.javadoc.skip=true -Drat.skip=true -Djacoco.skip=true -DskipRemoteResources=true
+          "${CORE_API_DIR}/mvnw" -B -ntp -f "${CORE_API_DIR}/pom.xml" -pl shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-httpclient,shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-global,shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-uri,shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-general-context -am install -DskipTests -Dmaven.javadoc.skip=true -Drat.skip=true -Djacoco.skip=true -DskipRemoteResources=true
+          "${CORE_API_DIR}/mvnw" -B -ntp -f "${CORE_API_DIR}/shenyu-examples/pom.xml" -pl shenyu-examples-common -am install -DskipTests -Dmaven.javadoc.skip=true -Drat.skip=true -Djacoco.skip=true
           ./mvnw -B -ntp dependency:get -Dartifact=com.h2database:h2:1.4.200
       - name: Build, test, check style, and verify licenses
         run: ./mvnw -B -ntp clean verify -Dapi.version=1.44
