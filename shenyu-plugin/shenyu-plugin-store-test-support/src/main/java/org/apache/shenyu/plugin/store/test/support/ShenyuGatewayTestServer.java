@@ -83,6 +83,7 @@ public final class ShenyuGatewayTestServer implements AutoCloseable {
         chain.add(terminalResponsePlugin);
         ShenyuWebHandler webHandler = new ShenyuWebHandler(chain, null, new ShenyuConfig());
         HttpHandler httpHandler = WebHttpHandlerBuilder.webHandler(webHandler)
+                .filter(new E2eCacheEndpoint(chain))
                 .filter((exchange, next) -> {
                     GatewayFixtures.initExchange(exchange);
                     return next.filter(exchange);
@@ -144,6 +145,16 @@ public final class ShenyuGatewayTestServer implements AutoCloseable {
     }
 
     /**
+     * Execute a local-key GET request against the gateway.
+     *
+     * @param path request path
+     * @return gateway response
+     */
+    public GatewayResponse localGet(final String path) {
+        return exchange(HttpMethod.GET, path, null, true);
+    }
+
+    /**
      * Execute a POST request against the gateway.
      *
      * @param path request path
@@ -163,7 +174,14 @@ public final class ShenyuGatewayTestServer implements AutoCloseable {
      * @return gateway response
      */
     public GatewayResponse exchange(final HttpMethod method, final String path, final String body) {
+        return exchange(method, path, body, false);
+    }
+
+    private GatewayResponse exchange(final HttpMethod method, final String path, final String body, final boolean localKey) {
         WebClient.RequestBodySpec request = webClient.method(method).uri(path);
+        if (localKey) {
+            request.header("localKey", "123456");
+        }
         WebClient.RequestHeadersSpec<?> headersSpec = Objects.isNull(body) ? request : request.bodyValue(body);
         return headersSpec.exchangeToMono(response -> response.toEntity(String.class))
                 .map(entity -> new GatewayResponse(entity.getStatusCode().value(), HttpHeaders.readOnlyHttpHeaders(entity.getHeaders()),

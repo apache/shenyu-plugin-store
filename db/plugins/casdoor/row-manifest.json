@@ -321,5 +321,5 @@
   "pluginName": "casdoor",
   "sourceSHA": "ec198d442894fd9617947ed73c6c8fe3b206f665",
   "sourceVersion": "2.7.2-SNAPSHOT",
-  "store": "/private/tmp/shenyu-remaining-store-casdoor"
+  "storeRepository": "apache/shenyu-plugin-store"
 }

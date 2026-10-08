@@ -21,7 +21,7 @@ limitations under the License.
 
 The fixture flow is:
 
-1. Read pinned core H2 schema from `${SHENYU_CORE_SOURCE:-/tmp/shenyu-remaining-source}/shenyu-admin/src/main/resources/sql-script/h2/schema.sql`.
+1. Read pinned core H2 schema from `${SHENYU_CORE_SOURCE:-../shenyu}/shenyu-admin/src/main/resources/sql-script/h2/schema.sql`.
 2. Read the store-owned `db/plugins/<plugin>/row-manifest.json` when it is present.
 3. Remove only the target plugin seed rows listed in that row manifest from these tables:
    - `plugin`
@@ -36,8 +36,8 @@ Example:
 
 ```bash
 script/plugin-store/build-h2-store-sql-fixture.py motan \
-  --core-source /tmp/shenyu-remaining-source \
-  --store-sql-dir /private/tmp/shenyu-remaining-store-motan/db/plugins/motan \
+  --core-source ../shenyu \
+  --store-sql-dir db/plugins/motan \
   --output-dir target/plugin-store-sql-fixture \
   --execute
 ```
