@@ -1,0 +1,1396 @@
+{
+  "schemaVersion": 1,
+  "slug": "logging-huawei-lts",
+  "issue": 7302,
+  "kind": "plugin",
+  "provenance": {
+    "sourceRepository": "apache/shenyu",
+    "sourceCommit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+    "store": {
+      "repository": "apache/shenyu-plugin-store",
+      "branch": "cloudbase/migrate-logging-huawei-lts",
+      "head": "fedbbe8eaf6b567dcec4e0746b412904bfe86342",
+      "pullRequest": "https://github.com/apache/shenyu-plugin-store/pull/13"
+    },
+    "coreRemovalDraft": {
+      "repository": "apache/shenyu",
+      "branch": "cloudbase/externalize-logging-huawei-lts",
+      "pullRequest": "https://github.com/apache/shenyu/pull/7503",
+      "role": "core-removal-draft"
+    }
+  },
+  "modulePrefixes": [
+    "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts"
+  ],
+  "starterPrefixes": [
+    "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-huawei-lts"
+  ],
+  "sql": {
+    "ownership": "plugin metadata rows and plugin-specific upgrade fragments",
+    "pluginId": "43",
+    "pluginName": "loggingHuaweiLts",
+    "sourceCommit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+    "installPreflightPairs": [
+      {
+        "dialect": "h2",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-huawei-lts",
+            "path": "db/plugins/logging-huawei-lts/h2/install.sql",
+            "exists": true,
+            "sha256": "d17a4a33695ea56b95b424f32e2bafdb014badc8625ede6c8e5569573882a43d"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-huawei-lts",
+            "path": "db/plugins/logging-huawei-lts/h2/preflight.sql",
+            "exists": true,
+            "sha256": "ecbbdb85be4e47f05261a42e3231da7f6a257ef9ee5bdb6b0d22126458bf6382"
+          }
+        }
+      },
+      {
+        "dialect": "mysql",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-huawei-lts",
+            "path": "db/plugins/logging-huawei-lts/mysql/install.sql",
+            "exists": true,
+            "sha256": "3e57b1a8633db7bc239ca3e2d83c13d2d19a45fe4a91162feb282bac9b50b58f"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-huawei-lts",
+            "path": "db/plugins/logging-huawei-lts/mysql/preflight.sql",
+            "exists": true,
+            "sha256": "d9ddc2b169dabaf9122707bd56d485cf011147d06dd0a212937174211e0c826f"
+          }
+        }
+      },
+      {
+        "dialect": "ob",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-huawei-lts",
+            "path": "db/plugins/logging-huawei-lts/ob/install.sql",
+            "exists": true,
+            "sha256": "579931302099f6ec2383f1e2eb266f58811966e1f45f703548cd249d82430422"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-huawei-lts",
+            "path": "db/plugins/logging-huawei-lts/ob/preflight.sql",
+            "exists": true,
+            "sha256": "7dbca131eaae9b665119242e914384cbb510235c730e5c4d7c9b2a4d5bac8840"
+          }
+        }
+      },
+      {
+        "dialect": "og",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-huawei-lts",
+            "path": "db/plugins/logging-huawei-lts/og/install.sql",
+            "exists": true,
+            "sha256": "28223b6eff5800dfdb3e93eaad9f97b8158eafffb93c39d5392c330b49dc9c2d"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-huawei-lts",
+            "path": "db/plugins/logging-huawei-lts/og/preflight.sql",
+            "exists": true,
+            "sha256": "edd00d7a12f0d95a4747c191488c2a51ab3b53a915ac7d777da39d661a69b9bd"
+          }
+        }
+      },
+      {
+        "dialect": "oracle",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-huawei-lts",
+            "path": "db/plugins/logging-huawei-lts/oracle/install.sql",
+            "exists": true,
+            "sha256": "c1dd1b86a62b141220c91c02e556c0f5a210a3a2a15ecdd4354b337c774e22dd"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-huawei-lts",
+            "path": "db/plugins/logging-huawei-lts/oracle/preflight.sql",
+            "exists": true,
+            "sha256": "f87bf1010fb8053775846abc10cf8566b0d115650c2a3d08da476de9ec0db0ca"
+          }
+        }
+      },
+      {
+        "dialect": "pg",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-huawei-lts",
+            "path": "db/plugins/logging-huawei-lts/pg/install.sql",
+            "exists": true,
+            "sha256": "dcb7c3fe719acfb5897318f43ba54f56bb14733c7a01db992a06ef6627704a6a"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-huawei-lts",
+            "path": "db/plugins/logging-huawei-lts/pg/preflight.sql",
+            "exists": true,
+            "sha256": "690d67768beb67b83b034a0736a15acbabb474c3589cd482ccf0a09213c07c17"
+          }
+        }
+      }
+    ],
+    "archive": {
+      "kind": "sql-historical-archive",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "db/plugins/logging-huawei-lts/archive/historical-upgrade-fragments.sql",
+        "exists": true,
+        "sha256": "39002f33de32cec44451db9d4890e442c9c0773ce71ed9585b3e4714aac4a7c6"
+      }
+    },
+    "dialectRows": {
+      "h2": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 20,
+          "plugin": 1,
+          "plugin_handle": 22,
+          "resource": 20
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822180"
+          ],
+          "permission": [
+            "1572525965658820609",
+            "1572525965658820610",
+            "1572525965658820611",
+            "1572525965658820612",
+            "1572525965658820613",
+            "1572525965658820614",
+            "1572525965658820615",
+            "1572525965658820616",
+            "1572525965658820617",
+            "1572525965658820618",
+            "1792779493537148958",
+            "1792779493537148959",
+            "1792779493537148960",
+            "1792779493537148961",
+            "1792779493537148962",
+            "1792779493537148963",
+            "1792779493537148964",
+            "1792779493537148965",
+            "1792779493537148966",
+            "1792779493537148967"
+          ],
+          "plugin": [
+            "43"
+          ],
+          "plugin_handle": [
+            "1570591265492312065",
+            "1570591265492312066",
+            "1570591265492312067",
+            "1570591265492312068",
+            "1570591265492312069",
+            "1570591265492312070",
+            "1570591265492312071",
+            "1570591265492312072",
+            "1570591265492312073",
+            "1570591265492312074",
+            "1570591265492312075",
+            "1570591265492312076",
+            "1570591265492312077",
+            "1570591265492312078",
+            "1570591265492312079",
+            "1570591265492312080",
+            "1570591265492312081",
+            "1570591265492312082",
+            "1570591265492312083",
+            "1570591265492312084",
+            "1722804548510507012",
+            "1722804548510507013"
+          ],
+          "resource": [
+            "1676471945048780800",
+            "1676471945124278272",
+            "1676471945124278273",
+            "1676471945124278274",
+            "1676471945124278275",
+            "1676471945124278276",
+            "1676471945124278277",
+            "1676471945124278278",
+            "1676471945124278279",
+            "1676471945124278280",
+            "1792749362361954343",
+            "1792749362445840438",
+            "1792749362445840439",
+            "1792749362445840440",
+            "1792749362445840441",
+            "1792749362445840442",
+            "1792749362445840443",
+            "1792749362445840444",
+            "1792749362445840445",
+            "1792749362445840446"
+          ]
+        },
+        "fallbackTables": [
+          "resource",
+          "permission"
+        ]
+      },
+      "mysql": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 20,
+          "plugin": 1,
+          "plugin_handle": 22,
+          "resource": 20
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822180"
+          ],
+          "permission": [
+            "1572525965658820609",
+            "1572525965658820610",
+            "1572525965658820611",
+            "1572525965658820612",
+            "1572525965658820613",
+            "1572525965658820614",
+            "1572525965658820615",
+            "1572525965658820616",
+            "1572525965658820617",
+            "1572525965658820618",
+            "1792779493537148958",
+            "1792779493537148959",
+            "1792779493537148960",
+            "1792779493537148961",
+            "1792779493537148962",
+            "1792779493537148963",
+            "1792779493537148964",
+            "1792779493537148965",
+            "1792779493537148966",
+            "1792779493537148967"
+          ],
+          "plugin": [
+            "43"
+          ],
+          "plugin_handle": [
+            "1676472478492946432",
+            "1676473313352380416",
+            "1676473453001732096",
+            "1676473657121730560",
+            "1676474055324758016",
+            "1676474340008947712",
+            "1676474810655993856",
+            "1676475051081887744",
+            "1676475293634293760",
+            "1676475611772252160",
+            "1676475862545494016",
+            "1676476047950508032",
+            "1676476207938039808",
+            "1676476515359551488",
+            "1676476639779385344",
+            "1676477312923234304",
+            "1676477594361032704",
+            "1676477594361032705",
+            "1676477594361032706",
+            "1676477594361032707",
+            "1722804548510507013",
+            "1722804548510507014"
+          ],
+          "resource": [
+            "1676471945048780800",
+            "1676471945124278272",
+            "1676471945124278273",
+            "1676471945124278274",
+            "1676471945124278275",
+            "1676471945124278276",
+            "1676471945124278277",
+            "1676471945124278278",
+            "1676471945124278279",
+            "1676471945124278280",
+            "1792749362361954343",
+            "1792749362445840438",
+            "1792749362445840439",
+            "1792749362445840440",
+            "1792749362445840441",
+            "1792749362445840442",
+            "1792749362445840443",
+            "1792749362445840444",
+            "1792749362445840445",
+            "1792749362445840446"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "ob": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 20,
+          "plugin": 1,
+          "plugin_handle": 22,
+          "resource": 20
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822180"
+          ],
+          "permission": [
+            "1572525965658820609",
+            "1572525965658820610",
+            "1572525965658820611",
+            "1572525965658820612",
+            "1572525965658820613",
+            "1572525965658820614",
+            "1572525965658820615",
+            "1572525965658820616",
+            "1572525965658820617",
+            "1572525965658820618",
+            "1792779493537148958",
+            "1792779493537148959",
+            "1792779493537148960",
+            "1792779493537148961",
+            "1792779493537148962",
+            "1792779493537148963",
+            "1792779493537148964",
+            "1792779493537148965",
+            "1792779493537148966",
+            "1792779493537148967"
+          ],
+          "plugin": [
+            "43"
+          ],
+          "plugin_handle": [
+            "1676472478492946432",
+            "1676473313352380416",
+            "1676473453001732096",
+            "1676473657121730560",
+            "1676474055324758016",
+            "1676474340008947712",
+            "1676474810655993856",
+            "1676475051081887744",
+            "1676475293634293760",
+            "1676475611772252160",
+            "1676475862545494016",
+            "1676476047950508032",
+            "1676476207938039808",
+            "1676476515359551488",
+            "1676476639779385344",
+            "1676477312923234304",
+            "1676477594361032704",
+            "1676477594361032705",
+            "1676477594361032706",
+            "1676477594361032707",
+            "1722804548510507013",
+            "1722804548510507014"
+          ],
+          "resource": [
+            "1676471945048780800",
+            "1676471945124278272",
+            "1676471945124278273",
+            "1676471945124278274",
+            "1676471945124278275",
+            "1676471945124278276",
+            "1676471945124278277",
+            "1676471945124278278",
+            "1676471945124278279",
+            "1676471945124278280",
+            "1792749362361954343",
+            "1792749362445840438",
+            "1792749362445840439",
+            "1792749362445840440",
+            "1792749362445840441",
+            "1792749362445840442",
+            "1792749362445840443",
+            "1792749362445840444",
+            "1792749362445840445",
+            "1792749362445840446"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "og": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 22,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822180"
+          ],
+          "permission": [
+            "1572525965658820609",
+            "1572525965658820610",
+            "1572525965658820611",
+            "1572525965658820612",
+            "1572525965658820613",
+            "1572525965658820614",
+            "1572525965658820615",
+            "1572525965658820616",
+            "1572525965658820617",
+            "1572525965658820618"
+          ],
+          "plugin": [
+            "43"
+          ],
+          "plugin_handle": [
+            "1570591265492312065",
+            "1570591265492312066",
+            "1570591265492312067",
+            "1570591265492312068",
+            "1570591265492312069",
+            "1570591265492312070",
+            "1570591265492312071",
+            "1570591265492312072",
+            "1570591265492312073",
+            "1570591265492312074",
+            "1570591265492312075",
+            "1570591265492312076",
+            "1570591265492312077",
+            "1570591265492312078",
+            "1570591265492312079",
+            "1570591265492312080",
+            "1570591265492312081",
+            "1570591265492312082",
+            "1570591265492312083",
+            "1570591265492312084",
+            "1722804548510507011",
+            "1722804548510507012"
+          ],
+          "resource": [
+            "1572525965625266177",
+            "1572525965625266178",
+            "1572525965625266179",
+            "1572525965625266180",
+            "1572525965625266181",
+            "1572525965625266182",
+            "1572525965625266183",
+            "1572525965625266184",
+            "1572525965625266185",
+            "1572525965625266186"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "oracle": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 20,
+          "plugin": 1,
+          "plugin_handle": 22,
+          "resource": 20
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822180"
+          ],
+          "permission": [
+            "1572525965658820609",
+            "1572525965658820610",
+            "1572525965658820611",
+            "1572525965658820612",
+            "1572525965658820613",
+            "1572525965658820614",
+            "1572525965658820615",
+            "1572525965658820616",
+            "1572525965658820617",
+            "1572525965658820618",
+            "1792779493537148958",
+            "1792779493537148959",
+            "1792779493537148960",
+            "1792779493537148961",
+            "1792779493537148962",
+            "1792779493537148963",
+            "1792779493537148964",
+            "1792779493537148965",
+            "1792779493537148966",
+            "1792779493537148967"
+          ],
+          "plugin": [
+            "43"
+          ],
+          "plugin_handle": [
+            "1529402613204172863",
+            "1529402613204172864",
+            "1529402613204172865",
+            "1529402613204172866",
+            "1529402613204172867",
+            "1529402613204172868",
+            "1529402613204172869",
+            "1529402613204172870",
+            "1529402613204172871",
+            "1529402613204172872",
+            "1529402613204172873",
+            "1529402613204172874",
+            "1529402613204172875",
+            "1529402613204172876",
+            "1529402613204172877",
+            "1529402613204172878",
+            "1529402613204172879",
+            "1529402613204172880",
+            "1529402613204172881",
+            "1529402613204172882",
+            "1722804548510507012",
+            "1722804548510507013"
+          ],
+          "resource": [
+            "1676471945048780800",
+            "1676471945124278272",
+            "1676471945124278273",
+            "1676471945124278274",
+            "1676471945124278275",
+            "1676471945124278276",
+            "1676471945124278277",
+            "1676471945124278278",
+            "1676471945124278279",
+            "1676471945124278280",
+            "1792749362361954343",
+            "1792749362445840438",
+            "1792749362445840439",
+            "1792749362445840440",
+            "1792749362445840441",
+            "1792749362445840442",
+            "1792749362445840443",
+            "1792749362445840444",
+            "1792749362445840445",
+            "1792749362445840446"
+          ]
+        },
+        "fallbackTables": [
+          "resource",
+          "permission"
+        ]
+      },
+      "pg": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 22,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822180"
+          ],
+          "permission": [
+            "1572525965658820609",
+            "1572525965658820610",
+            "1572525965658820611",
+            "1572525965658820612",
+            "1572525965658820613",
+            "1572525965658820614",
+            "1572525965658820615",
+            "1572525965658820616",
+            "1572525965658820617",
+            "1572525965658820618"
+          ],
+          "plugin": [
+            "43"
+          ],
+          "plugin_handle": [
+            "1570591265492312065",
+            "1570591265492312066",
+            "1570591265492312067",
+            "1570591265492312068",
+            "1570591265492312069",
+            "1570591265492312070",
+            "1570591265492312071",
+            "1570591265492312072",
+            "1570591265492312073",
+            "1570591265492312074",
+            "1570591265492312075",
+            "1570591265492312076",
+            "1570591265492312077",
+            "1570591265492312078",
+            "1570591265492312079",
+            "1570591265492312080",
+            "1570591265492312081",
+            "1570591265492312082",
+            "1570591265492312083",
+            "1570591265492312084",
+            "1722804548510507011",
+            "1722804548510507012"
+          ],
+          "resource": [
+            "1572525965625266177",
+            "1572525965625266178",
+            "1572525965625266179",
+            "1572525965625266180",
+            "1572525965625266181",
+            "1572525965625266182",
+            "1572525965625266183",
+            "1572525965625266184",
+            "1572525965625266185",
+            "1572525965625266186"
+          ]
+        },
+        "fallbackTables": []
+      }
+    },
+    "idRemaps": {},
+    "omittedDuplicateNaturalKeys": {}
+  },
+  "counts": {
+    "originalAssets": 18,
+    "originalScenarios": 7,
+    "generatedSupportAssets": 24,
+    "installPreflightPairs": 6,
+    "archives": 1
+  },
+  "originalAssets": [
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/pom.xml",
+        "sha256": "9de8cb3934c873cb4b7adeb1c4bcecfe57dcbcac7334a67d599f8c18e63e35c8"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/pom.xml",
+        "exists": true,
+        "sha256": "18bd67a17d6874ebc0363a14683b4e6d8d372a2a8b39073089e2146fdc1842ec"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/main/java/org/apache/shenyu/plugin/huawei/lts/LoggingHuaweiLtsPlugin.java",
+        "sha256": "f450ef6a51fddc2dac52b94e8382d2cb986a22bb28a25c8f1e47ca959afeb340"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/main/java/org/apache/shenyu/plugin/huawei/lts/LoggingHuaweiLtsPlugin.java",
+        "exists": true,
+        "sha256": "f450ef6a51fddc2dac52b94e8382d2cb986a22bb28a25c8f1e47ca959afeb340"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/main/java/org/apache/shenyu/plugin/huawei/lts/client/HuaweiLtsLogCollectClient.java",
+        "sha256": "ed07c442f96feaa18f0e3f43447af63f926ef1d23a67b63fb6cbfb0dc8e01413"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/main/java/org/apache/shenyu/plugin/huawei/lts/client/HuaweiLtsLogCollectClient.java",
+        "exists": true,
+        "sha256": "ed07c442f96feaa18f0e3f43447af63f926ef1d23a67b63fb6cbfb0dc8e01413"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/main/java/org/apache/shenyu/plugin/huawei/lts/collector/HuaweiLtsLogCollector.java",
+        "sha256": "c5594783d1d2aec0e9dffa35973cca2d18b5fd9783dc9e2c38c7ed9457349f9c"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/main/java/org/apache/shenyu/plugin/huawei/lts/collector/HuaweiLtsLogCollector.java",
+        "exists": true,
+        "sha256": "c5594783d1d2aec0e9dffa35973cca2d18b5fd9783dc9e2c38c7ed9457349f9c"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/main/java/org/apache/shenyu/plugin/huawei/lts/config/HuaweiLogCollectConfig.java",
+        "sha256": "696a195030b7a408e1c1309dc3d673120c54a73643b5600defd7417f74849822"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/main/java/org/apache/shenyu/plugin/huawei/lts/config/HuaweiLogCollectConfig.java",
+        "exists": true,
+        "sha256": "696a195030b7a408e1c1309dc3d673120c54a73643b5600defd7417f74849822"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/main/java/org/apache/shenyu/plugin/huawei/lts/handler/LoggingHuaweiLtsPluginDataHandler.java",
+        "sha256": "425ba38a559c342f324fb6d632a84e9c56795f8fb90cb40a32a2d8399a123339"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/main/java/org/apache/shenyu/plugin/huawei/lts/handler/LoggingHuaweiLtsPluginDataHandler.java",
+        "exists": true,
+        "sha256": "425ba38a559c342f324fb6d632a84e9c56795f8fb90cb40a32a2d8399a123339"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/LoggingHuaweiLtsPluginTest.java",
+        "sha256": "ec81333d0699c91b2b1ace798da16d5bf8349c8c7dd94585bc8304a01d35dbcd"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/LoggingHuaweiLtsPluginTest.java",
+        "exists": true,
+        "sha256": "ec81333d0699c91b2b1ace798da16d5bf8349c8c7dd94585bc8304a01d35dbcd"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/client/CloudLogCallbackBackpressureTest.java",
+        "sha256": "05482a181e7cafdc10ffef97bc6156e9965dfef43637f705c960dee70f70f472"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/client/CloudLogCallbackBackpressureTest.java",
+        "exists": true,
+        "sha256": "05482a181e7cafdc10ffef97bc6156e9965dfef43637f705c960dee70f70f472"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/client/HuaweiLtsLogCollectClientTest.java",
+        "sha256": "5864aeb5da57d8466c9e7f87f900d15d5e5c5e904547b571c830be69dcf58cc7"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/client/HuaweiLtsLogCollectClientTest.java",
+        "exists": true,
+        "sha256": "5864aeb5da57d8466c9e7f87f900d15d5e5c5e904547b571c830be69dcf58cc7"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/collector/HuaweiLtsLogCollectorTest.java",
+        "sha256": "63c704cbba94d2a39675024c58e2f660f41c6680000ec14257b2a69b5cdb3af4"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/collector/HuaweiLtsLogCollectorTest.java",
+        "exists": true,
+        "sha256": "63c704cbba94d2a39675024c58e2f660f41c6680000ec14257b2a69b5cdb3af4"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/config/HuaweiLogCollectConfigTest.java",
+        "sha256": "04c26dcfe1486118d09b5ada22ab7041a15b373a00e02993a5ab2ca0504bd36f"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/config/HuaweiLogCollectConfigTest.java",
+        "exists": true,
+        "sha256": "04c26dcfe1486118d09b5ada22ab7041a15b373a00e02993a5ab2ca0504bd36f"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/handler/LoggingHuaweiLtsPluginDataHandlerTest.java",
+        "sha256": "31d251e3e33e8991b1ee133f10f6437c70e06bc42a3afd3f427e278482a768dd"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/handler/LoggingHuaweiLtsPluginDataHandlerTest.java",
+        "exists": true,
+        "sha256": "31d251e3e33e8991b1ee133f10f6437c70e06bc42a3afd3f427e278482a768dd"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-huawei-lts/pom.xml",
+        "sha256": "d97b4fddc1e08cbaa742a6e8c770b2156344280e820e3ed0b513d9f19335dc8c"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-huawei-lts/pom.xml",
+        "exists": true,
+        "sha256": "e26133f329e1b88d6a17ce3672474cd523d6efcaeee7b4f2be3046e39ccd6896"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-huawei-lts/src/main/java/org/apache/shenyu/springboot/starter/plugin/logging/huawei/lts/LoggingHuaweiLtsPluginConfiguration.java",
+        "sha256": "a8fe158202b22ed9777ef5d0ef070f835d6f04682802f5f8b1065e74afd43050"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-huawei-lts/src/main/java/org/apache/shenyu/springboot/starter/plugin/logging/huawei/lts/LoggingHuaweiLtsPluginConfiguration.java",
+        "exists": true,
+        "sha256": "a8fe158202b22ed9777ef5d0ef070f835d6f04682802f5f8b1065e74afd43050"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-huawei-lts/src/main/resources/META-INF/spring.factories",
+        "sha256": "a6d9be33cfe6a7ff57fe65c4e92b4ad1ecae46c2768923b48a3c37f61b213de0"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-huawei-lts/src/main/resources/META-INF/spring.factories",
+        "exists": true,
+        "sha256": "a6d9be33cfe6a7ff57fe65c4e92b4ad1ecae46c2768923b48a3c37f61b213de0"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-huawei-lts/src/main/resources/META-INF/spring.provides",
+        "sha256": "a650b53de07430aff1bc5e250693ca8a24604c90450a07e3d7ed871dd5f81145"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-huawei-lts/src/main/resources/META-INF/spring.provides",
+        "exists": true,
+        "sha256": "a650b53de07430aff1bc5e250693ca8a24604c90450a07e3d7ed871dd5f81145"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-huawei-lts/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+        "sha256": "5f85361f8b242505fa0f05d93d88b7281ce1bfb8b1ba3efdfbc5e1735e9cc6a3"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-huawei-lts/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+        "exists": true,
+        "sha256": "5f85361f8b242505fa0f05d93d88b7281ce1bfb8b1ba3efdfbc5e1735e9cc6a3"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/springboot/starter/plugin/logging/huawei/lts/LoggingHuaweiLtsPluginConfigurationTest.java",
+        "sha256": "424d5d1950934a0feaa4d00cca500f1e39115da8bf4f2b14ec63360629740c90"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/springboot/starter/plugin/logging/huawei/lts/LoggingHuaweiLtsPluginConfigurationTest.java",
+        "exists": true,
+        "sha256": "424d5d1950934a0feaa4d00cca500f1e39115da8bf4f2b14ec63360629740c90"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    }
+  ],
+  "generatedSupportAssets": [
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "db/plugins/logging-huawei-lts/PROVENANCE.md",
+        "exists": true,
+        "sha256": "aac5228b3d1376d3e651c5d883f160384893e7a1af239b9a8183fa15836115ce"
+      }
+    },
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "db/plugins/logging-huawei-lts/README.md",
+        "exists": true,
+        "sha256": "904f336cbd1245c47cb812f0d53b6073667f3659fdf066ae12128cbd9cbdd84d"
+      }
+    },
+    {
+      "kind": "sql-historical-archive",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "db/plugins/logging-huawei-lts/archive/historical-upgrade-fragments.sql",
+        "exists": true,
+        "sha256": "39002f33de32cec44451db9d4890e442c9c0773ce71ed9585b3e4714aac4a7c6"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "db/plugins/logging-huawei-lts/h2/install.sql",
+        "exists": true,
+        "sha256": "d17a4a33695ea56b95b424f32e2bafdb014badc8625ede6c8e5569573882a43d"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "db/plugins/logging-huawei-lts/h2/preflight.sql",
+        "exists": true,
+        "sha256": "ecbbdb85be4e47f05261a42e3231da7f6a257ef9ee5bdb6b0d22126458bf6382"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "db/plugins/logging-huawei-lts/mysql/install.sql",
+        "exists": true,
+        "sha256": "3e57b1a8633db7bc239ca3e2d83c13d2d19a45fe4a91162feb282bac9b50b58f"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "db/plugins/logging-huawei-lts/mysql/preflight.sql",
+        "exists": true,
+        "sha256": "d9ddc2b169dabaf9122707bd56d485cf011147d06dd0a212937174211e0c826f"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "db/plugins/logging-huawei-lts/ob/install.sql",
+        "exists": true,
+        "sha256": "579931302099f6ec2383f1e2eb266f58811966e1f45f703548cd249d82430422"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "db/plugins/logging-huawei-lts/ob/preflight.sql",
+        "exists": true,
+        "sha256": "7dbca131eaae9b665119242e914384cbb510235c730e5c4d7c9b2a4d5bac8840"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "db/plugins/logging-huawei-lts/og/install.sql",
+        "exists": true,
+        "sha256": "28223b6eff5800dfdb3e93eaad9f97b8158eafffb93c39d5392c330b49dc9c2d"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "db/plugins/logging-huawei-lts/og/preflight.sql",
+        "exists": true,
+        "sha256": "edd00d7a12f0d95a4747c191488c2a51ab3b53a915ac7d777da39d661a69b9bd"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "db/plugins/logging-huawei-lts/oracle/install.sql",
+        "exists": true,
+        "sha256": "c1dd1b86a62b141220c91c02e556c0f5a210a3a2a15ecdd4354b337c774e22dd"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "db/plugins/logging-huawei-lts/oracle/preflight.sql",
+        "exists": true,
+        "sha256": "f87bf1010fb8053775846abc10cf8566b0d115650c2a3d08da476de9ec0db0ca"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "db/plugins/logging-huawei-lts/pg/install.sql",
+        "exists": true,
+        "sha256": "dcb7c3fe719acfb5897318f43ba54f56bb14733c7a01db992a06ef6627704a6a"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "db/plugins/logging-huawei-lts/pg/preflight.sql",
+        "exists": true,
+        "sha256": "690d67768beb67b83b034a0736a15acbabb474c3589cd482ccf0a09213c07c17"
+      }
+    },
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "db/plugins/logging-huawei-lts/row-manifest.json",
+        "exists": true,
+        "sha256": "95e3f67b216f5d5124ceac136cb76c65cac1dd54440728a6633270c83ff057c0"
+      }
+    },
+    {
+      "kind": "migration-doc",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "docs/logging-huawei-lts-migration.md",
+        "exists": true,
+        "sha256": "e1d4fdc58d0f0579a970bf4e20b02498559354ad0b48659d7de822a689970c2f"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "script/plugin-store/assert-store-fixtures.sh",
+        "exists": true,
+        "sha256": "5d83d6dcb2a3eabb39929fcb93352f6dfe7da20c6d9b5d43ae07563ad2594543"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "script/plugin-store/build-h2-store-sql-fixture.py",
+        "exists": true,
+        "sha256": "2a8be34352851230d43778142db814aa38ede87466db1afe81c49b513f524ecf"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "script/plugin-store/docker-compose.original-suite.yml",
+        "exists": true,
+        "sha256": "40140ff81d1ab4d80884f90bcb231db324e6ce39e8a68058bb74d4da30baee20"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "script/plugin-store/h2-store-sql-fixture.md",
+        "exists": true,
+        "sha256": "26cdad1a4c968fa793a6de5fd448491ba95511db3eb9af68c0a2da5fa061d197"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "script/plugin-store/plugin-sql-seed-manifest.json",
+        "exists": true,
+        "sha256": "76c188143c8cf3ea58ace527bea48bfd645a078ec31e8af7eb2207175394f57f"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "script/plugin-store/run-core-compose.sh",
+        "exists": true,
+        "sha256": "a0cfec67424cff25a0bd1a925ff578979efb2b3fe42e98e455184d7926a8bab3"
+      }
+    },
+    {
+      "kind": "shared-test-helper",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-store-test-support/src/main/java/org/apache/shenyu/plugin/store/test/support/GatewayFixtures.java",
+        "exists": true,
+        "sha256": "bf9bfe9f7aeae47a838f837e3611eb26901ab7b6988452505df70c4390551cbd"
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/LoggingHuaweiLtsPluginTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/LoggingHuaweiLtsPluginTest.java"
+      },
+      "methods": [
+        "testDoExecute",
+        "testGetOrder",
+        "testNamed"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/client/CloudLogCallbackBackpressureTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/client/CloudLogCallbackBackpressureTest.java"
+      },
+      "methods": [],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/client/HuaweiLtsLogCollectClientTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/client/HuaweiLtsLogCollectClientTest.java"
+      },
+      "methods": [
+        "testInitClient",
+        "testGiveUpExtraLongSingleLogUsesDedicatedConfig",
+        "testConsume",
+        "testCloseShutsDownCallbackExecutorAfterPartialInitialization",
+        "testCloseShutsDownCallbackExecutorWhenProducerFails"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/collector/HuaweiLtsLogCollectorTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/collector/HuaweiLtsLogCollectorTest.java"
+      },
+      "methods": [
+        "testAbstractLogCollector",
+        "testGetLogConsumeClient"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/config/HuaweiLogCollectConfigTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/config/HuaweiLogCollectConfigTest.java"
+      },
+      "methods": [
+        "testLogCollectorConfigHost",
+        "testGenericConfigFieldsParticipateInEquality"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/handler/LoggingHuaweiLtsPluginDataHandlerTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/plugin/huawei/lts/handler/LoggingHuaweiLtsPluginDataHandlerTest.java"
+      },
+      "methods": [
+        "testHandlerPlugin",
+        "testPluginNamed",
+        "testGetHuaweiLtsLogCollectClient"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-huawei-lts",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/springboot/starter/plugin/logging/huawei/lts/LoggingHuaweiLtsPluginConfigurationTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-huawei-lts",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-huawei-lts/src/test/java/org/apache/shenyu/springboot/starter/plugin/logging/huawei/lts/LoggingHuaweiLtsPluginConfigurationTest.java"
+      },
+      "methods": [
+        "testLoggingPlugin"
+      ],
+      "originalMayContainDisabledAssertions": false
+    }
+  ],
+  "notes": [
+    "Shared IT/E2E helper closure is recorded as support assets where present; it is profile-scoped test infrastructure, not production runtime code.",
+    "File presence plus hash validation does not claim runtime parity without a matching execution log."
+  ]
+}
