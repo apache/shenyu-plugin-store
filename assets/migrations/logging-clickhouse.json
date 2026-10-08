@@ -1,0 +1,1364 @@
+{
+  "schemaVersion": 1,
+  "slug": "logging-clickhouse",
+  "issue": 7304,
+  "kind": "plugin",
+  "provenance": {
+    "sourceRepository": "apache/shenyu",
+    "sourceCommit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+    "store": {
+      "repository": "apache/shenyu-plugin-store",
+      "branch": "cloudbase/migrate-logging-clickhouse",
+      "head": "b75edd04f072b547fdf458febefdcbd0ea26c52f",
+      "pullRequest": "https://github.com/apache/shenyu-plugin-store/pull/15"
+    },
+    "coreRemovalDraft": {
+      "repository": "apache/shenyu",
+      "branch": "cloudbase/externalize-logging-clickhouse",
+      "pullRequest": "https://github.com/apache/shenyu/pull/7505",
+      "role": "core-removal-draft"
+    }
+  },
+  "modulePrefixes": [
+    "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse"
+  ],
+  "starterPrefixes": [
+    "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-clickhouse"
+  ],
+  "sql": {
+    "ownership": "plugin metadata rows and plugin-specific upgrade fragments",
+    "pluginId": "38",
+    "pluginName": "loggingClickHouse",
+    "sourceCommit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+    "installPreflightPairs": [
+      {
+        "dialect": "h2",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-clickhouse",
+            "path": "db/plugins/logging-clickhouse/h2/install.sql",
+            "exists": true,
+            "sha256": "12d227a0844ce2a248d77b1840a433b8f71e0cbbc51bf232efc852441dacd665"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-clickhouse",
+            "path": "db/plugins/logging-clickhouse/h2/preflight.sql",
+            "exists": true,
+            "sha256": "3626ea612108f4e0b9892f9c15d29b538d28545d451ae7eb8cae8604b7c295fa"
+          }
+        }
+      },
+      {
+        "dialect": "mysql",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-clickhouse",
+            "path": "db/plugins/logging-clickhouse/mysql/install.sql",
+            "exists": true,
+            "sha256": "17704248932e11b9c4dc2c5e8f95db0cf8610a445e7509179095e9cfff082567"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-clickhouse",
+            "path": "db/plugins/logging-clickhouse/mysql/preflight.sql",
+            "exists": true,
+            "sha256": "aad08b004ba2474803cb861803af7ae7b3e527a4e67e7ed4dec096a42c1666a9"
+          }
+        }
+      },
+      {
+        "dialect": "ob",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-clickhouse",
+            "path": "db/plugins/logging-clickhouse/ob/install.sql",
+            "exists": true,
+            "sha256": "d3d790b487f0732087134a7d6de879a354f539bbbb5c8dca62b18c9c48428a4a"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-clickhouse",
+            "path": "db/plugins/logging-clickhouse/ob/preflight.sql",
+            "exists": true,
+            "sha256": "295896ac406b068acef19a95f20f4bd8c7ba3cd368f1a7b89463985d2b6141e4"
+          }
+        }
+      },
+      {
+        "dialect": "og",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-clickhouse",
+            "path": "db/plugins/logging-clickhouse/og/install.sql",
+            "exists": true,
+            "sha256": "983f02545317b0fd2182fe69fc87b6ceab6f7a54f1dcecea6e5c517e1ad49110"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-clickhouse",
+            "path": "db/plugins/logging-clickhouse/og/preflight.sql",
+            "exists": true,
+            "sha256": "61aba06eb073a819336f28426714e0a1c1efc878f62649862146997e19b0886b"
+          }
+        }
+      },
+      {
+        "dialect": "oracle",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-clickhouse",
+            "path": "db/plugins/logging-clickhouse/oracle/install.sql",
+            "exists": true,
+            "sha256": "b0ea84b7a9782e7bb86c5836c6b405c165dc67308719dd955c23b63b31bc8ef0"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-clickhouse",
+            "path": "db/plugins/logging-clickhouse/oracle/preflight.sql",
+            "exists": true,
+            "sha256": "32c9305f4440a2aa419c656421d4c968d221f88c0f20a82baa834dddcb98082e"
+          }
+        }
+      },
+      {
+        "dialect": "pg",
+        "install": {
+          "kind": "sql-install",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-clickhouse",
+            "path": "db/plugins/logging-clickhouse/pg/install.sql",
+            "exists": true,
+            "sha256": "d6d11ef830d72a0a35326b8539b8207cfc2d19829d80ac9b14554271b9e09fad"
+          }
+        },
+        "preflight": {
+          "kind": "sql-preflight",
+          "destination": {
+            "repository": "apache/shenyu-plugin-store",
+            "worktreeId": "store-logging-clickhouse",
+            "path": "db/plugins/logging-clickhouse/pg/preflight.sql",
+            "exists": true,
+            "sha256": "d016f09385e51eede7f7cbfe089d60acb2aa6a610ffb6b6e3621a9cbab13017e"
+          }
+        }
+      }
+    ],
+    "archive": {
+      "kind": "sql-historical-archive",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "db/plugins/logging-clickhouse/archive/historical-upgrade-fragments.sql",
+        "exists": true,
+        "sha256": "5a555971b885f6c0b9ced080c5ca8df37d42498195507df4732abb59483dfd73"
+      }
+    },
+    "dialectRows": {
+      "h2": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 13,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822175"
+          ],
+          "permission": [
+            "1534585531389583411",
+            "1534585531389583412",
+            "1534585531389583413",
+            "1534585531389583414",
+            "1534585531389583415",
+            "1534585531389583416",
+            "1534585531389583417",
+            "1534585531389583418",
+            "1534585531389583419",
+            "1534585531389583420"
+          ],
+          "plugin": [
+            "38"
+          ],
+          "plugin_handle": [
+            "1529402613204172954",
+            "1529402613204172955",
+            "1529402613204172956",
+            "1529402613204172890",
+            "1529402613204172891",
+            "1529402613204172892",
+            "1529402613204172894",
+            "1529402613204172895",
+            "389402613204172896",
+            "389402613204172897",
+            "1529402613204172777",
+            "1722804548510507018",
+            "1722804548510507019"
+          ],
+          "resource": [
+            "1534585531108565043",
+            "1534585531108565044",
+            "1534585531108565045",
+            "1534585531108565046",
+            "1534585531108565047",
+            "1534585531108565048",
+            "1534585531108565049",
+            "1534585531108565050",
+            "1534585531108565051",
+            "1534585531108565052"
+          ]
+        },
+        "fallbackTables": [
+          "resource",
+          "permission"
+        ]
+      },
+      "mysql": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 13,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822175"
+          ],
+          "permission": [
+            "1534585531389583411",
+            "1534585531389583412",
+            "1534585531389583413",
+            "1534585531389583414",
+            "1534585531389583415",
+            "1534585531389583416",
+            "1534585531389583417",
+            "1534585531389583418",
+            "1534585531389583419",
+            "1534585531389583420"
+          ],
+          "plugin": [
+            "38"
+          ],
+          "plugin_handle": [
+            "1529402613204172767",
+            "1529402613204172768",
+            "1529402613204172769",
+            "1529402613204172770",
+            "1529402613204172771",
+            "1529402613204172772",
+            "1529402613204172773",
+            "1529402613204172774",
+            "1529402613204172775",
+            "1529402613204172776",
+            "1529402613204172777",
+            "1722804548510507019",
+            "1722804548510507020"
+          ],
+          "resource": [
+            "1534585531108565043",
+            "1534585531108565044",
+            "1534585531108565045",
+            "1534585531108565046",
+            "1534585531108565047",
+            "1534585531108565048",
+            "1534585531108565049",
+            "1534585531108565050",
+            "1534585531108565051",
+            "1534585531108565052"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "ob": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 13,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822175"
+          ],
+          "permission": [
+            "1534585531389583411",
+            "1534585531389583412",
+            "1534585531389583413",
+            "1534585531389583414",
+            "1534585531389583415",
+            "1534585531389583416",
+            "1534585531389583417",
+            "1534585531389583418",
+            "1534585531389583419",
+            "1534585531389583420"
+          ],
+          "plugin": [
+            "38"
+          ],
+          "plugin_handle": [
+            "1529402613204172767",
+            "1529402613204172768",
+            "1529402613204172769",
+            "1529402613204172770",
+            "1529402613204172771",
+            "1529402613204172772",
+            "1529402613204172773",
+            "1529402613204172774",
+            "1529402613204172775",
+            "1529402613204172776",
+            "1529402613204172777",
+            "1722804548510507019",
+            "1722804548510507020"
+          ],
+          "resource": [
+            "1534585531108565043",
+            "1534585531108565044",
+            "1534585531108565045",
+            "1534585531108565046",
+            "1534585531108565047",
+            "1534585531108565048",
+            "1534585531108565049",
+            "1534585531108565050",
+            "1534585531108565051",
+            "1534585531108565052"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "og": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 13,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822175"
+          ],
+          "permission": [
+            "1529403932886044820",
+            "1529403932886044821",
+            "1529403932886044822",
+            "1529403932886044823",
+            "1529403932886044824",
+            "1529403932886044825",
+            "1529403932886044826",
+            "1529403932886044827",
+            "1529403932886044828",
+            "1529403932886044829"
+          ],
+          "plugin": [
+            "38"
+          ],
+          "plugin_handle": [
+            "1529403902783524997",
+            "1529403902783524998",
+            "1529403902783524999",
+            "1529402613204172800",
+            "1529402613204172801",
+            "1529402613204172777",
+            "1529402613204172827",
+            "1529402613204172829",
+            "1529402613204172832",
+            "1529402613204172833",
+            "1529402613204172834",
+            "1529402613204172835",
+            "1529402613204172836"
+          ],
+          "resource": [
+            "1534585531108565043",
+            "1534585531108565044",
+            "1534585531108565045",
+            "1534585531108565046",
+            "1534585531108565047",
+            "1534585531108565048",
+            "1534585531108565049",
+            "1534585531108565050",
+            "1534585531108565051",
+            "1534585531108565052"
+          ]
+        },
+        "fallbackTables": []
+      },
+      "oracle": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 16,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822175"
+          ],
+          "permission": [
+            "1534585531389583411",
+            "1534585531389583412",
+            "1534585531389583413",
+            "1534585531389583414",
+            "1534585531389583415",
+            "1534585531389583416",
+            "1534585531389583417",
+            "1534585531389583418",
+            "1534585531389583419",
+            "1534585531389583420"
+          ],
+          "plugin": [
+            "38"
+          ],
+          "plugin_handle": [
+            "1518229897214468223",
+            "1518229897214468224",
+            "1518229897214468225",
+            "1518229897214468226",
+            "1518229897214468227",
+            "1518229897214468252",
+            "1518229897214468253",
+            "1518229897214468254",
+            "1518229897214468257",
+            "1518229897214468258",
+            "1518229897214468259",
+            "1518229897214468261",
+            "1529402613204172862",
+            "1529402613204172777",
+            "1722804548510507018",
+            "1722804548510507019"
+          ],
+          "resource": [
+            "1534585531108565043",
+            "1534585531108565044",
+            "1534585531108565045",
+            "1534585531108565046",
+            "1534585531108565047",
+            "1534585531108565048",
+            "1534585531108565049",
+            "1534585531108565050",
+            "1534585531108565051",
+            "1534585531108565052"
+          ]
+        },
+        "fallbackTables": [
+          "resource",
+          "permission"
+        ]
+      },
+      "pg": {
+        "counts": {
+          "namespace_plugin_rel": 1,
+          "permission": 10,
+          "plugin": 1,
+          "plugin_handle": 15,
+          "resource": 10
+        },
+        "rowIds": {
+          "namespace_plugin_rel": [
+            "1801816010882822175"
+          ],
+          "permission": [
+            "1529403932886044820",
+            "1529403932886044821",
+            "1529403932886044822",
+            "1529403932886044823",
+            "1529403932886044824",
+            "1529403932886044825",
+            "1529403932886044826",
+            "1529403932886044827",
+            "1529403932886044828",
+            "1529403932886044829"
+          ],
+          "plugin": [
+            "38"
+          ],
+          "plugin_handle": [
+            "1529403902783524997",
+            "1529403902783524998",
+            "1529403902783524999",
+            "1529402613204172800",
+            "1529402613204172801",
+            "1529402613204172827",
+            "1529402613204172829",
+            "1529402613204172832",
+            "1529402613204172833",
+            "1529402613204172834",
+            "1529402613204172835",
+            "1529402613204172836",
+            "1529402613204172737",
+            "1722804548510507017",
+            "1722804548510507018"
+          ],
+          "resource": [
+            "1534585531108565043",
+            "1534585531108565044",
+            "1534585531108565045",
+            "1534585531108565046",
+            "1534585531108565047",
+            "1534585531108565048",
+            "1534585531108565049",
+            "1534585531108565050",
+            "1534585531108565051",
+            "1534585531108565052"
+          ]
+        },
+        "fallbackTables": []
+      }
+    },
+    "idRemaps": {
+      "h2": [
+        {
+          "newId": "389402613204172896",
+          "oldId": "1529402613204172896",
+          "reason": "source id also used by logging-aliyun-sls accessId/3",
+          "table": "plugin_handle"
+        },
+        {
+          "newId": "389402613204172897",
+          "oldId": "1529402613204172897",
+          "reason": "source id also used by logging-aliyun-sls accessKey/3",
+          "table": "plugin_handle"
+        }
+      ]
+    },
+    "omittedDuplicateNaturalKeys": {
+      "og": [
+        {
+          "id": "1529402613204172830",
+          "keptId": "1529403902783524997",
+          "naturalKey": "38/host/3",
+          "reason": "source row duplicates plugin_handle(plugin_id, field, type)",
+          "table": "plugin_handle"
+        },
+        {
+          "id": "1529402613204172831",
+          "keptId": "1529403902783524998",
+          "naturalKey": "38/port/3",
+          "reason": "source row duplicates plugin_handle(plugin_id, field, type)",
+          "table": "plugin_handle"
+        }
+      ],
+      "oracle": [
+        {
+          "id": "1518229897214468255",
+          "keptId": "1518229897214468223",
+          "naturalKey": "38/host/3",
+          "reason": "source row duplicates plugin_handle(plugin_id, field, type)",
+          "table": "plugin_handle"
+        },
+        {
+          "id": "1518229897214468256",
+          "keptId": "1518229897214468224",
+          "naturalKey": "38/port/3",
+          "reason": "source row duplicates plugin_handle(plugin_id, field, type)",
+          "table": "plugin_handle"
+        },
+        {
+          "id": "1518229897214468260",
+          "keptId": "1518229897214468259",
+          "naturalKey": "38/password/3",
+          "reason": "source row duplicates plugin_handle(plugin_id, field, type)",
+          "table": "plugin_handle"
+        }
+      ],
+      "pg": [
+        {
+          "id": "1529402613204172830",
+          "keptId": "1529403902783524997",
+          "naturalKey": "38/host/3",
+          "reason": "source row duplicates plugin_handle(plugin_id, field, type)",
+          "table": "plugin_handle"
+        },
+        {
+          "id": "1529402613204172831",
+          "keptId": "1529403902783524998",
+          "naturalKey": "38/port/3",
+          "reason": "source row duplicates plugin_handle(plugin_id, field, type)",
+          "table": "plugin_handle"
+        }
+      ]
+    }
+  },
+  "counts": {
+    "originalAssets": 19,
+    "originalScenarios": 7,
+    "generatedSupportAssets": 24,
+    "installPreflightPairs": 6,
+    "archives": 1
+  },
+  "originalAssets": [
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/pom.xml",
+        "sha256": "404cd79068af2a499a83e956a13fcff67fb2ee30188c824c295243694868adbe"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/pom.xml",
+        "exists": true,
+        "sha256": "a098f8c76bc40d0a42fa36fa3ebf02e1c7905f39d807bc8ab9c0fae1db1db94e"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/LoggingClickHousePlugin.java",
+        "sha256": "25c80d794db36da84b5dfd96446c075f7b9f104f055f51d1bfb6d859bfefd350"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/LoggingClickHousePlugin.java",
+        "exists": true,
+        "sha256": "25c80d794db36da84b5dfd96446c075f7b9f104f055f51d1bfb6d859bfefd350"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/client/ClickHouseLogCollectClient.java",
+        "sha256": "381bd0f0404b2aa236ca424fd57071ebb550f9fd8f1e633668704f40a237bfb4"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/client/ClickHouseLogCollectClient.java",
+        "exists": true,
+        "sha256": "381bd0f0404b2aa236ca424fd57071ebb550f9fd8f1e633668704f40a237bfb4"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/collector/ClickHouseLogCollector.java",
+        "sha256": "9e123d9bd320e4f013b76a31780fde1d92f0a3b0ea72f6280fd2971e7e9d8c2f"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/collector/ClickHouseLogCollector.java",
+        "exists": true,
+        "sha256": "9e123d9bd320e4f013b76a31780fde1d92f0a3b0ea72f6280fd2971e7e9d8c2f"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/config/ClickHouseLogCollectConfig.java",
+        "sha256": "92fd563f552c9826a892bd27b2bc521c4d91cf9ae9f3ce573cc392d39d0f1f6e"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/config/ClickHouseLogCollectConfig.java",
+        "exists": true,
+        "sha256": "92fd563f552c9826a892bd27b2bc521c4d91cf9ae9f3ce573cc392d39d0f1f6e"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/constant/ClickHouseLoggingConstant.java",
+        "sha256": "fd6c3c56accbe1bc489810954bc5555b4fc9376d28441347a0163a8b40209953"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/constant/ClickHouseLoggingConstant.java",
+        "exists": true,
+        "sha256": "fd6c3c56accbe1bc489810954bc5555b4fc9376d28441347a0163a8b40209953"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/handler/LoggingClickHousePluginDataHandler.java",
+        "sha256": "44b0819ef29fe73e734f140bf294e1c1e676b19dc611a6a0cde801e42f5e281b"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/handler/LoggingClickHousePluginDataHandler.java",
+        "exists": true,
+        "sha256": "44b0819ef29fe73e734f140bf294e1c1e676b19dc611a6a0cde801e42f5e281b"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/LoggingClickHousePluginTest.java",
+        "sha256": "5c93f989301a893b97b769f49d4d82602a5f86fc688c3dd935c112f186788643"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/LoggingClickHousePluginTest.java",
+        "exists": true,
+        "sha256": "5c93f989301a893b97b769f49d4d82602a5f86fc688c3dd935c112f186788643"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/client/ClickHouseLogCollectClientTest.java",
+        "sha256": "631b274ec3d6641a84bc3689d33f39ec2099059b173ff26677adc2553ed9d6bf"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/client/ClickHouseLogCollectClientTest.java",
+        "exists": true,
+        "sha256": "631b274ec3d6641a84bc3689d33f39ec2099059b173ff26677adc2553ed9d6bf"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/client/ClickHouseTableRoutingTest.java",
+        "sha256": "d80fecd1a71c72047a0e012ea789281bd6e9dcc8120e377b3bee16fb74214e4f"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/client/ClickHouseTableRoutingTest.java",
+        "exists": true,
+        "sha256": "d80fecd1a71c72047a0e012ea789281bd6e9dcc8120e377b3bee16fb74214e4f"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/collector/ClickHouseLogCollectorTest.java",
+        "sha256": "5ab20e885a6240c554a68eae61649cd1d07d02cc7d7a873c81a107c6fe658183"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/collector/ClickHouseLogCollectorTest.java",
+        "exists": true,
+        "sha256": "5ab20e885a6240c554a68eae61649cd1d07d02cc7d7a873c81a107c6fe658183"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/config/ClickHouseLogCollectConfigTest.java",
+        "sha256": "7fb6b35d191bf73f9a24160e8e6aab25c40bbec9ad5d0bd4de8ffe1a646e5e99"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/config/ClickHouseLogCollectConfigTest.java",
+        "exists": true,
+        "sha256": "7fb6b35d191bf73f9a24160e8e6aab25c40bbec9ad5d0bd4de8ffe1a646e5e99"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/handler/LoggingClickHousePluginDataHandlerTest.java",
+        "sha256": "1a6eecf1da803ec1e6f44a9ed42eca48ba1b1e68506262bdff342fa175f8e00c"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/handler/LoggingClickHousePluginDataHandlerTest.java",
+        "exists": true,
+        "sha256": "1a6eecf1da803ec1e6f44a9ed42eca48ba1b1e68506262bdff342fa175f8e00c"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-clickhouse/pom.xml",
+        "sha256": "e4cac40101764e601175ab25735fec57ca13a11c3ca68d5e4e8bd5a61ca44a19"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-clickhouse/pom.xml",
+        "exists": true,
+        "sha256": "dc4e87162a939fe1f85c70cc9046b16e9eb43fca6842cf2fad75e84fa7d13364"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/springboot/starter/plugin/logging/clickhouse/LoggingClickHousePluginConfiguration.java",
+        "sha256": "c7ecf83e63a946e9d0f89cb8081b9877d77c64402a1a1fc3534d7185b0f4625d"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/springboot/starter/plugin/logging/clickhouse/LoggingClickHousePluginConfiguration.java",
+        "exists": true,
+        "sha256": "c7ecf83e63a946e9d0f89cb8081b9877d77c64402a1a1fc3534d7185b0f4625d"
+      },
+      "kind": "source-or-build",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-clickhouse/src/main/resources/META-INF/spring.factories",
+        "sha256": "229efceb5246a55d8e26d99eb4d3a73f22ba655f004177e68a39f14a253f6409"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-clickhouse/src/main/resources/META-INF/spring.factories",
+        "exists": true,
+        "sha256": "229efceb5246a55d8e26d99eb4d3a73f22ba655f004177e68a39f14a253f6409"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-clickhouse/src/main/resources/META-INF/spring.provides",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-clickhouse/src/main/resources/META-INF/spring.provides",
+        "exists": true,
+        "sha256": "e54f668e82f822379b063e6bc69a2898d5d1d80f7a76087001b591dab99171fc"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-clickhouse/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+        "sha256": "605973e9722c0441658775b887e4bc46a7dea4541a3b73d7ff661ae1b25e4e26"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-clickhouse/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+        "exists": true,
+        "sha256": "605973e9722c0441658775b887e4bc46a7dea4541a3b73d7ff661ae1b25e4e26"
+      },
+      "kind": "resource",
+      "ownership": "store",
+      "verificationScope": "Destination file exists in the store PR worktree and is covered by manifest hash validation."
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/springboot/starter/plugin/logging/clickhouse/LoggingClickHousePluginConfigurationTest.java",
+        "sha256": "c7b8bb1a454137ef25a9fdcdc0b5502e848d5a4eebea88251e0c32485442e276"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/springboot/starter/plugin/logging/clickhouse/LoggingClickHousePluginConfigurationTest.java",
+        "exists": true,
+        "sha256": "c7b8bb1a454137ef25a9fdcdc0b5502e848d5a4eebea88251e0c32485442e276"
+      },
+      "kind": "test-source",
+      "ownership": "store",
+      "verificationScope": "Original scenario identity preserved; runtime execution must be proven by profile-specific logs."
+    }
+  ],
+  "generatedSupportAssets": [
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "db/plugins/logging-clickhouse/PROVENANCE.md",
+        "exists": true,
+        "sha256": "b3a99f61bcd26bc06e375a6a3afc6ae980d54b8e51aaad5ba91d58c6420880ce"
+      }
+    },
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "db/plugins/logging-clickhouse/README.md",
+        "exists": true,
+        "sha256": "21120ce6a68f6af38d284e8dd8eb5fe727d274fa9c60bb6a67aa46bc774df7c9"
+      }
+    },
+    {
+      "kind": "sql-historical-archive",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "db/plugins/logging-clickhouse/archive/historical-upgrade-fragments.sql",
+        "exists": true,
+        "sha256": "5a555971b885f6c0b9ced080c5ca8df37d42498195507df4732abb59483dfd73"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "db/plugins/logging-clickhouse/h2/install.sql",
+        "exists": true,
+        "sha256": "12d227a0844ce2a248d77b1840a433b8f71e0cbbc51bf232efc852441dacd665"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "db/plugins/logging-clickhouse/h2/preflight.sql",
+        "exists": true,
+        "sha256": "3626ea612108f4e0b9892f9c15d29b538d28545d451ae7eb8cae8604b7c295fa"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "db/plugins/logging-clickhouse/mysql/install.sql",
+        "exists": true,
+        "sha256": "17704248932e11b9c4dc2c5e8f95db0cf8610a445e7509179095e9cfff082567"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "db/plugins/logging-clickhouse/mysql/preflight.sql",
+        "exists": true,
+        "sha256": "aad08b004ba2474803cb861803af7ae7b3e527a4e67e7ed4dec096a42c1666a9"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "db/plugins/logging-clickhouse/ob/install.sql",
+        "exists": true,
+        "sha256": "d3d790b487f0732087134a7d6de879a354f539bbbb5c8dca62b18c9c48428a4a"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "db/plugins/logging-clickhouse/ob/preflight.sql",
+        "exists": true,
+        "sha256": "295896ac406b068acef19a95f20f4bd8c7ba3cd368f1a7b89463985d2b6141e4"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "db/plugins/logging-clickhouse/og/install.sql",
+        "exists": true,
+        "sha256": "983f02545317b0fd2182fe69fc87b6ceab6f7a54f1dcecea6e5c517e1ad49110"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "db/plugins/logging-clickhouse/og/preflight.sql",
+        "exists": true,
+        "sha256": "61aba06eb073a819336f28426714e0a1c1efc878f62649862146997e19b0886b"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "db/plugins/logging-clickhouse/oracle/install.sql",
+        "exists": true,
+        "sha256": "b0ea84b7a9782e7bb86c5836c6b405c165dc67308719dd955c23b63b31bc8ef0"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "db/plugins/logging-clickhouse/oracle/preflight.sql",
+        "exists": true,
+        "sha256": "32c9305f4440a2aa419c656421d4c968d221f88c0f20a82baa834dddcb98082e"
+      }
+    },
+    {
+      "kind": "sql-install",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "db/plugins/logging-clickhouse/pg/install.sql",
+        "exists": true,
+        "sha256": "d6d11ef830d72a0a35326b8539b8207cfc2d19829d80ac9b14554271b9e09fad"
+      }
+    },
+    {
+      "kind": "sql-preflight",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "db/plugins/logging-clickhouse/pg/preflight.sql",
+        "exists": true,
+        "sha256": "d016f09385e51eede7f7cbfe089d60acb2aa6a610ffb6b6e3621a9cbab13017e"
+      }
+    },
+    {
+      "kind": "generated-support",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "db/plugins/logging-clickhouse/row-manifest.json",
+        "exists": true,
+        "sha256": "786eee2c555ba0d75721b27ed071c688a72aaf58d7979ad314413ab8aa79ed40"
+      }
+    },
+    {
+      "kind": "migration-doc",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "docs/logging-clickhouse-migration.md",
+        "exists": true,
+        "sha256": "5c23febcaa110614c1be4418831a77e96dfe1d732d9a55a48d898dce0d9747df"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "script/plugin-store/assert-store-fixtures.sh",
+        "exists": true,
+        "sha256": "5d83d6dcb2a3eabb39929fcb93352f6dfe7da20c6d9b5d43ae07563ad2594543"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "script/plugin-store/build-h2-store-sql-fixture.py",
+        "exists": true,
+        "sha256": "2a8be34352851230d43778142db814aa38ede87466db1afe81c49b513f524ecf"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "script/plugin-store/docker-compose.original-suite.yml",
+        "exists": true,
+        "sha256": "40140ff81d1ab4d80884f90bcb231db324e6ce39e8a68058bb74d4da30baee20"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "script/plugin-store/h2-store-sql-fixture.md",
+        "exists": true,
+        "sha256": "26cdad1a4c968fa793a6de5fd448491ba95511db3eb9af68c0a2da5fa061d197"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "script/plugin-store/plugin-sql-seed-manifest.json",
+        "exists": true,
+        "sha256": "76c188143c8cf3ea58ace527bea48bfd645a078ec31e8af7eb2207175394f57f"
+      }
+    },
+    {
+      "kind": "shared-runner",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "script/plugin-store/run-core-compose.sh",
+        "exists": true,
+        "sha256": "a0cfec67424cff25a0bd1a925ff578979efb2b3fe42e98e455184d7926a8bab3"
+      }
+    },
+    {
+      "kind": "shared-test-helper",
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-store-test-support/src/main/java/org/apache/shenyu/plugin/store/test/support/GatewayFixtures.java",
+        "exists": true,
+        "sha256": "bf9bfe9f7aeae47a838f837e3611eb26901ab7b6988452505df70c4390551cbd"
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/LoggingClickHousePluginTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/LoggingClickHousePluginTest.java"
+      },
+      "methods": [
+        "testDoExecute",
+        "testGetOrder",
+        "testNamed"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/client/ClickHouseLogCollectClientTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/client/ClickHouseLogCollectClientTest.java"
+      },
+      "methods": [
+        "testConsume",
+        "testInitClientWithoutTtl"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/client/ClickHouseTableRoutingTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/client/ClickHouseTableRoutingTest.java"
+      },
+      "methods": [],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/collector/ClickHouseLogCollectorTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/collector/ClickHouseLogCollectorTest.java"
+      },
+      "methods": [
+        "testGetLogConsumeClient"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/config/ClickHouseLogCollectConfigTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/config/ClickHouseLogCollectConfigTest.java"
+      },
+      "methods": [
+        "testSetClickHouseLogConfig",
+        "testGetClickHouseLogConfig",
+        "testSetHost",
+        "testGetHost",
+        "testSetPort",
+        "testGetPort",
+        "testSetUsername",
+        "testGetUsername",
+        "testSetPassword",
+        "testGetPassword",
+        "testSetDatabase",
+        "testGetDatabase",
+        "testSetTTL",
+        "testGetTTL"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/handler/LoggingClickHousePluginDataHandlerTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/plugin/logging/clickhouse/handler/LoggingClickHousePluginDataHandlerTest.java"
+      },
+      "methods": [
+        "testHandlerPlugin",
+        "testPluginNamed"
+      ],
+      "originalMayContainDisabledAssertions": false
+    },
+    {
+      "slug": "logging-clickhouse",
+      "source": {
+        "repository": "apache/shenyu",
+        "commit": "ec198d442894fd9617947ed73c6c8fe3b206f665",
+        "path": "shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/springboot/starter/plugin/logging/clickhouse/LoggingClickHousePluginConfigurationTest.java"
+      },
+      "destination": {
+        "repository": "apache/shenyu-plugin-store",
+        "worktreeId": "store-logging-clickhouse",
+        "path": "shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-clickhouse/src/test/java/org/apache/shenyu/springboot/starter/plugin/logging/clickhouse/LoggingClickHousePluginConfigurationTest.java"
+      },
+      "methods": [
+        "testLoggingPlugin"
+      ],
+      "originalMayContainDisabledAssertions": false
+    }
+  ],
+  "notes": [
+    "Shared IT/E2E helper closure is recorded as support assets where present; it is profile-scoped test infrastructure, not production runtime code.",
+    "File presence plus hash validation does not claim runtime parity without a matching execution log."
+  ]
+}
