@@ -51,6 +51,7 @@ jobs:
           git -C "${CORE_API_DIR}" fetch --depth 1 origin ec198d442894fd9617947ed73c6c8fe3b206f665
           git -C "${CORE_API_DIR}" checkout --detach FETCH_HEAD
           "${CORE_API_DIR}/mvnw" -B -ntp -f "${CORE_API_DIR}/pom.xml" -pl shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common,shenyu-web,shenyu-admin-listener/shenyu-admin-listener-api,shenyu-registry/shenyu-registry-api,shenyu-admin,shenyu-kubernetes-controller,shenyu-spring-boot-starter/shenyu-spring-boot-starter-k8s,shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-common -am install -DskipTests -Dmaven.javadoc.skip=true -Drat.skip=true -Djacoco.skip=true -DskipRemoteResources=true
+          "${CORE_API_DIR}/mvnw" -B -ntp -f "${CORE_API_DIR}/pom.xml" -pl shenyu-plugin/shenyu-plugin-proxy/shenyu-plugin-divide,shenyu-plugin/shenyu-plugin-global,shenyu-plugin/shenyu-plugin-uri,shenyu-plugin/shenyu-plugin-httpclient,shenyu-plugin/shenyu-plugin-response,shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-jwt -am install -DskipTests -Dmaven.javadoc.skip=true -Drat.skip=true -Djacoco.skip=true -DskipRemoteResources=true
           ./mvnw -B -ntp dependency:get -Dartifact=com.h2database:h2:1.4.200
       - name: Build, test, check style, and verify licenses
         run: ./mvnw -B -ntp clean verify -Dapi.version=1.44
