@@ -15,18 +15,17 @@
  * limitations under the License.
  */
 
-package org.apache.shenyu.plugin.tars;
+package org.apache.shenyu.plugin.sofa;
 
-import org.apache.commons.collections4.CollectionUtils;
+import com.alipay.sofa.rpc.context.RpcInvokeContext;
+import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shenyu.common.constant.Constants;
 import org.apache.shenyu.common.dto.MetaData;
 import org.apache.shenyu.common.dto.RuleData;
 import org.apache.shenyu.common.dto.SelectorData;
 import org.apache.shenyu.common.enums.PluginEnum;
-import org.apache.shenyu.common.enums.ResultEnum;
 import org.apache.shenyu.common.enums.RpcTypeEnum;
-import org.apache.shenyu.common.exception.ShenyuException;
 import org.apache.shenyu.plugin.api.ShenyuPluginChain;
 import org.apache.shenyu.plugin.api.context.ShenyuContext;
 import org.apache.shenyu.plugin.api.result.ShenyuResultEnum;
@@ -34,36 +33,42 @@ import org.apache.shenyu.plugin.api.result.ShenyuResultWrap;
 import org.apache.shenyu.plugin.api.utils.RequestUrlUtils;
 import org.apache.shenyu.plugin.api.utils.WebFluxResultUtils;
 import org.apache.shenyu.plugin.base.AbstractShenyuPlugin;
-import org.apache.shenyu.plugin.tars.cache.ApplicationConfigCache;
-import org.apache.shenyu.plugin.tars.proxy.TarsInvokePrxList;
-import org.apache.shenyu.plugin.tars.util.PrxInfoUtil;
+import org.apache.shenyu.plugin.sofa.proxy.SofaProxyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.lang.reflect.Method;
-import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Map;
+import java.util.Optional;
 
 /**
- * The tars plugin.
+ * The sofa plugin.
  */
-public class TarsPlugin extends AbstractShenyuPlugin {
+public class SofaPlugin extends AbstractShenyuPlugin {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TarsPlugin.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SofaPlugin.class);
 
+    private final SofaProxyService sofaProxyService;
+
+    /**
+     * Instantiates a new Sofa plugin.
+     *
+     * @param sofaProxyService the sofa proxy service
+     */
+    public SofaPlugin(final SofaProxyService sofaProxyService) {
+        this.sofaProxyService = sofaProxyService;
+    }
+    
     @Override
     protected String getRawPath(final ServerWebExchange exchange) {
         return RequestUrlUtils.getRewrittenRawPath(exchange);
     }
 
     @Override
-    @SuppressWarnings({"unchecked", "rawtypes"})
     protected Mono<Void> doExecute(final ServerWebExchange exchange, final ShenyuPluginChain chain, final SelectorData selector, final RuleData rule) {
-        String body = exchange.getAttribute(Constants.PARAM_TRANSFORM);
+        String param = exchange.getAttribute(Constants.PARAM_TRANSFORM);
         ShenyuContext shenyuContext = exchange.getAttribute(Constants.CONTEXT);
         Objects.requireNonNull(shenyuContext);
         MetaData metaData = exchange.getAttribute(Constants.META_DATA);
@@ -74,69 +79,55 @@ public class TarsPlugin extends AbstractShenyuPlugin {
             Object error = ShenyuResultWrap.error(exchange, ShenyuResultEnum.META_DATA_ERROR);
             return WebFluxResultUtils.result(exchange, error);
         }
-        if (StringUtils.isNoneBlank(metaData.getParameterTypes()) && StringUtils.isBlank(body)) {
+        if (StringUtils.isNoneBlank(metaData.getParameterTypes()) && StringUtils.isBlank(param)) {
             exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
-            Object error = ShenyuResultWrap.error(exchange, ShenyuResultEnum.TARS_HAVE_BODY_PARAM);
+            Object error = ShenyuResultWrap.error(exchange, ShenyuResultEnum.SOFA_HAVE_BODY_PARAM);
             return WebFluxResultUtils.result(exchange, error);
         }
-        TarsInvokePrxList tarsInvokePrxList = ApplicationConfigCache.getInstance().get(metaData.getPath());
-        // the cache loader returns an empty proxy list when the path was never initialized
-        if (CollectionUtils.isEmpty(tarsInvokePrxList.getTarsInvokePrxList())) {
-            LOG.error("tars upstream configuration error: {}", metaData.getPath());
-            exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
-            Object error = ShenyuResultWrap.error(exchange, ShenyuResultEnum.CANNOT_FIND_HEALTHY_UPSTREAM_URL);
-            return WebFluxResultUtils.result(exchange, error);
-        }
-        int index = ThreadLocalRandom.current().nextInt(tarsInvokePrxList.getTarsInvokePrxList().size());
-        Object prx = tarsInvokePrxList.getTarsInvokePrxList().get(index).getInvokePrx();
-        Method method = tarsInvokePrxList.getMethod();
-        CompletableFuture future;
-        try {
-            future = (CompletableFuture) method
-                    .invoke(prx, PrxInfoUtil.getParamArray(tarsInvokePrxList.getParamTypes(), tarsInvokePrxList.getParamNames(), body));
-        } catch (Exception e) {
-            LOG.error("Invoke tars error", e);
-            exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
-            Object error = ShenyuResultWrap.error(exchange, ShenyuResultEnum.TARS_INVOKE);
-            return WebFluxResultUtils.result(exchange, error);
-        }
-        return Mono.fromFuture(future.thenApply(ret -> {
-            Object result = ret;
-            if (Objects.isNull(result)) {
-                result = Constants.TARS_RPC_RESULT_EMPTY;
-            }
-            exchange.getAttributes().put(Constants.RPC_RESULT, result);
-            exchange.getAttributes().put(Constants.CLIENT_RESPONSE_RESULT_TYPE, ResultEnum.SUCCESS.getName());
-            return result;
-        })).onErrorMap(m -> new ShenyuException("failed to invoke tars")).then(chain.execute(exchange));
+        Map<String, Map<String, String>> rpcContext = exchange.getAttribute(Constants.GENERAL_CONTEXT);
+        Optional.ofNullable(rpcContext).map(context -> context.get(PluginEnum.SOFA.getName())).ifPresent(context -> RpcInvokeContext.getContext().putAllRequestBaggage(context));
+        final Mono<Object> result = sofaProxyService.genericInvoker(param, metaData, selector, exchange);
+        return result.then(chain.execute(exchange));
     }
 
-    @Override
-    public int getOrder() {
-        return PluginEnum.TARS.getCode();
-    }
-
+    /**
+     * acquire plugin name.
+     *
+     * @return plugin name.
+     */
     @Override
     public String named() {
-        return PluginEnum.TARS.getName();
+        return PluginEnum.SOFA.getName();
     }
 
+    /**
+     * plugin is execute.
+     *
+     * @param exchange the current server exchange
+     * @return default false.
+     */
     @Override
     public boolean skip(final ServerWebExchange exchange) {
-        return skipExcept(exchange, RpcTypeEnum.TARS);
+        return skipExcept(exchange, RpcTypeEnum.SOFA);
     }
-
+    
     @Override
     protected Mono<Void> handleSelectorIfNull(final String pluginName, final ServerWebExchange exchange, final ShenyuPluginChain chain) {
         return WebFluxResultUtils.noSelectorResult(pluginName, exchange);
     }
-
+    
     @Override
     protected Mono<Void> handleRuleIfNull(final String pluginName, final ServerWebExchange exchange, final ShenyuPluginChain chain) {
         return WebFluxResultUtils.noRuleResult(pluginName, exchange);
     }
 
+    @Override
+    public int getOrder() {
+        return PluginEnum.SOFA.getCode();
+    }
+
     private boolean checkMetaData(final MetaData metaData) {
         return Objects.nonNull(metaData) && !StringUtils.isBlank(metaData.getMethodName()) && !StringUtils.isBlank(metaData.getServiceName());
     }
+
 }

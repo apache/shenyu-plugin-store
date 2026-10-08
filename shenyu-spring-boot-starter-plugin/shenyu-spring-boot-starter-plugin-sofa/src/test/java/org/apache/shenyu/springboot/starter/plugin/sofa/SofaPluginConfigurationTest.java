@@ -15,14 +15,16 @@
  * limitations under the License.
  */
 
-package org.apache.shenyu.springboot.starter.plugin.tars;
+package org.apache.shenyu.springboot.starter.plugin.sofa;
 
-import com.qq.tars.client.Communicator;
+import com.alipay.sofa.common.log.LoggerSpaceManager;
+import com.alipay.sofa.rpc.config.ConsumerConfig;
 import org.apache.shenyu.common.enums.PluginEnum;
 import org.apache.shenyu.plugin.api.ShenyuPlugin;
 import org.apache.shenyu.plugin.api.context.ShenyuContextDecorator;
 import org.apache.shenyu.plugin.base.handler.MetaDataHandler;
 import org.apache.shenyu.plugin.base.handler.PluginDataHandler;
+import org.apache.shenyu.plugin.sofa.param.SofaParamResolveService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -34,54 +36,63 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * Test case for {@link TarsPluginConfiguration}.
+ * Test case for {@link SofaPluginConfiguration}.
  */
 @Configuration
 @EnableConfigurationProperties
-public class TarsPluginConfigurationTest {
+public class SofaPluginConfigurationTest {
 
     private ApplicationContextRunner applicationContextRunner;
 
     @BeforeEach
     public void before() {
         applicationContextRunner = new ApplicationContextRunner()
-            .withConfiguration(AutoConfigurations.of(TarsPluginConfiguration.class))
-            .withBean(TarsPluginConfigurationTest.class)
+            .withConfiguration(AutoConfigurations.of(SofaPluginConfiguration.class))
+            .withBean(SofaPluginConfigurationTest.class)
             .withPropertyValues("debug=true");
     }
 
     @Test
-    public void testTarsPlugin() {
+    public void testSofaPlugin() {
         applicationContextRunner.run(context -> {
-                ShenyuPlugin plugin = context.getBean("tarsPlugin", ShenyuPlugin.class);
+                ShenyuPlugin plugin = context.getBean("sofaPlugin", ShenyuPlugin.class);
                 assertNotNull(plugin);
-                assertThat(plugin.named()).isEqualTo(PluginEnum.TARS.getName());
+                assertThat(plugin.named()).isEqualTo(PluginEnum.SOFA.getName());
             }
         );
     }
 
     @Test
-    public void testTarsMetaDataHandler() {
+    public void testSofaParamResolveServiceImpl() {
         applicationContextRunner.run(context -> {
-                MetaDataHandler handler = context.getBean("tarsMetaDataHandler", MetaDataHandler.class);
+                SofaParamResolveService service = context.getBean("sofaParamResolveService", SofaParamResolveService.class);
+                assertNotNull(service);
+            }
+        );
+    }
+
+    @Test
+    public void testSofaPluginDataHandler() {
+        applicationContextRunner.run(context -> {
+                PluginDataHandler handler = context.getBean("sofaPluginDataHandler", PluginDataHandler.class);
                 assertNotNull(handler);
             }
         );
     }
 
     @Test
-    public void testTarsPluginDataHandler() {
+    public void testSofaMetaDataSubscriber() {
         applicationContextRunner.run(context -> {
-                PluginDataHandler handler = context.getBean("tarsPluginDataHandler", PluginDataHandler.class);
+                MetaDataHandler handler = context.getBean("sofaMetaDataHandler", MetaDataHandler.class);
                 assertNotNull(handler);
             }
         );
     }
 
     @Test
-    public void testTarsShenyuContextDecorator() {
+    public void testSofaShenyuContextDecorator() {
         applicationContextRunner.run(context -> {
-                ShenyuContextDecorator decorator = context.getBean("tarsShenyuContextDecorator", ShenyuContextDecorator.class);
+                ShenyuContextDecorator decorator = context.getBean("sofaShenyuContextDecorator", ShenyuContextDecorator.class);
                 assertNotNull(decorator);
             }
         );
@@ -89,6 +100,7 @@ public class TarsPluginConfigurationTest {
 
     @Test
     public void testRuntimeDependencies() {
-        assertThat(Communicator.class.getName()).isEqualTo("com.qq.tars.client.Communicator");
+        assertThat(ConsumerConfig.class.getName()).isEqualTo("com.alipay.sofa.rpc.config.ConsumerConfig");
+        assertThat(LoggerSpaceManager.class.getName()).isEqualTo("com.alipay.sofa.common.log.LoggerSpaceManager");
     }
 }

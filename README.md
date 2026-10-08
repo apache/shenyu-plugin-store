@@ -202,6 +202,39 @@ curl --location --request POST 'http://localhost:9195/shenyu/plugin/selectorAndR
 # Prerequisite
  
    * JDK 17+
+
+---
+
+# Plugin Store Migration Notes
+
+This repository packages Apache ShenYu plugin store modules for gateway-side runtime use.
+The migrated SOFA and TARS plugins preserve their ShenYu plugin identifiers, SPI names,
+and starter artifact names. Admin registration, client SDKs, and shared DTO contracts remain
+supplied by Apache ShenYu itself.
+
+The SOFA and TARS plugin sources were migrated from Apache ShenYu source snapshot
+`ec198d442`. This branch builds on apache/shenyu-plugin-store PR #5 (`39f0b767`) and keeps
+the store artifact version at `2.7.1-SNAPSHOT` while importing the ShenYu `2.7.0` BOM. The
+target gateway line remains Apache ShenYu `2.7.2-SNAPSHOT`. The full store reactor is verified
+against the released `2.7.0` API; the migrated SOFA/TARS plugin and starter reactor is also
+verified against the current `2.7.2-SNAPSHOT` API. The existing Motan module remains on the
+released baseline and cannot use the current API without further compatibility work.
+
+SOFA keeps a store-local selector DTO with the same JSON fields as the main repository's
+`SofaUpstream`, because that shared class is absent from the released `2.7.0` API. Protocol
+names, orders, and serialized selector handles are retained.
+
+Runtime protocol libraries that were previously declared directly by `shenyu-bootstrap` are
+carried by the store starters: SOFA includes `sofa-rpc-all` plus `sofa-common-tools` with the
+original bootstrap exclusions, and TARS includes `tars-client:1.7.2`. The plugin runtime
+modules keep protocol libraries as compile-time `provided` dependencies; the starters carry
+the installable runtime classpath. Add `org.apache.shenyu:shenyu-spring-boot-starter-plugin-sofa`
+or `org.apache.shenyu:shenyu-spring-boot-starter-plugin-tars` at the store version to a custom
+gateway build after installing or publishing this store reactor.
+
+The original core-only SOFA Docker/Kubernetes test suites are removed from the main reactor.
+This migration brings the runtime unit and starter tests to the store; a complete external
+starter plus gateway plus backend end-to-end fixture is not included in this change.
    
 --- 
         

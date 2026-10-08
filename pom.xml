@@ -95,6 +95,7 @@
         <log4j-1.2-api.vetsion>2.17.2</log4j-1.2-api.vetsion>
         <bytebuddy.version>1.14.11</bytebuddy.version>
         <tars.version>1.7.2</tars.version>
+        <sofa-common-tools.version>2.1.1</sofa-common-tools.version>
         <!-- dependency version end -->
     </properties>
 
@@ -135,6 +136,18 @@
                 <groupId>com.tencent.tars</groupId>
                 <artifactId>tars-spring-boot-starter</artifactId>
                 <version>${tars.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tencent.tars</groupId>
+                <artifactId>tars-client</artifactId>
+                <version>${tars.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alipay.sofa.common</groupId>
+                <artifactId>sofa-common-tools</artifactId>
+                <version>${sofa-common-tools.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
