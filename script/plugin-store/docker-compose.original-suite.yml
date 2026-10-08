@@ -20,6 +20,7 @@ services:
     environment:
       ADMIN_JVM: ${ADMIN_JVM:--Xms256m -Xmx768m}
       SPRING_PROFILES_ACTIVE: h2
+      shenyu.sync.websocket.token: ${SHENYU_SYNC_WEBSOCKET_TOKEN:-plugin-store-websocket-token}
     ports:
       - "${SHENYU_ADMIN_PORT:-31095}:9095"
     volumes:
@@ -36,6 +37,8 @@ services:
       BOOT_JVM: ${BOOT_JVM:--Xms256m -Xmx768m}
       shenyu.local.enabled: "true"
       shenyu.fallback.enabled: "true"
+      shenyu.store.e2e-cache.enabled: ${SHENYU_STORE_E2E_CACHE_ENABLED:-true}
+      shenyu.sync.websocket.token: ${SHENYU_SYNC_WEBSOCKET_TOKEN:-plugin-store-websocket-token}
       shenyu.sync.websocket.urls: ws://shenyu-admin:9095/websocket
     ports:
       - "${SHENYU_BOOTSTRAP_PORT:-31195}:9195"

@@ -6,11 +6,11 @@
   "noSql": {
     "consul": {
       "reason": "Consul is a sync/registry extension and has no plugin row, plugin_handle, resource, permission, or namespace_plugin_rel seed rows in the pinned source.",
-      "store": "/private/tmp/shenyu-remaining-store-consul"
+      "storeRepository": "apache/shenyu-plugin-store"
     },
     "polaris": {
       "reason": "Polaris is a sync/registry extension and has no plugin row, plugin_handle, resource, permission, or namespace_plugin_rel seed rows in the pinned source.",
-      "store": "/private/tmp/shenyu-remaining-store-polaris"
+      "storeRepository": "apache/shenyu-plugin-store"
     }
   },
   "plugins": {
@@ -41,7 +41,7 @@
       "pluginId": "39",
       "pluginName": "casdoor",
       "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
-      "store": "/private/tmp/shenyu-remaining-store-casdoor"
+      "storeRepository": "apache/shenyu-plugin-store"
     },
     "hystrix": {
       "expectedH2Counts": {
@@ -62,7 +62,7 @@
       "pluginId": "9",
       "pluginName": "hystrix",
       "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
-      "store": "/private/tmp/shenyu-remaining-store-hystrix"
+      "storeRepository": "apache/shenyu-plugin-store"
     },
     "logging-aliyun-sls": {
       "expectedH2Counts": {
@@ -103,7 +103,7 @@
       "pluginId": "34",
       "pluginName": "loggingAliyunSls",
       "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
-      "store": "/private/tmp/shenyu-remaining-store-logging-aliyun-sls"
+      "storeRepository": "apache/shenyu-plugin-store"
     },
     "logging-clickhouse": {
       "expectedH2Counts": {
@@ -139,7 +139,7 @@
       "pluginId": "38",
       "pluginName": "loggingClickHouse",
       "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
-      "store": "/private/tmp/shenyu-remaining-store-logging-clickhouse"
+      "storeRepository": "apache/shenyu-plugin-store"
     },
     "logging-huawei-lts": {
       "expectedH2Counts": {
@@ -184,7 +184,7 @@
       "pluginId": "43",
       "pluginName": "loggingHuaweiLts",
       "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
-      "store": "/private/tmp/shenyu-remaining-store-logging-huawei-lts"
+      "storeRepository": "apache/shenyu-plugin-store"
     },
     "logging-pulsar": {
       "expectedH2Counts": {
@@ -217,7 +217,7 @@
       "pluginId": "35",
       "pluginName": "loggingPulsar",
       "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
-      "store": "/private/tmp/shenyu-remaining-store-logging-pulsar"
+      "storeRepository": "apache/shenyu-plugin-store"
     },
     "logging-rabbitmq": {
       "expectedH2Counts": {
@@ -268,7 +268,7 @@
       "pluginId": "45",
       "pluginName": "loggingRabbitMQ",
       "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
-      "store": "/private/tmp/shenyu-remaining-store-logging-rabbitmq"
+      "storeRepository": "apache/shenyu-plugin-store"
     },
     "logging-tencent-cls": {
       "expectedH2Counts": {
@@ -311,7 +311,7 @@
       "pluginId": "36",
       "pluginName": "loggingTencentCls",
       "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
-      "store": "/private/tmp/shenyu-remaining-store-logging-tencent-cls"
+      "storeRepository": "apache/shenyu-plugin-store"
     },
     "motan": {
       "expectedH2Counts": {
@@ -342,7 +342,7 @@
       "pluginId": "17",
       "pluginName": "motan",
       "source": "c8961528b72a2a7f81f0d1cd7525af1659a670bc",
-      "store": "/private/tmp/shenyu-remaining-store-motan"
+      "storeRepository": "apache/shenyu-plugin-store"
     },
     "sofa": {
       "expectedH2Counts": {
@@ -373,7 +373,7 @@
       "pluginId": "11",
       "pluginName": "sofa",
       "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
-      "store": "/private/tmp/shenyu-store-migration-store"
+      "storeRepository": "apache/shenyu-plugin-store"
     },
     "tars": {
       "expectedH2Counts": {
@@ -412,7 +412,7 @@
       "pluginId": "13",
       "pluginName": "tars",
       "source": "ec198d442894fd9617947ed73c6c8fe3b206f665",
-      "store": "/private/tmp/shenyu-store-migration-store"
+      "storeRepository": "apache/shenyu-plugin-store"
     }
   },
   "sourceHead": "ec198d442894fd9617947ed73c6c8fe3b206f665"

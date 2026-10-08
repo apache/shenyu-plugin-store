@@ -32,8 +32,8 @@
           "34"
         ],
         "plugin_handle": [
-          "1529402613204172896",
-          "1529402613204172897",
+          "349402613204172896",
+          "349402613204172897",
           "1529402613204172898",
           "1529402613204172899",
           "1529402613204172900",
@@ -42,10 +42,10 @@
           "1529402613204172903",
           "1529402613204172904",
           "1529402613204172905",
-          "1529402613204172906",
-          "1529402613204172907",
-          "1529402613204172908",
-          "1529402613204172909",
+          "349402613204172906",
+          "349402613204172907",
+          "349402613204172908",
+          "349402613204172909",
           "1529402613204172945",
           "1529402613204172946",
           "1529402613204172947",
@@ -379,7 +379,46 @@
       }
     }
   },
-  "idRemaps": {},
+  "idRemaps": {
+    "h2": [
+      {
+        "newId": "349402613204172896",
+        "oldId": "1529402613204172896",
+        "reason": "source id also used by source core plugin_id=10 flowRuleMaxQueueingTimeMs/2; source core plugin_id=38 engine/3; selected logging-clickhouse plugin_id=38 engine/3",
+        "table": "plugin_handle"
+      },
+      {
+        "newId": "349402613204172897",
+        "oldId": "1529402613204172897",
+        "reason": "source id also used by source core plugin_id=10 flowRuleWarmUpPeriodSec/2; source core plugin_id=38 clusterName/3; selected logging-clickhouse plugin_id=38 clusterName/3",
+        "table": "plugin_handle"
+      },
+      {
+        "newId": "349402613204172906",
+        "oldId": "1529402613204172906",
+        "reason": "source id also used by source core plugin_id=32 username/3",
+        "table": "plugin_handle"
+      },
+      {
+        "newId": "349402613204172907",
+        "oldId": "1529402613204172907",
+        "reason": "source id also used by source core plugin_id=32 password/3",
+        "table": "plugin_handle"
+      },
+      {
+        "newId": "349402613204172908",
+        "oldId": "1529402613204172908",
+        "reason": "source id also used by source core plugin_id=32 authCache/3",
+        "table": "plugin_handle"
+      },
+      {
+        "newId": "349402613204172909",
+        "oldId": "1529402613204172909",
+        "reason": "source id also used by source core plugin_id=29 accessKey/3",
+        "table": "plugin_handle"
+      }
+    ]
+  },
   "installSemantics": {
     "dependencyGuard": "Run dialect preflight.sql first. install.sql inserts dependent metadata only when canonical plugin id/name, resource parent identity, and permission resource identity match.",
     "existingConfigPreserved": true,
@@ -393,5 +432,5 @@
   "pluginName": "loggingAliyunSls",
   "sourceSHA": "ec198d442894fd9617947ed73c6c8fe3b206f665",
   "sourceVersion": "2.7.2-SNAPSHOT",
-  "store": "/private/tmp/shenyu-remaining-store-logging-aliyun-sls"
+  "storeRepository": "apache/shenyu-plugin-store"
 }
