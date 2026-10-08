@@ -99,6 +99,21 @@
         <!-- dependency version end -->
     </properties>
 
+    <profiles>
+        <profile>
+            <id>integration-tests</id>
+            <modules>
+                <module>shenyu-integrated-test</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>e2e</id>
+            <modules>
+                <module>shenyu-e2e</module>
+            </modules>
+        </profile>
+    </profiles>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
