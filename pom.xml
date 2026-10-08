@@ -64,7 +64,7 @@
 
     <properties>
         <java.version>17</java.version>
-        <shenyu.version>2.7.0</shenyu.version>
+        <shenyu.version>2.7.2-SNAPSHOT</shenyu.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -96,6 +96,8 @@
         <bytebuddy.version>1.14.11</bytebuddy.version>
         <tars.version>1.7.2</tars.version>
         <testcontainers.version>1.19.8</testcontainers.version>
+        <aliyun-log-producer.version>0.3.10</aliyun-log-producer.version>
+        <protobuf-java.version>3.25.5</protobuf-java.version>
         <!-- dependency version end -->
     </properties>
 
@@ -136,6 +138,16 @@
                 <groupId>com.tencent.tars</groupId>
                 <artifactId>tars-spring-boot-starter</artifactId>
                 <version>${tars.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun.openservices</groupId>
+                <artifactId>aliyun-log-producer</artifactId>
+                <version>${aliyun-log-producer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf-java.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

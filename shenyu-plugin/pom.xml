@@ -33,6 +33,7 @@
     <modules>
         <module>shenyu-plugin-store-test-support</module>
         <module>shenyu-plugin-proxy</module>
+        <module>shenyu-plugin-logging</module>
     </modules>
 
 
