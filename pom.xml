@@ -129,6 +129,7 @@
         <awaitility.version>4.0.3</awaitility.version>
         <casdoor-java-sdk.version>1.9.0</casdoor-java-sdk.version>
         <consul.api.version>1.4.5</consul.api.version>
+        <polaris.version>1.13.0</polaris.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -222,6 +223,11 @@
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java</artifactId>
                 <version>${protobuf-java.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tencent.polaris</groupId>
+                <artifactId>polaris-all</artifactId>
+                <version>${polaris.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
