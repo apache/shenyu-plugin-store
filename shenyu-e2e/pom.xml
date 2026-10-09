@@ -43,7 +43,7 @@
         <rest-assured.version>5.2.0</rest-assured.version>
         <shenyu.version>2.7.2-SNAPSHOT</shenyu.version>
         <slf4j.version>1.7.35</slf4j.version>
-        <spring-framework.version>5.3.30</spring-framework.version>
+        <spring-framework.version>6.1.21</spring-framework.version>
         <websocket.version>1.5.1</websocket.version>
         <guava.version>32.0.0-jre</guava.version>
     </properties>
