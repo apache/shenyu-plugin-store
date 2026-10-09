@@ -131,6 +131,7 @@
         <consul.api.version>1.4.5</consul.api.version>
         <polaris.version>1.13.0</polaris.version>
         <tencent-log-sdk.version>1.0.14</tencent-log-sdk.version>
+        <huawei-log-sdk.version>1.0.1</huawei-log-sdk.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -246,6 +247,21 @@
                     <exclusion>
                         <groupId>ch.qos.logback</groupId>
                         <artifactId>logback-classic</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>io.github.huaweicloud</groupId>
+                <artifactId>lts-sdk-java</artifactId>
+                <version>${huawei-log-sdk.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-simple</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
