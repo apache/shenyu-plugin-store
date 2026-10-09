@@ -41,9 +41,9 @@ if [[ "${BUILD_STORE_JARS:-false}" == "true" ]]; then
   "${SCRIPT_DIR}/build-store-plugin-jars.sh" "${PLUGIN}"
 fi
 "${SCRIPT_DIR}/assert-store-fixtures.sh" "${PLUGIN}"
-./mvnw -B -ntp -Pintegration-tests -pl shenyu-integrated-test/shenyu-plugin-store-it-common -am install -DskipTests -Dapi.version="${API_VERSION:-1.44}"
+mvn -B -ntp -Pintegration-tests -pl shenyu-integrated-test/shenyu-plugin-store-it-common -am install -DskipTests -Dapi.version="${API_VERSION:-1.44}"
 
-MAVEN_CMD=(./mvnw -B -ntp -f "${CASE_MODULE}/pom.xml")
+MAVEN_CMD=(mvn -B -ntp -f "${CASE_MODULE}/pom.xml")
 if [[ -n "${CASE_MAVEN_PROFILE}" ]]; then
   MAVEN_CMD+=("-P${CASE_MAVEN_PROFILE}")
 fi

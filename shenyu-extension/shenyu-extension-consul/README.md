@@ -84,13 +84,13 @@ HashiCorp relicensed later Consul source under BUSL for newer releases; the curr
 Default unit and starter verification:
 
 ```bash
-./mvnw -pl shenyu-extension/shenyu-extension-consul/shenyu-admin-listener-consul,shenyu-extension/shenyu-extension-consul/shenyu-sync-data-consul,shenyu-extension/shenyu-extension-consul/shenyu-registry-consul,shenyu-extension/shenyu-extension-consul/shenyu-spring-boot-starter-sync-data-consul -am test -Drat.skip=true -Djacoco.skip=true -Dmaven.javadoc.skip=true
+mvn -pl shenyu-extension/shenyu-extension-consul/shenyu-admin-listener-consul,shenyu-extension/shenyu-extension-consul/shenyu-sync-data-consul,shenyu-extension/shenyu-extension-consul/shenyu-registry-consul,shenyu-extension/shenyu-extension-consul/shenyu-spring-boot-starter-sync-data-consul -am test -Drat.skip=true -Djacoco.skip=true -Dmaven.javadoc.skip=true
 ```
 
 Real Consul server gate:
 
 ```bash
-./mvnw -pl shenyu-extension/shenyu-extension-consul/shenyu-spring-boot-starter-sync-data-consul -am test -Dtest=ConsulRealServerTest -DfailIfNoTests=false -Drat.skip=true -Djacoco.skip=true -Dmaven.javadoc.skip=true
+mvn -pl shenyu-extension/shenyu-extension-consul/shenyu-spring-boot-starter-sync-data-consul -am test -Dtest=ConsulRealServerTest -DfailIfNoTests=false -Drat.skip=true -Djacoco.skip=true -Dmaven.javadoc.skip=true
 ```
 
 If the local Docker daemon rejects docker-java's default API version, add a compatible API override such as `-Dapi.version=1.44`.
