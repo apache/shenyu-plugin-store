@@ -199,7 +199,6 @@
                         <exclude>**/README.md</exclude>
                         <exclude>**/PULL_REQUEST_TEMPLATE.md</exclude>
                         <exclude>**/ISSUE_TEMPLATE/*.yml</exclude>
-                        <exclude>**/.mvn/wrapper/maven-wrapper.properties</exclude>
                     </excludes>
                 </configuration>
                 <executions>

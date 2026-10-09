@@ -67,7 +67,7 @@ run_with_log() {
 build_admin_adapter_jars() {
   rm -rf "${ADMIN_JARS_DIR}"
   mkdir -p "${ADMIN_JARS_DIR}"
-  ./mvnw -B -ntp -pl shenyu-admin/shenyu-admin-register-motan -am install \
+  mvn -B -ntp -pl shenyu-admin/shenyu-admin-register-motan -am install \
     -DskipTests \
     -Dapi.version="${API_VERSION}"
   find shenyu-admin/shenyu-admin-register-motan/target -maxdepth 1 -type f -name '*.jar' \
@@ -82,19 +82,19 @@ build_admin_adapter_jars() {
 }
 
 build_provider_image() {
-  ./mvnw -B -ntp -pl shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-motan -am install \
+  mvn -B -ntp -pl shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-motan -am install \
     -DskipTests \
     -Dapi.version="${API_VERSION}" \
     -Dmaven.javadoc.skip=true \
     -Drat.skip=true \
     -Djacoco.skip=true
-  ./mvnw -B -ntp -f shenyu-examples/shenyu-examples-motan/pom.xml -pl shenyu-examples-motan-service -am install \
+  mvn -B -ntp -f shenyu-examples/shenyu-examples-motan/pom.xml -pl shenyu-examples-motan-service -am install \
     -DskipTests \
     -Dapi.version="${API_VERSION}" \
     -Dmaven.javadoc.skip=true \
     -Drat.skip=true \
     -Djacoco.skip=true
-  ./mvnw -B -ntp -f shenyu-examples/shenyu-examples-motan/shenyu-examples-motan-service/pom.xml package org.springframework.boot:spring-boot-maven-plugin:${SPRING_BOOT_MAVEN_PLUGIN_VERSION}:repackage \
+  mvn -B -ntp -f shenyu-examples/shenyu-examples-motan/shenyu-examples-motan-service/pom.xml package org.springframework.boot:spring-boot-maven-plugin:${SPRING_BOOT_MAVEN_PLUGIN_VERSION}:repackage \
     -DskipTests \
     -Dapi.version="${API_VERSION}" \
     -Dmaven.javadoc.skip=true \

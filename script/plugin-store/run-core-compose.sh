@@ -49,7 +49,7 @@ copy_e2e_cache_support_jar() {
   if [[ "${STORE_E2E_CACHE_ENDPOINT:-true}" != "true" ]]; then
     return
   fi
-  "${REPO_DIR}/mvnw" -B -ntp -pl shenyu-plugin/shenyu-plugin-store-test-support -am package -DskipTests -Dapi.version="${API_VERSION:-1.44}"
+  mvn -B -ntp -f "${REPO_DIR}/pom.xml" -pl shenyu-plugin/shenyu-plugin-store-test-support -am package -DskipTests -Dapi.version="${API_VERSION:-1.44}"
   local support_jar
   support_jar="$(find "${REPO_DIR}/shenyu-plugin/shenyu-plugin-store-test-support/target" -maxdepth 1 -type f -name 'shenyu-plugin-store-test-support-*.jar' ! -name '*-sources.jar' ! -name '*-javadoc.jar' | sort | tail -n 1)"
   if [[ -z "${support_jar}" ]]; then
