@@ -304,10 +304,7 @@ preflight() {
   require_command docker
   require_command curl
   require_command python3
-  if [[ ! -x "${REPO_DIR}/mvnw" ]]; then
-    echo "Missing store mvnw: ${REPO_DIR}/mvnw" >&2
-    exit 1
-  fi
+  require_command mvn
   if [[ ! -x "${CORE_SOURCE}/mvnw" ]]; then
     echo "Missing pinned core source mvnw: ${CORE_SOURCE}/mvnw" >&2
     exit 1
@@ -362,10 +359,10 @@ build_artifacts() {
   ) >"${REPORT_DIR}/store-sofa-jars-origin.log" 2>&1
   tail -120 "${REPORT_DIR}/store-sofa-jars-origin.log"
 
-  run_logged sofa-provider-package "${REPO_DIR}/mvnw" -B -ntp -f "${REPO_DIR}/shenyu-examples/pom.xml" -pl shenyu-examples-sofa/shenyu-examples-sofa-service -am package -Pexample -Dmaven.test.skip=true -Drat.skip=true -Djacoco.skip=true
-  run_logged sofa-provider-docker "${REPO_DIR}/mvnw" -B -ntp -f "${REPO_DIR}/shenyu-examples/pom.xml" -pl shenyu-examples-sofa/shenyu-examples-sofa-service -am io.fabric8:docker-maven-plugin:0.40.1:build -Pexample -Dmaven.test.skip=true -Drat.skip=true -Djacoco.skip=true
-  run_logged sofa-it-package "${REPO_DIR}/mvnw" -B -ntp -f "${REPO_DIR}/shenyu-integrated-test/pom.xml" -pl shenyu-integrated-test-sofa -am clean package -Pit -Dmaven.test.skip=true -Drat.skip=true -Djacoco.skip=true
-  run_logged sofa-it-docker "${REPO_DIR}/mvnw" -B -ntp -f "${REPO_DIR}/shenyu-integrated-test/pom.xml" -pl shenyu-integrated-test-sofa -am io.fabric8:docker-maven-plugin:0.40.1:build -Pit -Dmaven.test.skip=true -Drat.skip=true -Djacoco.skip=true
+  run_logged sofa-provider-package mvn -B -ntp -f "${REPO_DIR}/shenyu-examples/pom.xml" -pl shenyu-examples-sofa/shenyu-examples-sofa-service -am package -Pexample -Dmaven.test.skip=true -Drat.skip=true -Djacoco.skip=true
+  run_logged sofa-provider-docker mvn -B -ntp -f "${REPO_DIR}/shenyu-examples/pom.xml" -pl shenyu-examples-sofa/shenyu-examples-sofa-service -am io.fabric8:docker-maven-plugin:0.40.1:build -Pexample -Dmaven.test.skip=true -Drat.skip=true -Djacoco.skip=true
+  run_logged sofa-it-package mvn -B -ntp -f "${REPO_DIR}/shenyu-integrated-test/pom.xml" -pl shenyu-integrated-test-sofa -am clean package -Pit -Dmaven.test.skip=true -Drat.skip=true -Djacoco.skip=true
+  run_logged sofa-it-docker mvn -B -ntp -f "${REPO_DIR}/shenyu-integrated-test/pom.xml" -pl shenyu-integrated-test-sofa -am io.fabric8:docker-maven-plugin:0.40.1:build -Pit -Dmaven.test.skip=true -Drat.skip=true -Djacoco.skip=true
   log "building pinned slim admin image for strict H2 runtime"
   (
     cd "${REPO_DIR}"
@@ -464,14 +461,14 @@ start_compose() {
 
 run_it() {
   start_compose
-  run_logged sofa-original-it "${REPO_DIR}/mvnw" -B -ntp -f "${REPO_DIR}/shenyu-integrated-test/pom.xml" -pl shenyu-integrated-test-sofa -Pit -Dtest='SofaPluginTest,SofaPluginShareThreadPoolTest' test -Drat.skip=true -Djacoco.skip=true
+  run_logged sofa-original-it mvn -B -ntp -f "${REPO_DIR}/shenyu-integrated-test/pom.xml" -pl shenyu-integrated-test-sofa -Pit -Dtest='SofaPluginTest,SofaPluginShareThreadPoolTest' test -Drat.skip=true -Djacoco.skip=true
 }
 
 run_e2e() {
   if [[ "${COMPOSE_STARTED}" != "true" ]]; then
     start_compose
   fi
-  run_logged sofa-original-e2e "${REPO_DIR}/mvnw" -B -ntp -f "${REPO_DIR}/shenyu-e2e/pom.xml" -pl shenyu-e2e-case/shenyu-e2e-case-sofa -am -Dtest='DataSynTest,SofaPluginTest' -DfailIfNoTests=false test -Drat.skip=true -Djacoco.skip=true
+  run_logged sofa-original-e2e mvn -B -ntp -f "${REPO_DIR}/shenyu-e2e/pom.xml" -pl shenyu-e2e-case/shenyu-e2e-case-sofa -am -Dtest='DataSynTest,SofaPluginTest' -DfailIfNoTests=false test -Drat.skip=true -Djacoco.skip=true
 }
 
 load_kind_image() {
@@ -488,8 +485,8 @@ run_k8s() {
   require_command kubectl
   local kubeconfig="${REPORT_DIR}/kubeconfig-${KIND_CLUSTER}.yaml"
   if [[ "${SKIP_BUILD}" != "true" ]]; then
-    run_logged sofa-k8s-package "${REPO_DIR}/mvnw" -B -ntp -f "${REPO_DIR}/shenyu-integrated-test/pom.xml" -pl shenyu-integrated-test-k8s-ingress-sofa -am clean package -Pit -Dmaven.test.skip=true -Drat.skip=true -Djacoco.skip=true
-    run_logged sofa-k8s-docker "${REPO_DIR}/mvnw" -B -ntp -f "${REPO_DIR}/shenyu-integrated-test/pom.xml" -pl shenyu-integrated-test-k8s-ingress-sofa -am io.fabric8:docker-maven-plugin:0.40.1:build -Pit -Dmaven.test.skip=true -Drat.skip=true -Djacoco.skip=true
+    run_logged sofa-k8s-package mvn -B -ntp -f "${REPO_DIR}/shenyu-integrated-test/pom.xml" -pl shenyu-integrated-test-k8s-ingress-sofa -am clean package -Pit -Dmaven.test.skip=true -Drat.skip=true -Djacoco.skip=true
+    run_logged sofa-k8s-docker mvn -B -ntp -f "${REPO_DIR}/shenyu-integrated-test/pom.xml" -pl shenyu-integrated-test-k8s-ingress-sofa -am io.fabric8:docker-maven-plugin:0.40.1:build -Pit -Dmaven.test.skip=true -Drat.skip=true -Djacoco.skip=true
   fi
   python3 - <<PY
 from pathlib import Path
@@ -515,7 +512,7 @@ PY
   ) >"${REPORT_DIR}/k8s-apply.log" 2>&1
   bash "${REPO_DIR}/shenyu-integrated-test/shenyu-integrated-test-k8s-ingress-sofa/script/healthcheck.sh" >"${REPORT_DIR}/k8s-healthcheck.log" 2>&1
   curl -fsS "http://localhost:30095/sofa/findById?id=1001" >"${REPORT_DIR}/k8s-sofa-findById.json"
-  run_logged sofa-k8s-junit "${REPO_DIR}/mvnw" -B -ntp -f "${REPO_DIR}/shenyu-integrated-test/pom.xml" -pl shenyu-integrated-test-k8s-ingress-sofa -am -Dtest=SofaPluginShareThreadPoolTest -DfailIfNoTests=false test -Drat.skip=true -Djacoco.skip=true
+  run_logged sofa-k8s-junit mvn -B -ntp -f "${REPO_DIR}/shenyu-integrated-test/pom.xml" -pl shenyu-integrated-test-k8s-ingress-sofa -am -Dtest=SofaPluginShareThreadPoolTest -DfailIfNoTests=false test -Drat.skip=true -Djacoco.skip=true
 }
 
 preflight

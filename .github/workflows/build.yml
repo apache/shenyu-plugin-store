@@ -52,12 +52,12 @@ jobs:
           git -C "${CORE_API_DIR}" checkout --detach FETCH_HEAD
           "${CORE_API_DIR}/mvnw" -B -ntp -f "${CORE_API_DIR}/pom.xml" -pl shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common,shenyu-web,shenyu-admin-listener/shenyu-admin-listener-api,shenyu-registry/shenyu-registry-api,shenyu-admin,shenyu-kubernetes-controller,shenyu-spring-boot-starter/shenyu-spring-boot-starter-k8s,shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-common -am install -DskipTests -Dmaven.javadoc.skip=true -Drat.skip=true -Djacoco.skip=true -DskipRemoteResources=true
           "${CORE_API_DIR}/mvnw" -B -ntp -f "${CORE_API_DIR}/pom.xml" -pl shenyu-plugin/shenyu-plugin-proxy/shenyu-plugin-divide,shenyu-plugin/shenyu-plugin-global,shenyu-plugin/shenyu-plugin-uri,shenyu-plugin/shenyu-plugin-httpclient,shenyu-plugin/shenyu-plugin-response,shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-jwt -am install -DskipTests -Dmaven.javadoc.skip=true -Drat.skip=true -Djacoco.skip=true -DskipRemoteResources=true
-          ./mvnw -B -ntp dependency:get -Dartifact=com.h2database:h2:1.4.200
+          mvn -B -ntp dependency:get -Dartifact=com.h2database:h2:1.4.200
           bash script/plugin-store/prepare-core-artifacts.sh "${CORE_API_DIR}"
       - name: Build, test, check style, and verify licenses
-        run: ./mvnw -B -ntp clean verify -Dapi.version=1.44
+        run: mvn -B -ntp clean verify -Dapi.version=1.44
       - name: Compile preserved original test and example assets
-        run: ./mvnw -B -ntp -Pintegration-tests,e2e,examples test-compile -DskipTests -Dapi.version=1.44
+        run: mvn -B -ntp -Pintegration-tests,e2e,examples test-compile -DskipTests -Dapi.version=1.44
       - name: Verify store-owned SQL installation
         run: |
           for plugin in sofa tars; do
