@@ -32,6 +32,7 @@
     </properties>
     <modules>
         <module>shenyu-spring-boot-starter-plugin-motan</module>
+        <module>shenyu-spring-boot-starter-plugin-sofa</module>
         <module>shenyu-spring-boot-starter-plugin-tars</module>
         <module>shenyu-spring-boot-starter-plugin-logging-aliyun-sls</module>
     </modules>

@@ -40,6 +40,7 @@
     </dependencies>
     <modules>
         <module>shenyu-plugin-motan</module>
+        <module>shenyu-plugin-sofa</module>
         <module>shenyu-plugin-tars</module>
     </modules>
 
