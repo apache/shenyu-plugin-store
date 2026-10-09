@@ -29,6 +29,8 @@
         <module>shenyu-plugin-store-it-common</module>
         <module>shenyu-integrated-test-k8s-ingress-sofa</module>
         <module>shenyu-integrated-test-sofa</module>
+        <module>shenyu-integrated-test-motan</module>
+        <module>shenyu-integrated-test-k8s-ingress-motan</module>
         <module>shenyu-integrated-test-http-hystrix</module>
     </modules>
     <properties>

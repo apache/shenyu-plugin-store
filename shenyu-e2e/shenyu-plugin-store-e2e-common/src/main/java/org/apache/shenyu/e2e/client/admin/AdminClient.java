@@ -378,11 +378,11 @@ public class AdminClient extends BaseClient {
 
         HttpEntity<T> entity = new HttpEntity<>(data, basicAuth);
         ResponseEntity<ShenYuResult> response = template.postForEntity(baseURL + uri, entity, ShenYuResult.class);
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "status code");
+        Assertions.assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue(), "status code");
 
         ShenYuResult rst = response.getBody();
         Assertions.assertNotNull(rst, "checking http response body");
-        Assertions.assertEquals(200, rst.getCode(), "checking shenyu result code");
+        Assertions.assertEquals(200, rst.getCode(), "checking shenyu result code: " + rst.getMessage() + ", data=" + rst.getData());
         Assertions.assertEquals("create success", rst.getMessage(), "checking shenyu result message");
 
         SearchedResources<?> searchedResources = null;
@@ -410,7 +410,7 @@ public class AdminClient extends BaseClient {
         bindingData.setNamespaceId(SYS_DEFAULT_NAMESPACE_NAMESPACE_ID);
         HttpEntity<BindingData> entity = new HttpEntity<>(bindingData, basicAuth);
         ResponseEntity<ShenYuResult> response = template.postForEntity(baseURL + "/proxy-selector/binding", entity, ShenYuResult.class);
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "status code");
+        Assertions.assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue(), "status code");
     }
 
     /**
@@ -497,7 +497,7 @@ public class AdminClient extends BaseClient {
 
     private <T extends ResourceDTO> T getResource(final String uri, final String id, final Class<T> valueType) {
         ResponseEntity<ShenYuResult> response = template.exchange(baseURL + uri + "/{id}", HttpMethod.GET, new HttpEntity<>(basicAuth), ShenYuResult.class, id);
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "checking http status");
+        Assertions.assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue(), "checking http status");
 
         ShenYuResult rst = response.getBody();
         Assertions.assertNotNull(rst, "checking http response body");
@@ -508,16 +508,16 @@ public class AdminClient extends BaseClient {
         }
 
         Assertions.assertEquals("detail success", rst.getMessage(), "checking shenyu result message");
-        Assertions.assertEquals(200, rst.getCode(), "checking shenyu result code");
+        Assertions.assertEquals(200, rst.getCode(), "checking shenyu result code: " + rst.getMessage() + ", data=" + rst.getData());
         return Assertions.assertDoesNotThrow(() -> rst.toObject(valueType), "checking cast data to " + valueType.getSimpleName());
     }
 
     private ShenYuResult assertAndGet(final ResponseEntity<ShenYuResult> response, final String message) {
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "checking http status");
+        Assertions.assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue(), "checking http status");
 
         ShenYuResult rst = response.getBody();
         Assertions.assertNotNull(rst, "checking http response body");
-        Assertions.assertEquals(200, rst.getCode(), "checking shenyu result code");
+        Assertions.assertEquals(200, rst.getCode(), "checking shenyu result code: " + rst.getMessage() + ", data=" + rst.getData());
         Assertions.assertEquals(message, rst.getMessage(), "checking shenyu result message");
 
         return rst;
@@ -537,7 +537,7 @@ public class AdminClient extends BaseClient {
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(requestBody, basicAuth);
 
         ResponseEntity<ShenYuResult> response = template.exchange(baseURL + uri + "/" + id, HttpMethod.PUT, requestEntity, ShenYuResult.class);
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "checking http status");
+        Assertions.assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue(), "checking http status");
         ShenYuResult rst = response.getBody();
         Assertions.assertNotNull(rst, "checking http response body");
         return Assertions.assertDoesNotThrow(() -> rst.toObject(valueType), "checking cast data to " + valueType.getSimpleName());
@@ -562,7 +562,7 @@ public class AdminClient extends BaseClient {
         basicAuth.add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
         HttpEntity<String> requestEntity = new HttpEntity<>(json, basicAuth);
         ResponseEntity<ShenYuResult> response = template.exchange(baseURL + uri + "/" + id, HttpMethod.PUT, requestEntity, ShenYuResult.class);
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "checking http status");
+        Assertions.assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue(), "checking http status");
         ShenYuResult rst = response.getBody();
         Assertions.assertNotNull(rst, "checking http response body");
         basicAuth.remove("Content-Type");
