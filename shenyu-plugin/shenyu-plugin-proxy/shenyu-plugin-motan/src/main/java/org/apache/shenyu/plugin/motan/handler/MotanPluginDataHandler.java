@@ -18,14 +18,14 @@
 package org.apache.shenyu.plugin.motan.handler;
 
 import org.apache.shenyu.common.dto.SelectorData;
-import org.apache.shenyu.common.dto.convert.plugin.MotanRegisterConfig;
 import org.apache.shenyu.common.dto.PluginData;
-import org.apache.shenyu.plugin.motan.dto.MotanUpstream;
-import org.apache.shenyu.common.enums.PluginEnum;
 import org.apache.shenyu.common.utils.GsonUtils;
 import org.apache.shenyu.plugin.base.handler.PluginDataHandler;
 import org.apache.shenyu.common.utils.Singleton;
 import org.apache.shenyu.plugin.motan.cache.ApplicationConfigCache;
+import org.apache.shenyu.plugin.motan.config.MotanRegisterConfig;
+import org.apache.shenyu.plugin.motan.constant.MotanPluginConstants;
+import org.apache.shenyu.plugin.motan.dto.MotanUpstream;
 
 import java.util.Objects;
 
@@ -70,10 +70,11 @@ public class MotanPluginDataHandler implements PluginDataHandler {
     @Override
     public void removeSelector(final SelectorData selectorData) {
         ApplicationConfigCache.getInstance().invalidateWithSelectorId(selectorData.getId());
+        ApplicationConfigCache.getInstance().removeUpstream(selectorData.getId());
     }
 
     @Override
     public String pluginNamed() {
-        return PluginEnum.MOTAN.getName();
+        return MotanPluginConstants.MOTAN;
     }
 }

@@ -22,8 +22,6 @@ import org.apache.shenyu.common.constant.Constants;
 import org.apache.shenyu.common.dto.MetaData;
 import org.apache.shenyu.common.dto.RuleData;
 import org.apache.shenyu.common.dto.SelectorData;
-import org.apache.shenyu.common.enums.PluginEnum;
-import org.apache.shenyu.common.enums.RpcTypeEnum;
 import org.apache.shenyu.plugin.api.ShenyuPluginChain;
 import org.apache.shenyu.plugin.api.context.ShenyuContext;
 import org.apache.shenyu.plugin.api.result.ShenyuResultEnum;
@@ -31,6 +29,7 @@ import org.apache.shenyu.plugin.api.result.ShenyuResultWrap;
 import org.apache.shenyu.plugin.api.utils.RequestUrlUtils;
 import org.apache.shenyu.plugin.api.utils.WebFluxResultUtils;
 import org.apache.shenyu.plugin.base.AbstractShenyuPlugin;
+import org.apache.shenyu.plugin.motan.constant.MotanPluginConstants;
 import org.apache.shenyu.plugin.motan.proxy.MotanProxyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +56,7 @@ public class MotanPlugin extends AbstractShenyuPlugin {
     public MotanPlugin(final MotanProxyService motanProxyService) {
         this.motanProxyService = motanProxyService;
     }
-    
+
     @Override
     protected String getRawPath(final ServerWebExchange exchange) {
         return RequestUrlUtils.getRewrittenRawPath(exchange);
@@ -80,7 +79,8 @@ public class MotanPlugin extends AbstractShenyuPlugin {
         }
         if (StringUtils.isNoneBlank(metaData.getParameterTypes()) && StringUtils.isBlank(param)) {
             exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
-            Object error = ShenyuResultWrap.error(exchange, ShenyuResultEnum.MOTAN_HAVE_BODY_PARAM);
+            Object error = ShenyuResultWrap.error(exchange, MotanPluginConstants.MOTAN_HAVE_BODY_PARAM_CODE,
+                    MotanPluginConstants.MOTAN_HAVE_BODY_PARAM_MESSAGE, null);
             return WebFluxResultUtils.result(exchange, error);
         }
         final Mono<Object> result = motanProxyService.genericInvoker(param, metaData, exchange, selector);
@@ -94,7 +94,7 @@ public class MotanPlugin extends AbstractShenyuPlugin {
      */
     @Override
     public String named() {
-        return PluginEnum.MOTAN.getName();
+        return MotanPluginConstants.MOTAN;
     }
 
     /**
@@ -105,14 +105,16 @@ public class MotanPlugin extends AbstractShenyuPlugin {
      */
     @Override
     public boolean skip(final ServerWebExchange exchange) {
-        return skipExcept(exchange, RpcTypeEnum.MOTAN);
+        ShenyuContext shenyuContext = exchange.getAttribute(Constants.CONTEXT);
+        Objects.requireNonNull(shenyuContext);
+        return !Objects.equals(shenyuContext.getRpcType(), MotanPluginConstants.MOTAN);
     }
-    
+
     @Override
     protected Mono<Void> handleSelectorIfNull(final String pluginName, final ServerWebExchange exchange, final ShenyuPluginChain chain) {
         return WebFluxResultUtils.noSelectorResult(pluginName, exchange);
     }
-    
+
     @Override
     protected Mono<Void> handleRuleIfNull(final String pluginName, final ServerWebExchange exchange, final ShenyuPluginChain chain) {
         return WebFluxResultUtils.noRuleResult(pluginName, exchange);
@@ -120,7 +122,7 @@ public class MotanPlugin extends AbstractShenyuPlugin {
 
     @Override
     public int getOrder() {
-        return PluginEnum.MOTAN.getCode();
+        return MotanPluginConstants.MOTAN_PLUGIN_ORDER;
     }
 
     private boolean checkMetaData(final MetaData metaData) {

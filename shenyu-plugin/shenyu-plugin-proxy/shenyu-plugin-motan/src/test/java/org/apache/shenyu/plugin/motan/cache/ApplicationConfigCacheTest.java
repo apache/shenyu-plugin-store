@@ -20,9 +20,8 @@ package org.apache.shenyu.plugin.motan.cache;
 import com.weibo.api.motan.config.ProtocolConfig;
 import com.weibo.api.motan.config.RegistryConfig;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.shenyu.common.dto.PluginData;
-import org.apache.shenyu.common.dto.convert.plugin.MotanRegisterConfig;
 import org.apache.shenyu.common.utils.GsonUtils;
+import org.apache.shenyu.plugin.motan.config.MotanRegisterConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -69,10 +68,7 @@ public final class ApplicationConfigCacheTest {
     public void testApplicationConfigCache() throws NoSuchFieldException, IllegalAccessException {
         ApplicationConfigCache applicationConfigCache = ApplicationConfigCache.getInstance();
         Assertions.assertEquals(applicationConfigCache.getInstance().getClass(), ApplicationConfigCache.class);
-        PluginData pluginData = new PluginData();
-        pluginData.setEnabled(true);
-        pluginData.setConfig("{\"register\" : \"localhost:2181\"}");
-        MotanRegisterConfig motanRegisterConfig = GsonUtils.getInstance().fromJson(pluginData.getConfig(), MotanRegisterConfig.class);
+        MotanRegisterConfig motanRegisterConfig = GsonUtils.getInstance().fromJson("{\"register\" : \"localhost:2181\"}", MotanRegisterConfig.class);
         applicationConfigCache.init(motanRegisterConfig);
         Field field1 = applicationConfigCache.getClass().getDeclaredField("registryConfig");
         field1.setAccessible(true);
