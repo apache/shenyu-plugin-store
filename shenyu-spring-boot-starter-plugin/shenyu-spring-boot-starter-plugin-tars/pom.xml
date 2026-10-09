@@ -31,5 +31,9 @@
             <artifactId>shenyu-plugin-tars</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.tencent.tars</groupId>
+            <artifactId>tars-client</artifactId>
+        </dependency>
     </dependencies>
 </project>

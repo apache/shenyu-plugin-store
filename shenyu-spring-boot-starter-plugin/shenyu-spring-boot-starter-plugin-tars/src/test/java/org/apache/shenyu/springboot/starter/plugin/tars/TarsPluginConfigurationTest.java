@@ -17,6 +17,7 @@
 
 package org.apache.shenyu.springboot.starter.plugin.tars;
 
+import com.qq.tars.client.Communicator;
 import org.apache.shenyu.common.enums.PluginEnum;
 import org.apache.shenyu.plugin.api.ShenyuPlugin;
 import org.apache.shenyu.plugin.api.context.ShenyuContextDecorator;
@@ -84,5 +85,10 @@ public class TarsPluginConfigurationTest {
                 assertNotNull(decorator);
             }
         );
+    }
+
+    @Test
+    public void testRuntimeDependencies() {
+        assertThat(Communicator.class.getName()).isEqualTo("com.qq.tars.client.Communicator");
     }
 }

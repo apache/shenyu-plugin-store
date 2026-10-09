@@ -35,7 +35,7 @@ public class MotanShenyuContextDecorator implements ShenyuContextDecorator {
         shenyuContext.setRpcType(MotanPluginConstants.MOTAN);
         return shenyuContext;
     }
-    
+
     @Override
     public String rpcType() {
         return MotanPluginConstants.MOTAN;
