@@ -32,6 +32,9 @@
         <module>shenyu-spring-boot-starter-plugin-sofa</module>
         <module>shenyu-spring-boot-starter-plugin-tars</module>
         <module>shenyu-spring-boot-starter-plugin-hystrix</module>
+        <module>shenyu-spring-boot-starter-plugin-logging-aliyun-sls</module>
+        <module>shenyu-spring-boot-starter-plugin-logging-clickhouse</module>
+        <module>shenyu-spring-boot-starter-plugin-casdoor</module>
         <module>shenyu-spring-boot-starter-plugin-logging-tencent-cls</module>
     </modules>
     <dependencies>
