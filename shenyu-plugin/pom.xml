@@ -32,5 +32,6 @@
         <module>shenyu-plugin-proxy</module>
         <module>shenyu-plugin-fault-tolerance</module>
         <module>shenyu-plugin-logging</module>
+        <module>shenyu-plugin-security</module>
     </modules>
 </project>
