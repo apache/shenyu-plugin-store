@@ -27,3 +27,10 @@ github:
         - root
       restrict_deletion: true
       restrict_force_push: true
+
+notifications:
+  commits: notifications@shenyu.apache.org
+  issues: notifications@shenyu.apache.org
+  pullrequests: notifications@shenyu.apache.org
+  jobs: notifications@shenyu.apache.org
+  discussions: dev@shenyu.apache.org

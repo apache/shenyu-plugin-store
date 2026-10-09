@@ -66,7 +66,7 @@ jobs:
       run: mvn -B -ntp -Pintegration-tests,e2e,examples test-compile -DskipTests -Dapi.version=1.44
     - name: Verify store-owned SQL installation
       run: |
-        for plugin in motan sofa tars hystrix logging-huawei-lts; do
+        for plugin in motan sofa tars hystrix logging-aliyun-sls logging-clickhouse casdoor logging-tencent-cls logging-huawei-lts; do
           python3 script/plugin-store/build-h2-store-sql-fixture.py "${plugin}" --core-source "${RUNNER_TEMP}/shenyu-core-api" --execute --verify-conflicts --verify-custom-config --require-row-manifest
         done
     - name: Verify Motan against the cutover core API
