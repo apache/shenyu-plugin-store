@@ -55,12 +55,12 @@ case "${PLUGIN}" in
     ;;
 esac
 
-if [[ ! -x "${STORE_PLUGIN_SOURCE}/mvnw" ]]; then
-  echo "Missing store source ./mvnw: ${STORE_PLUGIN_SOURCE}" >&2
+if ! command -v mvn >/dev/null 2>&1; then
+  echo "Maven is required to build store plugin artifacts" >&2
   exit 1
 fi
 
-MAVEN_CMD=("${STORE_PLUGIN_SOURCE}/mvnw" -B -ntp -f "${STORE_PLUGIN_SOURCE}/pom.xml"
+MAVEN_CMD=(mvn -B -ntp -f "${STORE_PLUGIN_SOURCE}/pom.xml"
   -pl "${STORE_PLUGIN_MODULES}" -am "${STORE_PLUGIN_MAVEN_GOAL}"
   -DskipTests -Dapi.version="${API_VERSION:-1.44}")
 if [[ ${#STORE_PLUGIN_EXTRA_MAVEN_ARGS[@]} -gt 0 ]]; then
@@ -83,7 +83,7 @@ for module in "${MODULES[@]}"; do
     ! -name '*-javadoc.jar' \
     ! -name '*-tests.jar' \
     -exec cp {} "${STORE_PLUGIN_JARS_DIR}/" \;
-  MAVEN_CMD=("${STORE_PLUGIN_SOURCE}/mvnw" -B -ntp -f "${module_dir}/pom.xml" dependency:copy-dependencies
+  MAVEN_CMD=(mvn -B -ntp -f "${module_dir}/pom.xml" dependency:copy-dependencies
     -DincludeScope="${DEPENDENCY_SCOPE}"
     -DexcludeTransitive=false
     -DoutputDirectory="${STORE_PLUGIN_JARS_DIR}"
