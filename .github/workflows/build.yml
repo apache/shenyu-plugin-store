@@ -44,8 +44,8 @@ jobs:
       run: |
         CORE_API_DIR="${RUNNER_TEMP}/shenyu-core-api"
         git init "${CORE_API_DIR}"
-        git -C "${CORE_API_DIR}" remote add origin https://github.com/cloudbase-ai/shenyu.git
-        git -C "${CORE_API_DIR}" fetch --depth 1 origin dd498378d91a019403a5b8c1c4c0d348f85cb4fb
+        git -C "${CORE_API_DIR}" remote add origin https://github.com/apache/shenyu.git
+        git -C "${CORE_API_DIR}" fetch --depth 1 origin 91bd8d0c18fae8a1b297a3a752ab3282643bc7f9
         git -C "${CORE_API_DIR}" checkout --detach FETCH_HEAD
         "${CORE_API_DIR}/mvnw" -B -ntp -f "${CORE_API_DIR}/pom.xml" -pl shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common,shenyu-web,shenyu-admin-listener/shenyu-admin-listener-api,shenyu-registry/shenyu-registry-api,shenyu-plugin/shenyu-plugin-global,shenyu-plugin/shenyu-plugin-proxy/shenyu-plugin-divide,shenyu-plugin/shenyu-plugin-uri,shenyu-plugin/shenyu-plugin-httpclient,shenyu-plugin/shenyu-plugin-response -am install -DskipTests -Dmaven.javadoc.skip=true -Drat.skip=true -Djacoco.skip=true -DskipRemoteResources=true
     - name: Prepare original-suite core APIs
