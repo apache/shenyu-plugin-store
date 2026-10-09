@@ -35,6 +35,7 @@
         <module>shenyu-spring-boot-starter-plugin-logging-aliyun-sls</module>
         <module>shenyu-spring-boot-starter-plugin-logging-clickhouse</module>
         <module>shenyu-spring-boot-starter-plugin-casdoor</module>
+        <module>shenyu-spring-boot-starter-plugin-logging-tencent-cls</module>
     </modules>
     <dependencies>
         <dependency>

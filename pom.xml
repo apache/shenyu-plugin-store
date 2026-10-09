@@ -119,7 +119,7 @@
         <spring-boot.version>3.3.1</spring-boot.version>
         <grpc.version>1.65.1</grpc.version>
         <!-- dependency version end -->
-        <testcontainers.version>1.20.4</testcontainers.version>
+        <testcontainers.version>1.19.8</testcontainers.version>
         <hystrix-core.version>1.5.18</hystrix-core.version>
         <hystrix-metrics-event-stream.version>1.5.18</hystrix-metrics-event-stream.version>
         <rxjava-reactive-streams.version>1.2.1</rxjava-reactive-streams.version>
@@ -130,6 +130,7 @@
         <casdoor-java-sdk.version>1.9.0</casdoor-java-sdk.version>
         <consul.api.version>1.4.5</consul.api.version>
         <polaris.version>1.13.0</polaris.version>
+        <tencent-log-sdk.version>1.0.14</tencent-log-sdk.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -228,6 +229,25 @@
                 <groupId>com.tencent.polaris</groupId>
                 <artifactId>polaris-all</artifactId>
                 <version>${polaris.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tencentcloudapi.cls</groupId>
+                <artifactId>tencentcloud-cls-sdk-java</artifactId>
+                <version>${tencent-log-sdk.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>ch.qos.logback</groupId>
+                        <artifactId>logback-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>ch.qos.logback</groupId>
+                        <artifactId>logback-classic</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>
