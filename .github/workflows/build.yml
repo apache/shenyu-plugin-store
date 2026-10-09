@@ -56,18 +56,18 @@ jobs:
         run: |
           CORE_API_DIR="${RUNNER_TEMP}/shenyu-core-api"
           "${CORE_API_DIR}/mvnw" -B -ntp -f "${CORE_API_DIR}/pom.xml" -pl shenyu-admin,shenyu-kubernetes-controller,shenyu-spring-boot-starter/shenyu-spring-boot-starter-k8s,shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-common -am install -DskipTests -Dmaven.javadoc.skip=true -Drat.skip=true -Djacoco.skip=true -DskipRemoteResources=true
-          ./mvnw -B -ntp dependency:get -Dartifact=com.h2database:h2:1.4.200
+          mvn -B -ntp dependency:get -Dartifact=com.h2database:h2:1.4.200
       - name: Build, test, check style, and verify licenses
-        run: ./mvnw -B -ntp clean verify -Dapi.version=1.44
+        run: mvn -B -ntp clean verify -Dapi.version=1.44
       - name: Compile preserved original test and example assets
-        run: ./mvnw -B -ntp -Pintegration-tests test-compile -DskipTests -Dapi.version=1.44
+        run: mvn -B -ntp -Pintegration-tests test-compile -DskipTests -Dapi.version=1.44
       - name: Verify store-owned SQL installation
         run: |
           for plugin in hystrix; do
             python3 script/plugin-store/build-h2-store-sql-fixture.py "${plugin}" --core-source "${RUNNER_TEMP}/shenyu-core-api" --execute --verify-conflicts --verify-custom-config --require-row-manifest
           done
       - name: Verify inherited Motan baseline against the cutover core API
-        run: ./mvnw -B -ntp -pl shenyu-plugin/shenyu-plugin-proxy/shenyu-plugin-motan,shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-motan -am verify -Dshenyu.version=2.7.2-SNAPSHOT -Dapi.version=1.44
+        run: mvn -B -ntp -pl shenyu-plugin/shenyu-plugin-proxy/shenyu-plugin-motan,shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-motan -am verify -Dshenyu.version=2.7.2-SNAPSHOT -Dapi.version=1.44
       - name: Run preserved Hystrix integration scenarios
         env:
           SHENYU_CORE_SOURCE: ${{ runner.temp }}/shenyu-core-api
