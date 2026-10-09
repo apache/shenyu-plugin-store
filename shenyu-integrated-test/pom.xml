@@ -27,6 +27,8 @@
     <name>${project.artifactId}</name>
     <modules>
         <module>shenyu-plugin-store-it-common</module>
+        <module>shenyu-integrated-test-k8s-ingress-sofa</module>
+        <module>shenyu-integrated-test-sofa</module>
         <module>shenyu-integrated-test-http-hystrix</module>
     </modules>
     <properties>
@@ -34,6 +36,8 @@
         <gson.version>2.9.0</gson.version>
         <okhttp3.version>4.9.3</okhttp3.version>
         <shenyu.version>2.7.2-SNAPSHOT</shenyu.version>
+        <curator.version>4.3.0</curator.version>
+        <k8s-client.version>20.0.1</k8s-client.version>
     </properties>
     <dependencies>
         <dependency>
@@ -67,6 +71,34 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shenyu</groupId>
+            <artifactId>shenyu-spring-boot-starter-gateway</artifactId>
+            <version>${shenyu.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shenyu</groupId>
+            <artifactId>shenyu-spring-boot-starter-sync-data-websocket</artifactId>
+            <version>${shenyu.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
