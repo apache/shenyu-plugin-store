@@ -32,14 +32,14 @@ import java.util.concurrent.ConcurrentMap;
  * The motan metadata handler.
  */
 public class MotanMetaDataHandler implements MetaDataHandler {
-    
+
     /**
      * logger.
      */
     private static final Logger LOG = LoggerFactory.getLogger(MotanMetaDataHandler.class);
-    
+
     private static final ConcurrentMap<String, MetaData> META_DATA = Maps.newConcurrentMap();
-    
+
     @Override
     public void handle(final MetaData metaData) {
         try {
@@ -60,13 +60,13 @@ public class MotanMetaDataHandler implements MetaDataHandler {
             LOG.error("motan sync metadata is error, please check motan service. MetaData: [{}]", metaData, e);
         }
     }
-    
+
     @Override
     public void remove(final MetaData metaData) {
         ApplicationConfigCache.getInstance().invalidateWithMetadataPath(metaData.getPath());
         META_DATA.remove(metaData.getPath());
     }
-    
+
     @Override
     public String rpcType() {
         return MotanPluginConstants.MOTAN;

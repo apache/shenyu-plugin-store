@@ -56,7 +56,7 @@ public class MotanPlugin extends AbstractShenyuPlugin {
     public MotanPlugin(final MotanProxyService motanProxyService) {
         this.motanProxyService = motanProxyService;
     }
-    
+
     @Override
     protected String getRawPath(final ServerWebExchange exchange) {
         return RequestUrlUtils.getRewrittenRawPath(exchange);
@@ -109,12 +109,12 @@ public class MotanPlugin extends AbstractShenyuPlugin {
         Objects.requireNonNull(shenyuContext);
         return !Objects.equals(shenyuContext.getRpcType(), MotanPluginConstants.MOTAN);
     }
-    
+
     @Override
     protected Mono<Void> handleSelectorIfNull(final String pluginName, final ServerWebExchange exchange, final ShenyuPluginChain chain) {
         return WebFluxResultUtils.noSelectorResult(pluginName, exchange);
     }
-    
+
     @Override
     protected Mono<Void> handleRuleIfNull(final String pluginName, final ServerWebExchange exchange, final ShenyuPluginChain chain) {
         return WebFluxResultUtils.noRuleResult(pluginName, exchange);
