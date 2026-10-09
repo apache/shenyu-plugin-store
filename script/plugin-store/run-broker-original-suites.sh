@@ -19,8 +19,8 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(cd "${SCRIPT_DIR}/../.." && pwd)"
-PLUGIN="${1:-logging-pulsar}"
-SUITE="${2:-it}"
+PLUGIN="${1:-logging-rabbitmq}"
+SUITE="${2:-all}"
 
 compose_files=()
 
@@ -120,6 +120,7 @@ case "${PLUGIN}" in
     export STORE_PLUGIN_MODULES="${STORE_PLUGIN_MODULES:-shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-rabbitmq,shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-logging-rabbitmq}"
     export KEEP_COMPOSE=true
     export SEED_HTTP_DIVIDE_ROUTE=false
+    export STORE_E2E_CACHE_EXPECT_PLUGIN=false
     ;;
   logging-pulsar|pulsar)
     PLUGIN="logging-pulsar"
