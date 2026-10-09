@@ -27,10 +27,12 @@ import org.apache.shenyu.plugin.motan.proxy.MotanProxyService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.server.MockServerWebExchange;
 import org.springframework.web.server.ServerWebExchange;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
@@ -89,6 +91,23 @@ public final class MotanPluginTest {
         when(chain.execute(exchange)).thenReturn(Mono.empty());
         Mono<Void> result = motanPlugin.doExecute(exchange, chain, selectorData, ruleData);
         StepVerifier.create(result).expectSubscription().verifyComplete();
+    }
+
+    @Test
+    public void testDoExecuteReadsBodyWhenParamTransformIsMissing() {
+        ServerWebExchange bodyExchange = MockServerWebExchange.from(MockServerHttpRequest.post("localhost")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(PARAM));
+        ShenyuContext shenyuContext = mock(ShenyuContext.class);
+        bodyExchange.getAttributes().put(Constants.CONTEXT, shenyuContext);
+        bodyExchange.getAttributes().put(Constants.META_DATA, metaData);
+        when(motanProxyService.genericInvoker(PARAM, metaData, bodyExchange, selectorData)).thenReturn(Mono.empty());
+        when(chain.execute(bodyExchange)).thenReturn(Mono.empty());
+
+        Mono<Void> result = motanPlugin.doExecute(bodyExchange, chain, selectorData, ruleData);
+
+        StepVerifier.create(result).expectSubscription().verifyComplete();
+        verify(motanProxyService).genericInvoker(PARAM, metaData, bodyExchange, selectorData);
     }
 
     @Test
