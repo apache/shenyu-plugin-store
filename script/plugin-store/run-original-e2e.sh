@@ -43,10 +43,10 @@ if [[ "${BUILD_STORE_JARS:-false}" == "true" ]]; then
   "${SCRIPT_DIR}/build-store-plugin-jars.sh" "${PLUGIN}"
 fi
 "${SCRIPT_DIR}/assert-store-fixtures.sh" "${PLUGIN}"
-./mvnw -B -ntp -Pe2e -pl shenyu-e2e/shenyu-plugin-store-e2e-common -am install -DskipTests -Dapi.version="${API_VERSION:-1.44}"
+mvn -B -ntp -Pe2e -pl shenyu-e2e/shenyu-plugin-store-e2e-common -am install -DskipTests -Dapi.version="${API_VERSION:-1.44}"
 
 if [[ "${RUN_ORIGINAL_COMPOSE:-true}" == "true" ]]; then
-  "${SCRIPT_DIR}/run-core-compose.sh" "${PLUGIN}" -- ./mvnw -B -ntp -f "${CASE_MODULE}/pom.xml" test "${E2E_MAVEN_ARGS[@]}"
+  "${SCRIPT_DIR}/run-core-compose.sh" "${PLUGIN}" -- mvn -B -ntp -f "${CASE_MODULE}/pom.xml" test "${E2E_MAVEN_ARGS[@]}"
 else
-  ./mvnw -B -ntp -f "${CASE_MODULE}/pom.xml" test "${E2E_MAVEN_ARGS[@]}"
+  mvn -B -ntp -f "${CASE_MODULE}/pom.xml" test "${E2E_MAVEN_ARGS[@]}"
 fi

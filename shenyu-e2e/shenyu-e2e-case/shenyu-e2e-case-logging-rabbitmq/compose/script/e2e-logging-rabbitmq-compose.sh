@@ -67,7 +67,7 @@ for sync in "${SYNC_ARRAY[@]}"; do
   docker compose -f "${examples_compose_file}" up -d --quiet-pull
   bash "${SHENYU_TESTCASE_DIR}/k8s/script/healthcheck.sh" http://localhost:31189/actuator/health
 
-  if ! ./mvnw -B -f ./shenyu-e2e/pom.xml -pl shenyu-e2e-case/shenyu-e2e-case-logging-rabbitmq -am test; then
+  if ! mvn -B -f ./shenyu-e2e/pom.xml -pl shenyu-e2e-case/shenyu-e2e-case-logging-rabbitmq -am test; then
     echo "${sync}-sync RabbitMQ E2E test failed" >&2
     docker compose -f "${sync_compose_file}" logs --tail=all shenyu-admin shenyu-bootstrap || true
     docker compose -f "${rabbitmq_compose_file}" logs --tail=all || true
