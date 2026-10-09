@@ -26,6 +26,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>shenyu-e2e-case-sofa</module>
+        <module>shenyu-e2e-case-motan</module>
         <module>shenyu-e2e-case-logging-rabbitmq</module>
     </modules>
 </project>

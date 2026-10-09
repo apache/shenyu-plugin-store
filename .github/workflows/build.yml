@@ -44,14 +44,16 @@ jobs:
       run: |
         CORE_API_DIR="${RUNNER_TEMP}/shenyu-core-api"
         git init "${CORE_API_DIR}"
-        git -C "${CORE_API_DIR}" remote add origin https://github.com/apache/shenyu.git
-        git -C "${CORE_API_DIR}" fetch --depth 1 origin ec198d442894fd9617947ed73c6c8fe3b206f665
+        git -C "${CORE_API_DIR}" remote add origin https://github.com/cloudbase-ai/shenyu.git
+        git -C "${CORE_API_DIR}" fetch --depth 1 origin dd498378d91a019403a5b8c1c4c0d348f85cb4fb
         git -C "${CORE_API_DIR}" checkout --detach FETCH_HEAD
         "${CORE_API_DIR}/mvnw" -B -ntp -f "${CORE_API_DIR}/pom.xml" -pl shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common,shenyu-web,shenyu-admin-listener/shenyu-admin-listener-api,shenyu-registry/shenyu-registry-api,shenyu-plugin/shenyu-plugin-global,shenyu-plugin/shenyu-plugin-proxy/shenyu-plugin-divide,shenyu-plugin/shenyu-plugin-uri,shenyu-plugin/shenyu-plugin-httpclient,shenyu-plugin/shenyu-plugin-response -am install -DskipTests -Dmaven.javadoc.skip=true -Drat.skip=true -Djacoco.skip=true -DskipRemoteResources=true
     - name: Prepare original-suite core APIs
       run: |
         CORE_API_DIR="${RUNNER_TEMP}/shenyu-core-api"
         "${CORE_API_DIR}/mvnw" -B -ntp -f "${CORE_API_DIR}/pom.xml" -pl shenyu-admin,shenyu-kubernetes-controller,shenyu-spring-boot-starter/shenyu-spring-boot-starter-k8s,shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-common -am install -DskipTests -Dmaven.javadoc.skip=true -Drat.skip=true -Djacoco.skip=true -DskipRemoteResources=true
+        "${CORE_API_DIR}/mvnw" -B -ntp -f "${CORE_API_DIR}/pom.xml" -pl shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-httpclient,shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-global,shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-uri,shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-general-context -am install -DskipTests -Dmaven.javadoc.skip=true -Drat.skip=true -Djacoco.skip=true -DskipRemoteResources=true
+        "${CORE_API_DIR}/mvnw" -B -ntp -f "${CORE_API_DIR}/shenyu-examples/pom.xml" -pl shenyu-examples-common -am install -DskipTests -Dmaven.javadoc.skip=true -Drat.skip=true -Djacoco.skip=true
         mvn -B -ntp dependency:get -Dartifact=com.h2database:h2:1.4.200
     - name: Prepare inherited SOFA core APIs
       run: |
@@ -64,17 +66,16 @@ jobs:
       run: mvn -B -ntp -Pintegration-tests,e2e,examples test-compile -DskipTests -Dapi.version=1.44
     - name: Verify store-owned SQL installation
       run: |
-        for plugin in logging-rabbitmq; do
+        for plugin in motan logging-rabbitmq; do
           python3 script/plugin-store/build-h2-store-sql-fixture.py "${plugin}" --core-source "${RUNNER_TEMP}/shenyu-core-api" --execute --verify-conflicts --verify-custom-config --require-row-manifest
         done
     - name: Verify Motan against the cutover core API
       run: mvn -B -ntp -pl shenyu-plugin/shenyu-plugin-proxy/shenyu-plugin-motan,shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-motan
         -am verify -Dshenyu.version=2.7.2-SNAPSHOT -Dapi.version=1.44
-    - name: Run preserved RabbitMQ integration and E2E scenarios
+    - name: Run preserved Motan integration and E2E scenarios
       env:
         SHENYU_CORE_SOURCE: "${{ runner.temp }}/shenyu-core-api"
-      run: bash script/plugin-store/run-broker-original-suites.sh logging-rabbitmq
-        all
+      run: bash script/plugin-store/run-motan-original-suites.sh all
     - name: Verify inherited SOFA and TARS SQL
       run: |
         for plugin in sofa tars; do
@@ -84,3 +85,8 @@ jobs:
       env:
         SHENYU_CORE_SOURCE: "${{ runner.temp }}/shenyu-core-api"
       run: bash script/plugin-store/run-sofa-original-suites.sh
+    - name: Run preserved RabbitMQ integration and E2E scenarios
+      env:
+        SHENYU_CORE_SOURCE: "${{ runner.temp }}/shenyu-core-api"
+      run: bash script/plugin-store/run-broker-original-suites.sh logging-rabbitmq
+        all
