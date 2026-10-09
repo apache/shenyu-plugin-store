@@ -82,6 +82,11 @@ sub handle_client {
         return;
     }
 
+    if ($method && $method eq 'GET' && $path eq '/http/order/findById') {
+        respond($client, 200, '{"id":"order-found","status":"success"}');
+        return;
+    }
+
     if ($method && $method eq 'GET' && $path eq '/actuator/health') {
         respond($client, 200, '{"status":"UP"}');
         return;
