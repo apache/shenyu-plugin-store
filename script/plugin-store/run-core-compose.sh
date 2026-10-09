@@ -32,7 +32,7 @@ wait_for_url() {
   until curl -fsS "${url}" >/dev/null 2>&1; do
     if (( SECONDS > deadline )); then
       echo "Timed out waiting for ${name}: ${url}" >&2
-      docker compose -p "${COMPOSE_PROJECT_NAME}" -f "${COMPOSE_FILE}" logs --tail=200 || true
+      docker compose "${COMPOSE_ARGS[@]}" logs --tail=200 || true
       exit 1
     fi
     sleep 2
@@ -60,7 +60,7 @@ copy_e2e_cache_support_jar() {
 }
 store_manifest_plugin_name() {
   local row_manifest="${STORE_PLUGIN_SQL_DIR}/row-manifest.json"
-  python3 - "${row_manifest}" "${PLUGIN}" <<'PY'
+  python3 - "${row_manifest}" "${PLUGIN}" <<'PY_PLUGIN_NAME'
 import json
 import sys
 from pathlib import Path
@@ -70,7 +70,7 @@ if not manifest.is_file():
     print(sys.argv[2])
     raise SystemExit(0)
 print(json.loads(manifest.read_text()).get("pluginName") or sys.argv[2])
-PY
+PY_PLUGIN_NAME
 }
 probe_e2e_cache_endpoint() {
   if [[ "${STORE_E2E_CACHE_ENDPOINT:-true}" != "true" ]]; then
@@ -80,7 +80,6 @@ probe_e2e_cache_endpoint() {
   plugin_name="$(store_manifest_plugin_name)"
   SHENYU_GATEWAY_URL="http://localhost:${SHENYU_BOOTSTRAP_PORT}" "${SCRIPT_DIR}/probe-e2e-cache-endpoint.sh" "${plugin_name}"
 }
-
 STORE_PLUGIN_JARS_DIR="${STORE_PLUGIN_JARS_DIR:-${REPO_DIR}/target/plugin-store-jars}"
 STORE_PLUGIN_SQL_DIR="${STORE_PLUGIN_SQL_DIR:-${REPO_DIR}/db/plugins/${PLUGIN}}"
 STORE_H2_DIR="${STORE_H2_DIR:-${REPO_DIR}/target/plugin-store-h2/${PLUGIN}}"
@@ -107,19 +106,29 @@ fi
 "${SCRIPT_DIR}/prepare-h2-store-db.sh" "${PLUGIN}"
 
 COMPOSE_FILE="${SCRIPT_DIR}/docker-compose.original-suite.yml"
-
-if [[ "${KEEP_COMPOSE:-false}" != "true" ]]; then
-  trap 'docker compose -p "${COMPOSE_PROJECT_NAME}" -f "${COMPOSE_FILE}" down -v' EXIT
+COMPOSE_ARGS=(-p "${COMPOSE_PROJECT_NAME}" -f "${COMPOSE_FILE}")
+if [[ -n "${COMPOSE_OVERRIDE_FILE:-}" ]]; then
+  IFS=':' read -r -a COMPOSE_OVERRIDE_FILES <<< "${COMPOSE_OVERRIDE_FILE}"
+  for compose_override in "${COMPOSE_OVERRIDE_FILES[@]}"; do
+    COMPOSE_ARGS+=(-f "${compose_override}")
+  done
 fi
 
-docker compose -p "${COMPOSE_PROJECT_NAME}" -f "${COMPOSE_FILE}" up -d
+if [[ "${KEEP_COMPOSE:-false}" != "true" ]]; then
+  trap 'docker compose "${COMPOSE_ARGS[@]}" down -v' EXIT
+fi
+
+docker compose "${COMPOSE_ARGS[@]}" up -d
 wait_for_url "http://localhost:${SHENYU_ADMIN_PORT}/actuator/health" "shenyu-admin"
 wait_for_url "http://localhost:${SHENYU_BOOTSTRAP_PORT}/actuator/health" "shenyu-bootstrap"
+if [[ -n "${STORE_HTTP_BACKEND_HEALTH_URL:-}" ]]; then
+  wait_for_url "${STORE_HTTP_BACKEND_HEALTH_URL}" "plugin-store-backend"
+fi
 
 for jar in "${STORE_PLUGIN_JARS_DIR}"/*.jar; do
   jar_name="$(basename "${jar}")"
   expected_sha="$(checksum "${jar}")"
-  actual_sha="$(docker compose -p "${COMPOSE_PROJECT_NAME}" -f "${COMPOSE_FILE}" exec -T shenyu-bootstrap sha256sum "/opt/shenyu-bootstrap/ext-lib/${jar_name}" | awk '{print $1}')"
+  actual_sha="$(docker compose "${COMPOSE_ARGS[@]}" exec -T shenyu-bootstrap sha256sum "/opt/shenyu-bootstrap/ext-lib/${jar_name}" | awk '{print $1}')"
   if [[ "${expected_sha}" != "${actual_sha}" ]]; then
     echo "Mounted jar checksum mismatch for ${jar_name}" >&2
     exit 1
@@ -140,5 +149,5 @@ probe_e2e_cache_endpoint
 if [[ "$#" -gt 0 ]]; then
   "$@"
 else
-  docker compose -p "${COMPOSE_PROJECT_NAME}" -f "${COMPOSE_FILE}" ps
+  docker compose "${COMPOSE_ARGS[@]}" ps
 fi

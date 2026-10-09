@@ -18,6 +18,7 @@
 package org.apache.shenyu.plugin.motan.handler;
 
 import com.google.common.collect.Maps;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shenyu.common.dto.MetaData;
 import org.apache.shenyu.plugin.base.handler.MetaDataHandler;
 import org.apache.shenyu.plugin.motan.cache.ApplicationConfigCache;
@@ -45,7 +46,7 @@ public class MotanMetaDataHandler implements MetaDataHandler {
         try {
             MetaData exist = META_DATA.get(metaData.getPath());
             if (Objects.isNull(exist) || Objects.isNull(ApplicationConfigCache.getInstance().get(exist.getPath()))
-                    || Objects.isNull(ApplicationConfigCache.getInstance().get(exist.getPath()).getRef())) {
+                    || StringUtils.isBlank(ApplicationConfigCache.getInstance().get(exist.getPath()).getServiceInterface())) {
                 // The first initialization
                 ApplicationConfigCache.getInstance().initRef(metaData);
             } else {

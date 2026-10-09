@@ -86,7 +86,17 @@ He is known as one of the three greatest kings of ancient China, along with Yao 
 * Extensions: Plugin hot-swapping, dynamic loading
 * Cluster: NGINX, Docker, Kubernetes
 * Language: provides .NET, Python, Go, Java client for API register
-   
+
+---
+
+# Motan plugin support
+
+The Motan gateway plugin is maintained as an external plugin in this repository. It is not restored to ShenYu core and does not require Motan-specific core enums, DTOs, result codes, or distribution artifacts. A bootstrap consumes it by adding the Motan plugin and starter artifacts explicitly.
+
+Current verification uses the real Motan 1.2.1 runtime with ShenYu 2.7.0 and 2.7.2-SNAPSHOT plugin APIs on Java 17. The gateway integration coverage starts a Motan provider, invokes it through ShenYu, rejects invalid request body or metadata, refreshes direct upstream configuration, and checks old Motan references are closed. The integration fixture uses Motan's `simple` serialization because Motan 1.2.1 Hessian2 is not Java 17 friendly for these request and error payloads.
+
+Client-side Motan registration is not provided by this external plugin. Configure plugin data, selectors, rules, and metadata through the supported ShenYu admin/config channel; the gateway continues to consume config through normal data sync. To roll back, remove the Motan starter/plugin artifacts from the bootstrap classpath, disable or delete Motan plugin config and Motan metadata in admin, then restart any bootstrap that had loaded the external plugin. Historical release notes and upgrade SQL remain historical records.
+
 ---  
 
 # Quick Start (docker)
