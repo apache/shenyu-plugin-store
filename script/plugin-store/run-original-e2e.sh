@@ -22,6 +22,17 @@ CASE_MODULE="${2:?Usage: $0 <plugin-slug> <case-module-path>}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SHENYU_ADMIN_PORT="${SHENYU_ADMIN_PORT:-31095}"
 SHENYU_BOOTSTRAP_PORT="${SHENYU_BOOTSTRAP_PORT:-31195}"
+E2E_ADMIN_BASE_URL="http://localhost:${SHENYU_ADMIN_PORT}"
+E2E_GATEWAY_BASE_URL="http://localhost:${SHENYU_BOOTSTRAP_PORT}"
+E2E_MAVEN_ARGS=(
+  -DskipTests=false
+  -Dshenyu.e2e.admin.baseUrl="${E2E_ADMIN_BASE_URL}"
+  -Dshenyu.e2e.gateway.baseUrl="${E2E_GATEWAY_BASE_URL}"
+  -Dshenyu.e2e.service.shenyu-e2e-admin.baseUrl="${E2E_ADMIN_BASE_URL}"
+  -Dshenyu.e2e.service.shenyu-e2e-gateway.baseUrl="${E2E_GATEWAY_BASE_URL}"
+  "-DargLine=-Dshenyu.e2e.admin.baseUrl=${E2E_ADMIN_BASE_URL} -Dshenyu.e2e.gateway.baseUrl=${E2E_GATEWAY_BASE_URL} -Dshenyu.e2e.service.shenyu-e2e-admin.baseUrl=${E2E_ADMIN_BASE_URL} -Dshenyu.e2e.service.shenyu-e2e-gateway.baseUrl=${E2E_GATEWAY_BASE_URL}"
+  -Dapi.version="${API_VERSION:-1.44}"
+)
 
 if [[ ! -f "${CASE_MODULE}/pom.xml" ]]; then
   echo "Original E2E case module is missing pom.xml: ${CASE_MODULE}" >&2
@@ -35,7 +46,7 @@ fi
 mvn -B -ntp -Pe2e -pl shenyu-e2e/shenyu-plugin-store-e2e-common -am install -DskipTests -Dapi.version="${API_VERSION:-1.44}"
 
 if [[ "${RUN_ORIGINAL_COMPOSE:-true}" == "true" ]]; then
-  "${SCRIPT_DIR}/run-core-compose.sh" "${PLUGIN}" -- mvn -B -ntp -f "${CASE_MODULE}/pom.xml" test -DskipTests=false -Dshenyu.e2e.admin.baseUrl="http://localhost:${SHENYU_ADMIN_PORT}" -Dshenyu.e2e.gateway.baseUrl="http://localhost:${SHENYU_BOOTSTRAP_PORT}" -Dapi.version="${API_VERSION:-1.44}"
+  "${SCRIPT_DIR}/run-core-compose.sh" "${PLUGIN}" -- mvn -B -ntp -f "${CASE_MODULE}/pom.xml" test "${E2E_MAVEN_ARGS[@]}"
 else
-  mvn -B -ntp -f "${CASE_MODULE}/pom.xml" test -DskipTests=false -Dshenyu.e2e.admin.baseUrl="http://localhost:${SHENYU_ADMIN_PORT}" -Dshenyu.e2e.gateway.baseUrl="http://localhost:${SHENYU_BOOTSTRAP_PORT}" -Dapi.version="${API_VERSION:-1.44}"
+  mvn -B -ntp -f "${CASE_MODULE}/pom.xml" test "${E2E_MAVEN_ARGS[@]}"
 fi

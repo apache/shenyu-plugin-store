@@ -107,12 +107,13 @@ fi
 
 COMPOSE_FILE="${SCRIPT_DIR}/docker-compose.original-suite.yml"
 COMPOSE_ARGS=(-p "${COMPOSE_PROJECT_NAME}" -f "${COMPOSE_FILE}")
-if [[ -n "${COMPOSE_OVERRIDE_FILE:-}" ]]; then
-  IFS=':' read -r -a COMPOSE_OVERRIDE_FILES <<< "${COMPOSE_OVERRIDE_FILE}"
+for compose_overlay_list in "${COMPOSE_OVERRIDE_FILE:-}" "${COMPOSE_FILE_EXTRA:-}"; do
+  [[ -n "${compose_overlay_list}" ]] || continue
+  IFS=':' read -r -a COMPOSE_OVERRIDE_FILES <<< "${compose_overlay_list}"
   for compose_override in "${COMPOSE_OVERRIDE_FILES[@]}"; do
     COMPOSE_ARGS+=(-f "${compose_override}")
   done
-fi
+done
 
 if [[ "${KEEP_COMPOSE:-false}" != "true" ]]; then
   trap 'docker compose "${COMPOSE_ARGS[@]}" down -v' EXIT
