@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
   ~ Licensed to the Apache Software Foundation (ASF) under one or more
   ~ contributor license agreements.  See the NOTICE file distributed with
@@ -15,7 +15,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns='http://maven.apache.org/POM/4.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd'>
     <parent>
         <groupId>org.apache</groupId>
         <artifactId>apache</artifactId>
@@ -27,7 +27,6 @@
     <packaging>pom</packaging>
     <version>2.7.1-SNAPSHOT</version>
     <name>shenyu-plugin-store</name>
-
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -35,14 +34,12 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-
     <scm>
         <url>https://github.com/apache/shenyu</url>
         <connection>scm:git:https://github.com/apache/shenyu.git</connection>
         <developerConnection>scm:git:https://github.com/apache/shenyu.git</developerConnection>
         <tag>v2.5.0</tag>
     </scm>
-
     <mailingLists>
         <mailingList>
             <name>Apache ShenYu Developer List</name>
@@ -51,17 +48,34 @@
             <unsubscribe>dev-unsubscribe@shenyu.apache.org</unsubscribe>
         </mailingList>
     </mailingLists>
-
     <issueManagement>
         <system>GitHub Issues</system>
         <url>https://github.com/apache/shenyu/issues</url>
     </issueManagement>
-
     <modules>
         <module>shenyu-plugin</module>
         <module>shenyu-spring-boot-starter-plugin</module>
     </modules>
-
+    <profiles>
+        <profile>
+            <id>integration-tests</id>
+            <modules>
+                <module>shenyu-integrated-test</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>e2e</id>
+            <modules>
+                <module>shenyu-e2e</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>examples</id>
+            <modules>
+                <module>shenyu-examples</module>
+            </modules>
+        </profile>
+    </profiles>
     <properties>
         <java.version>17</java.version>
         <shenyu.version>2.7.2-SNAPSHOT</shenyu.version>
@@ -89,17 +103,19 @@
         <docker-maven-plugin.version>0.40.1</docker-maven-plugin.version>
         <maven-assembly-plugin.version>3.5.0</maven-assembly-plugin.version>
         <!-- maven plugin version end -->
-
         <!-- dependency version start -->
         <motan.version>1.2.1</motan.version>
         <log4j-1.2-api.vetsion>2.17.2</log4j-1.2-api.vetsion>
         <bytebuddy.version>1.14.11</bytebuddy.version>
         <tars.version>1.7.2</tars.version>
+        <sofa.rpc.version>5.13.0</sofa.rpc.version>
+        <sofa-common-tools.version>2.1.1</sofa-common-tools.version>
+        <spring-boot.version>3.3.1</spring-boot.version>
+        <grpc.version>1.65.1</grpc.version>
+        <!-- dependency version end -->
         <testcontainers.version>1.19.8</testcontainers.version>
         <tencent-log-sdk.version>1.0.14</tencent-log-sdk.version>
-        <!-- dependency version end -->
     </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -114,29 +130,74 @@
                 <artifactId>motan-core</artifactId>
                 <version>${motan.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.weibo</groupId>
                 <artifactId>motan-transport-netty4</artifactId>
                 <version>${motan.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.weibo</groupId>
                 <artifactId>motan-registry-zookeeper</artifactId>
                 <version>${motan.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.weibo</groupId>
                 <artifactId>motan-springsupport</artifactId>
                 <version>${motan.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.tencent.tars</groupId>
                 <artifactId>tars-spring-boot-starter</artifactId>
                 <version>${tars.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tencent.tars</groupId>
+                <artifactId>tars-client</artifactId>
+                <version>${tars.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alipay.sofa</groupId>
+                <artifactId>sofa-rpc-all</artifactId>
+                <version>${sofa.rpc.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.grpc</groupId>
+                        <artifactId>grpc-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>io.grpc</groupId>
+                        <artifactId>grpc-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>io.grpc</groupId>
+                        <artifactId>grpc-protobuf</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.alipay.sofa.common</groupId>
+                <artifactId>sofa-common-tools</artifactId>
+                <version>${sofa-common-tools.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-context</artifactId>
+                <version>${grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-api</artifactId>
+                <version>${grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-protobuf</artifactId>
+                <version>${grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-stub</artifactId>
+                <version>${grpc.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.tencentcloudapi.cls</groupId>
@@ -159,7 +220,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <build>
         <plugins>
             <plugin>
@@ -190,6 +250,8 @@
                 <configuration>
                     <excludes>
                         <exclude>**/target/**</exclude>
+                        <exclude>shenyu-examples/shenyu-examples-common/src/main/resources/1.txt</exclude>
+                        <exclude>shenyu-examples/shenyu-examples-common/src/main/resources/2.txt</exclude>
                         <exclude>**/.git/**</exclude>
                         <exclude>**/*.json</exclude>
                         <exclude>**/README.md</exclude>
@@ -209,7 +271,6 @@
             </plugin>
         </plugins>
     </build>
-
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -248,5 +309,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 </project>
