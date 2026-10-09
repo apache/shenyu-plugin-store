@@ -49,17 +49,9 @@ copy_e2e_cache_support_jar() {
   if [[ "${STORE_E2E_CACHE_ENDPOINT:-true}" != "true" ]]; then
     return
   fi
-  local cache_source="${STORE_E2E_CACHE_SOURCE:-${REPO_DIR}}"
-  if [[ ! -f "${cache_source}/shenyu-plugin/shenyu-plugin-store-test-support/src/main/java/org/apache/shenyu/plugin/store/test/support/E2eCacheController.java" ]]; then
-    cache_source="${STORE_E2E_CACHE_FALLBACK_SOURCE:-/tmp/shenyu-remaining-test-support}"
-  fi
-  if [[ ! -f "${cache_source}/shenyu-plugin/shenyu-plugin-store-test-support/src/main/java/org/apache/shenyu/plugin/store/test/support/E2eCacheController.java" ]]; then
-    echo "Missing store E2E cache endpoint sources; set STORE_E2E_CACHE_SOURCE to the test-support worktree" >&2
-    exit 1
-  fi
-  "${cache_source}/mvnw" -B -ntp -f "${cache_source}/shenyu-plugin/pom.xml" -pl shenyu-plugin-store-test-support -am package -DskipTests -Dapi.version="${API_VERSION:-1.44}"
+  mvn -B -ntp -f "${REPO_DIR}/pom.xml" -pl shenyu-plugin/shenyu-plugin-store-test-support -am package -DskipTests -Dapi.version="${API_VERSION:-1.44}"
   local support_jar
-  support_jar="$(find "${cache_source}/shenyu-plugin/shenyu-plugin-store-test-support/target" -maxdepth 1 -type f -name 'shenyu-plugin-store-test-support-*.jar' ! -name '*-sources.jar' ! -name '*-javadoc.jar' | sort | tail -n 1)"
+  support_jar="$(find "${REPO_DIR}/shenyu-plugin/shenyu-plugin-store-test-support/target" -maxdepth 1 -type f -name 'shenyu-plugin-store-test-support-*.jar' ! -name '*-sources.jar' ! -name '*-javadoc.jar' | sort | tail -n 1)"
   if [[ -z "${support_jar}" ]]; then
     echo "Missing shenyu-plugin-store-test-support jar" >&2
     exit 1
