@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
   ~ Licensed to the Apache Software Foundation (ASF) under one or more
   ~ contributor license agreements.  See the NOTICE file distributed with
@@ -15,9 +15,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns='http://maven.apache.org/POM/4.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd'>
     <parent>
         <groupId>org.apache.shenyu</groupId>
         <artifactId>shenyu-plugin-store</artifactId>
@@ -27,11 +25,10 @@
     <artifactId>shenyu-e2e</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
-
     <modules>
         <module>shenyu-plugin-store-e2e-common</module>
+        <module>shenyu-e2e-case</module>
     </modules>
-
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
         <awaitility.version>4.0.3</awaitility.version>
@@ -48,8 +45,8 @@
         <slf4j.version>1.7.35</slf4j.version>
         <spring-framework.version>5.3.30</spring-framework.version>
         <websocket.version>1.5.1</websocket.version>
+        <guava.version>32.0.0-jre</guava.version>
     </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -75,7 +72,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>jakarta.annotation</groupId>

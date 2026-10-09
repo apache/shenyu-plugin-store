@@ -26,6 +26,8 @@ import org.apache.shenyu.plugin.motan.context.MotanShenyuContextDecorator;
 import org.apache.shenyu.plugin.motan.handler.MotanPluginDataHandler;
 import org.apache.shenyu.plugin.motan.proxy.MotanProxyService;
 import org.apache.shenyu.plugin.motan.handler.MotanMetaDataHandler;
+import org.apache.shenyu.plugin.motan.response.MotanMessageWriter;
+import org.apache.shenyu.plugin.response.strategy.MessageWriter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -79,7 +81,7 @@ public class MotanPluginConfiguration {
     public MetaDataHandler motanMetaDataHandler() {
         return new MotanMetaDataHandler();
     }
-    
+
     /**
      * motan shenyu context decorator.
      *
@@ -88,5 +90,16 @@ public class MotanPluginConfiguration {
     @Bean
     public ShenyuContextDecorator motanShenyuContextDecorator() {
         return new MotanShenyuContextDecorator();
+    }
+
+    /**
+     * motan response message writer.
+     *
+     * @return the message writer
+     */
+    @Bean
+    @ConditionalOnClass(MessageWriter.class)
+    public MessageWriter motanMessageWriter() {
+        return new MotanMessageWriter();
     }
 }

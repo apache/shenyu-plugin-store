@@ -19,13 +19,16 @@ package org.apache.shenyu.plugin.motan.handler;
 
 import org.apache.shenyu.common.dto.PluginData;
 import org.apache.shenyu.common.dto.SelectorData;
-import org.apache.shenyu.common.dto.convert.plugin.MotanRegisterConfig;
 import org.apache.shenyu.common.utils.Singleton;
 import org.apache.shenyu.plugin.motan.cache.ApplicationConfigCache;
+import org.apache.shenyu.plugin.motan.config.MotanRegisterConfig;
 import org.apache.shenyu.plugin.motan.dto.MotanUpstream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Field;
+import java.util.Objects;
 
 /**
  * The Test Case For MotanPluginDataHandler.
@@ -44,8 +47,8 @@ public final class MotanPluginDataHandlerTest {
 
     @Test
     public void testHandlerPlugin() {
-        pluginData.setEnabled(true);
-        pluginData.setConfig("{\"registerAddress\" : \"127.0.0.1:2181\"}");
+        pluginData = new PluginData("motan-plugin", "motan",
+                "{\"registerAddress\" : \"127.0.0.1:2181\"}", "0", true, null);
         motanPluginDataHandler.handlerPlugin(pluginData);
         Assertions.assertEquals(Singleton.INST.get(MotanRegisterConfig.class).getRegisterAddress(), "127.0.0.1:2181");
     }
@@ -58,7 +61,7 @@ public final class MotanPluginDataHandlerTest {
     @Test
     public void testHandlerSelectorParsesReleasedApiUpstreamSettings() {
         SelectorData selectorData = new SelectorData();
-        selectorData.setId("motan-selector-test");
+        writeField(selectorData, "id", "motan-selector-test");
         selectorData.setHandle("{\"protocol\":\"motan\",\"registerProtocol\":\"zookeeper\",\"registerAddress\":\"127.0.0.1:2181\"}");
 
         motanPluginDataHandler.handlerSelector(selectorData);
@@ -67,5 +70,22 @@ public final class MotanPluginDataHandlerTest {
         Assertions.assertEquals("motan", upstream.getProtocol());
         Assertions.assertEquals("zookeeper", upstream.getRegisterProtocol());
         Assertions.assertEquals("127.0.0.1:2181", upstream.getRegisterAddress());
+    }
+
+    private static void writeField(final Object target, final String name, final Object value) {
+        Class<?> type = target.getClass();
+        while (Objects.nonNull(type)) {
+            try {
+                Field field = type.getDeclaredField(name);
+                field.setAccessible(true);
+                field.set(target, value);
+                return;
+            } catch (final NoSuchFieldException ex) {
+                type = type.getSuperclass();
+            } catch (final IllegalAccessException ex) {
+                throw new IllegalStateException("Failed to set " + name, ex);
+            }
+        }
+        throw new IllegalStateException("Field not found: " + name);
     }
 }

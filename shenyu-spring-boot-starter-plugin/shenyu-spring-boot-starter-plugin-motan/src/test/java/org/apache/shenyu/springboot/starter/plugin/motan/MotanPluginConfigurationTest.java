@@ -21,6 +21,7 @@ import org.apache.shenyu.plugin.api.context.ShenyuContextDecorator;
 import org.apache.shenyu.plugin.base.handler.MetaDataHandler;
 import org.apache.shenyu.plugin.base.handler.PluginDataHandler;
 import org.apache.shenyu.plugin.motan.MotanPlugin;
+import org.apache.shenyu.plugin.response.strategy.MessageWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -79,6 +80,15 @@ public class MotanPluginConfigurationTest {
         applicationContextRunner.run(context -> {
                 ShenyuContextDecorator subscriber = context.getBean("motanShenyuContextDecorator", ShenyuContextDecorator.class);
                 assertNotNull(subscriber);
+            }
+        );
+    }
+
+    @Test
+    public void testMotanMessageWriter() {
+        applicationContextRunner.run(context -> {
+                MessageWriter writer = context.getBean("motanMessageWriter", MessageWriter.class);
+                assertNotNull(writer);
             }
         );
     }
