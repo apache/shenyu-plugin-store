@@ -32,7 +32,7 @@ wait_for_url() {
   until curl -fsS "${url}" >/dev/null 2>&1; do
     if (( SECONDS > deadline )); then
       echo "Timed out waiting for ${name}: ${url}" >&2
-      compose logs --tail=200 || true
+      docker compose "${COMPOSE_ARGS[@]}" logs --tail=200 || true
       exit 1
     fi
     sleep 2
@@ -106,29 +106,30 @@ fi
 "${SCRIPT_DIR}/prepare-h2-store-db.sh" "${PLUGIN}"
 
 COMPOSE_FILE="${SCRIPT_DIR}/docker-compose.original-suite.yml"
-COMPOSE_FILES=(-f "${COMPOSE_FILE}")
-if [[ -n "${COMPOSE_FILE_EXTRA:-}" ]]; then
-  IFS=':' read -r -a EXTRA_COMPOSE_FILES <<< "${COMPOSE_FILE_EXTRA}"
-  for extra_compose_file in "${EXTRA_COMPOSE_FILES[@]}"; do
-    COMPOSE_FILES+=(-f "${extra_compose_file}")
+COMPOSE_ARGS=(-p "${COMPOSE_PROJECT_NAME}" -f "${COMPOSE_FILE}")
+for compose_overlay_list in "${COMPOSE_OVERRIDE_FILE:-}" "${COMPOSE_FILE_EXTRA:-}"; do
+  [[ -n "${compose_overlay_list}" ]] || continue
+  IFS=':' read -r -a COMPOSE_OVERRIDE_FILES <<< "${compose_overlay_list}"
+  for compose_override in "${COMPOSE_OVERRIDE_FILES[@]}"; do
+    COMPOSE_ARGS+=(-f "${compose_override}")
   done
-fi
-compose() {
-  docker compose -p "${COMPOSE_PROJECT_NAME}" "${COMPOSE_FILES[@]}" "$@"
-}
+done
 
 if [[ "${KEEP_COMPOSE:-false}" != "true" ]]; then
-  trap 'compose down -v' EXIT
+  trap 'docker compose "${COMPOSE_ARGS[@]}" down -v' EXIT
 fi
 
-compose up -d
+docker compose "${COMPOSE_ARGS[@]}" up -d
 wait_for_url "http://localhost:${SHENYU_ADMIN_PORT}/actuator/health" "shenyu-admin"
 wait_for_url "http://localhost:${SHENYU_BOOTSTRAP_PORT}/actuator/health" "shenyu-bootstrap"
+if [[ -n "${STORE_HTTP_BACKEND_HEALTH_URL:-}" ]]; then
+  wait_for_url "${STORE_HTTP_BACKEND_HEALTH_URL}" "plugin-store-backend"
+fi
 
 for jar in "${STORE_PLUGIN_JARS_DIR}"/*.jar; do
   jar_name="$(basename "${jar}")"
   expected_sha="$(checksum "${jar}")"
-  actual_sha="$(compose exec -T shenyu-bootstrap sha256sum "/opt/shenyu-bootstrap/ext-lib/${jar_name}" | awk '{print $1}')"
+  actual_sha="$(docker compose "${COMPOSE_ARGS[@]}" exec -T shenyu-bootstrap sha256sum "/opt/shenyu-bootstrap/ext-lib/${jar_name}" | awk '{print $1}')"
   if [[ "${expected_sha}" != "${actual_sha}" ]]; then
     echo "Mounted jar checksum mismatch for ${jar_name}" >&2
     exit 1
@@ -149,5 +150,5 @@ probe_e2e_cache_endpoint
 if [[ "$#" -gt 0 ]]; then
   "$@"
 else
-  compose ps
+  docker compose "${COMPOSE_ARGS[@]}" ps
 fi
