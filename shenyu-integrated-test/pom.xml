@@ -32,6 +32,7 @@
         <module>shenyu-integrated-test-motan</module>
         <module>shenyu-integrated-test-k8s-ingress-motan</module>
         <module>shenyu-integrated-test-http-hystrix</module>
+        <module>shenyu-integrated-test-http-logging-pulsar</module>
         <module>shenyu-integrated-test-http-logging-rabbitmq</module>
     </modules>
     <properties>
