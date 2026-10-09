@@ -14,23 +14,18 @@
 # limitations under the License.
 
 github:
-  rulesets:
-    - name: "Default Branch Protection"
-      type: branch
-      branches:
-        includes:
-          - "~DEFAULT_BRANCH"
-          - "release/*"
-          - "rel/*"
-        excludes: []
-      bypass_teams:
-        - root
-      restrict_deletion: true
-      restrict_force_push: true
+  description: Apache ShenYu is a Java native API Gateway for service proxy, protocol conversion and API governance.
+  homepage: https://shenyu.apache.org/
+  labels:
+    - api-gateway
+    - http-proxy
+    - spring-cloud-proxy
+    - grpc-proxy
+    - dubbo-proxy
+    - sofa-proxy
+    - reactor-java
 
 notifications:
   commits: notifications@shenyu.apache.org
   issues: notifications@shenyu.apache.org
   pullrequests: notifications@shenyu.apache.org
-  jobs: notifications@shenyu.apache.org
-  discussions: dev@shenyu.apache.org
