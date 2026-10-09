@@ -65,7 +65,7 @@ if [[ -n "${STORE_PLUGIN_ID}" ]]; then
   fi
 fi
 if [[ ! -f "${H2_JAR}" ]]; then
-  "${REPO_ROOT}/mvnw" -B -ntp dependency:get -Dartifact="com.h2database:h2:${H2_VERSION}" -Dtransitive=false
+  mvn -B -ntp -f "${REPO_ROOT}/pom.xml" dependency:get -Dartifact="com.h2database:h2:${H2_VERSION}" -Dtransitive=false
 fi
 
 rm -rf "${STORE_H2_DIR}"
