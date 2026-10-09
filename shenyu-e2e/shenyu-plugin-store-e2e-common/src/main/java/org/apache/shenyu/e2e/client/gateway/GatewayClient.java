@@ -165,7 +165,7 @@ public class GatewayClient extends BaseClient {
      * @throws JsonProcessingException JsonProcessingException
      */
     public List<MetaData> getMetaDataCache() throws JsonProcessingException {
-        ResponseEntity<List> response = TEMPLATE.exchange(baseUrl + "/actuator/metadata", HttpMethod.GET, localEntity(), List.class);
+        ResponseEntity<List> response = TEMPLATE.exchange(baseUrl + "/shenyu/e2e/metadata", HttpMethod.GET, localEntity(), List.class);
         List body = response.getBody();
         Map<String, MetaData> s = (Map<String, MetaData>) body.get(0);
         List<MetaData> metaDataList = new ArrayList<>();
@@ -183,7 +183,7 @@ public class GatewayClient extends BaseClient {
      * @throws JsonProcessingException JsonProcessingException
      */
     public List<SelectorCacheData> getSelectorCache() throws JsonProcessingException {
-        ResponseEntity<List> response = TEMPLATE.exchange(baseUrl + "/actuator/selectorData", HttpMethod.GET, localEntity(), List.class);
+        ResponseEntity<List> response = TEMPLATE.exchange(baseUrl + "/shenyu/e2e/selectorData", HttpMethod.GET, localEntity(), List.class);
         List body = response.getBody();
         Map<String, SelectorCacheData> s = (Map<String, SelectorCacheData>) body.get(0);
         List<SelectorCacheData> selectorDataList = new ArrayList<>();
@@ -205,7 +205,7 @@ public class GatewayClient extends BaseClient {
      * @throws JsonProcessingException JsonProcessingException
      */
     public List<RuleCacheData> getRuleCache() throws JsonProcessingException {
-        ResponseEntity<List> response = TEMPLATE.exchange(baseUrl + "/actuator/ruleData", HttpMethod.GET, localEntity(), List.class);
+        ResponseEntity<List> response = TEMPLATE.exchange(baseUrl + "/shenyu/e2e/ruleData", HttpMethod.GET, localEntity(), List.class);
         List body = response.getBody();
         Map<String, RuleCacheData> s = (Map<String, RuleCacheData>) body.get(0);
         List<RuleCacheData> ruleDataList = new ArrayList<>();
@@ -225,7 +225,7 @@ public class GatewayClient extends BaseClient {
      * @return Map Map
      */
     public Map<String, Integer> getPlugins() {
-        ResponseEntity<List> response = TEMPLATE.exchange(baseUrl + "/actuator/plugins", HttpMethod.GET, localEntity(), List.class);
+        ResponseEntity<List> response = TEMPLATE.exchange(baseUrl + "/shenyu/e2e/plugins", HttpMethod.GET, localEntity(), List.class);
         List body = response.getBody();
         return (Map<String, Integer>) body.get(0);
     }

@@ -81,7 +81,7 @@ public class MotanPluginConfiguration {
     public MetaDataHandler motanMetaDataHandler() {
         return new MotanMetaDataHandler();
     }
-    
+
     /**
      * motan shenyu context decorator.
      *

@@ -45,6 +45,7 @@
         <slf4j.version>1.7.35</slf4j.version>
         <spring-framework.version>5.3.30</spring-framework.version>
         <websocket.version>1.5.1</websocket.version>
+        <guava.version>32.0.0-jre</guava.version>
     </properties>
     <dependencyManagement>
         <dependencies>
