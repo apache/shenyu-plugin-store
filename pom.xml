@@ -122,9 +122,12 @@
         <hystrix-core.version>1.5.18</hystrix-core.version>
         <hystrix-metrics-event-stream.version>1.5.18</hystrix-metrics-event-stream.version>
         <rxjava-reactive-streams.version>1.2.1</rxjava-reactive-streams.version>
+        <aliyun-log-producer.version>0.3.10</aliyun-log-producer.version>
+        <protobuf-java.version>3.25.5</protobuf-java.version>
+        <clickhouse-http-client.version>0.3.2-patch11</clickhouse-http-client.version>
+        <awaitility.version>4.0.3</awaitility.version>
         <amqp-client.version>5.16.0</amqp-client.version>
         <lz4-java.version>1.8.0</lz4-java.version>
-        <awaitility.version>4.0.3</awaitility.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -208,6 +211,16 @@
                 <groupId>io.grpc</groupId>
                 <artifactId>grpc-stub</artifactId>
                 <version>${grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun.openservices</groupId>
+                <artifactId>aliyun-log-producer</artifactId>
+                <version>${aliyun-log-producer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf-java.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
