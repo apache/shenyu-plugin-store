@@ -124,6 +124,8 @@
         <rxjava-reactive-streams.version>1.2.1</rxjava-reactive-streams.version>
         <aliyun-log-producer.version>0.3.10</aliyun-log-producer.version>
         <protobuf-java.version>3.25.5</protobuf-java.version>
+        <clickhouse-http-client.version>0.3.2-patch11</clickhouse-http-client.version>
+        <awaitility.version>4.0.3</awaitility.version>
     </properties>
     <dependencyManagement>
         <dependencies>
