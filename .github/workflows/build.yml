@@ -66,7 +66,7 @@ jobs:
       run: mvn -B -ntp -Pintegration-tests,e2e,examples test-compile -DskipTests -Dapi.version=1.44
     - name: Verify store-owned SQL installation
       run: |
-        for plugin in motan logging-huawei-lts; do
+        for plugin in motan sofa tars hystrix logging-huawei-lts; do
           python3 script/plugin-store/build-h2-store-sql-fixture.py "${plugin}" --core-source "${RUNNER_TEMP}/shenyu-core-api" --execute --verify-conflicts --verify-custom-config --require-row-manifest
         done
     - name: Verify Motan against the cutover core API
@@ -85,3 +85,21 @@ jobs:
       env:
         SHENYU_CORE_SOURCE: "${{ runner.temp }}/shenyu-core-api"
       run: bash script/plugin-store/run-sofa-original-suites.sh
+    - name: Verify shared original-suite support
+      run: mvn -B -ntp -Pintegration-tests,e2e -pl shenyu-integrated-test/shenyu-plugin-store-it-common,shenyu-e2e/shenyu-plugin-store-e2e-common
+        -am verify -Dapi.version=1.44
+    - name: Run preserved SOFA integration and E2E scenarios
+      env:
+        SHENYU_CORE_SOURCE: "${{ runner.temp }}/shenyu-core-api"
+      run: bash script/plugin-store/run-sofa-original-suites.sh
+    - name: Run preserved Hystrix integration scenarios
+      env:
+        SHENYU_CORE_SOURCE: "${{ runner.temp }}/shenyu-core-api"
+        STORE_PLUGIN_CLASS: org.apache.shenyu.plugin.hystrix.HystrixPlugin
+        STORE_PLUGIN_MAVEN_ARGS: "-Dhystrix-core.version=1.5.18 -Dhystrix-metrics-event-stream.version=1.5.18
+          -Drxjava-reactive-streams.version=1.2.1"
+        CASE_MAVEN_ARGS: "-Dhystrix-core.version=1.5.18 -Dhystrix-metrics-event-stream.version=1.5.18
+          -Drxjava-reactive-streams.version=1.2.1"
+      run: |
+        bash script/plugin-store/build-store-plugin-jars.sh hystrix
+        bash script/plugin-store/run-original-it.sh hystrix shenyu-integrated-test/shenyu-integrated-test-http-hystrix
