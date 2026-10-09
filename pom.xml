@@ -126,6 +126,7 @@
         <protobuf-java.version>3.25.5</protobuf-java.version>
         <clickhouse-http-client.version>0.3.2-patch11</clickhouse-http-client.version>
         <awaitility.version>4.0.3</awaitility.version>
+        <casdoor-java-sdk.version>1.9.0</casdoor-java-sdk.version>
     </properties>
     <dependencyManagement>
         <dependencies>

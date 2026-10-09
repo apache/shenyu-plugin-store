@@ -34,6 +34,7 @@
         <module>shenyu-spring-boot-starter-plugin-hystrix</module>
         <module>shenyu-spring-boot-starter-plugin-logging-aliyun-sls</module>
         <module>shenyu-spring-boot-starter-plugin-logging-clickhouse</module>
+        <module>shenyu-spring-boot-starter-plugin-casdoor</module>
     </modules>
     <dependencies>
         <dependency>
