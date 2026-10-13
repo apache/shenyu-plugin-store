@@ -94,6 +94,7 @@ public class LoggingRabbitmqPluginDataHandler extends AbstractLogPluginDataHandl
         Object hostObj = Objects.isNull(rabbitmqJsonMap) ? null : rabbitmqJsonMap.get("host");
         if (Objects.isNull(hostObj) || !(hostObj instanceof String) || ((String) hostObj).trim().isEmpty()) {
             RabbitmqClientCache.getInstance().invalidate(selectorData.getId());
+            getSelectApiConfigMap().remove(selectorData.getId());
             Optional.ofNullable(RabbitmqClientCache.getInstance().getClientCache())
                     .filter(Map::isEmpty)
                     .ifPresent(map -> MULTI_CLIENT.set(false));
@@ -101,7 +102,7 @@ public class LoggingRabbitmqPluginDataHandler extends AbstractLogPluginDataHandl
         }
         RabbitmqLogCollectConfig.LogApiConfig nConfig = GsonUtils.getInstance().fromJson(selectorData.getHandle(), RabbitmqLogCollectConfig.LogApiConfig.class);
         RabbitmqLogCollectConfig.LogApiConfig oConfig = (RabbitmqLogCollectConfig.LogApiConfig) getSelectApiConfigMap().get(selectorData.getId());
-        if (Objects.equals(nConfig, oConfig)) {
+        if (Objects.equals(nConfig, oConfig) && Objects.nonNull(RabbitmqClientCache.getInstance().getRabbitmqClient(selectorData.getId()))) {
             return;
         }
         RabbitmqClientCache.getInstance().invalidate(selectorData.getId());
@@ -119,12 +120,16 @@ public class LoggingRabbitmqPluginDataHandler extends AbstractLogPluginDataHandl
     @Override
     public void removePlugin(final PluginData pluginData) {
         RabbitmqClientCache.getInstance().invalidateAll();
+        MULTI_CLIENT.set(false);
         super.removePlugin(pluginData);
     }
 
     @Override
     public void removeSelector(final SelectorData selectorData) {
         RabbitmqClientCache.getInstance().invalidate(selectorData.getId());
+        if (RabbitmqClientCache.getInstance().getClientCache().isEmpty()) {
+            MULTI_CLIENT.set(false);
+        }
         super.removeSelector(selectorData);
     }
 }
