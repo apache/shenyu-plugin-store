@@ -215,6 +215,28 @@ curl --location --request POST 'http://localhost:9195/shenyu/plugin/selectorAndR
 
 ---
 
+# Plugin Inventory and Compatibility
+
+The runtime and starter artifacts in this repository use the `org.apache.shenyu` group ID and the store version from the root POM. The ShenYu API version is configured separately by `shenyu.version`; do not assume a store artifact is compatible with an arbitrary ShenYu release.
+
+| Extension | Runtime artifact | Starter artifact | Migration notes |
+| --- | --- | --- | --- |
+| Casdoor | `shenyu-plugin-casdoor` | `shenyu-spring-boot-starter-plugin-casdoor` | [Casdoor](docs/casdoor-migration.md) |
+| Hystrix | `shenyu-plugin-hystrix` | `shenyu-spring-boot-starter-plugin-hystrix` | [Hystrix](docs/hystrix-legacy-migration.md) |
+| SOFA | `shenyu-plugin-sofa` | `shenyu-spring-boot-starter-plugin-sofa` | [Migration notes below](#plugin-store-migration-notes) |
+| TARS | `shenyu-plugin-tars` | `shenyu-spring-boot-starter-plugin-tars` | [Migration notes below](#plugin-store-migration-notes) |
+| Motan | `shenyu-plugin-motan` | `shenyu-spring-boot-starter-plugin-motan` | [Motan support](#motan-plugin-support) |
+| Aliyun SLS | `shenyu-plugin-logging-aliyun-sls` | `shenyu-spring-boot-starter-plugin-logging-aliyun-sls` | [Aliyun SLS](docs/logging-aliyun-sls-migration.md) |
+| ClickHouse | `shenyu-plugin-logging-clickhouse` | `shenyu-spring-boot-starter-plugin-logging-clickhouse` | [ClickHouse](docs/logging-clickhouse-migration.md) |
+| Tencent CLS | `shenyu-plugin-logging-tencent-cls` | `shenyu-spring-boot-starter-plugin-logging-tencent-cls` | [Tencent CLS](docs/logging-tencent-cls-migration.md) |
+| Huawei LTS | `shenyu-plugin-logging-huawei-lts` | `shenyu-spring-boot-starter-plugin-logging-huawei-lts` | [Huawei LTS](docs/logging-huawei-lts-migration.md) |
+| Pulsar | `shenyu-plugin-logging-pulsar` | `shenyu-spring-boot-starter-plugin-logging-pulsar` | [Pulsar](docs/logging-pulsar-migration.md) |
+| RabbitMQ | `shenyu-plugin-logging-rabbitmq` | `shenyu-spring-boot-starter-plugin-logging-rabbitmq` | [RabbitMQ](docs/logging-rabbitmq-migration.md) |
+
+The current development defaults are store version `2.7.1-SNAPSHOT`, released ShenYu API `2.7.0`, and JDK 17. The [Build workflow](.github/workflows/build.yml) pins the core source revision used for reproducible verification and prepares additional artifacts for integration tests. These defaults are not a published compatibility promise. A release must record its exact store version, tested core revision/API version, JDK, and required integration checks. See [release and compatibility](docs/release-and-compatibility.md).
+
+---
+
 # Plugin Store Migration Notes
 
 This repository packages Apache ShenYu plugin store modules for gateway-side runtime use.
@@ -245,6 +267,11 @@ gateway build after installing or publishing this store reactor.
 The original core-only SOFA Docker/Kubernetes test suites are removed from the main reactor.
 This migration brings the runtime unit and starter tests to the store; a complete external
 starter plus gateway plus backend end-to-end fixture is not included in this change.
+
+The SOFA/TARS core removal and store asset handoff have merged, but the store repository has
+not published a release. The final store CI run for that handoff failed in the preserved SOFA
+integration/E2E step. Use only a released artifact after its release and runtime gates pass;
+the snapshot coordinates above are not a production substitute.
    
 --- 
         
