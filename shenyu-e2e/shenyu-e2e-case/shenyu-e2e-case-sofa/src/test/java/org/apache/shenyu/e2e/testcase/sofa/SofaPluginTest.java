@@ -24,23 +24,35 @@ import org.apache.shenyu.e2e.client.gateway.GatewayClient;
 import org.apache.shenyu.e2e.constant.Constants;
 import org.apache.shenyu.e2e.engine.annotation.ShenYuScenario;
 import org.apache.shenyu.e2e.engine.annotation.ShenYuTest;
+import org.apache.shenyu.e2e.engine.scenario.function.WaitForHelper;
 import org.apache.shenyu.e2e.engine.scenario.specification.AfterEachSpec;
 import org.apache.shenyu.e2e.engine.scenario.specification.BeforeEachSpec;
 import org.apache.shenyu.e2e.engine.scenario.specification.CaseSpec;
 import org.apache.shenyu.e2e.enums.ServiceTypeEnum;
+import org.apache.shenyu.e2e.model.Plugin;
 import org.apache.shenyu.e2e.model.ResourcesData;
 import org.apache.shenyu.e2e.model.ResourcesData.Resource;
+import org.apache.shenyu.e2e.model.data.Condition;
 import org.apache.shenyu.e2e.model.data.BindingData;
+import org.apache.shenyu.e2e.model.data.SelectorData;
+import org.apache.shenyu.e2e.model.response.RuleDTO;
 import org.apache.shenyu.e2e.model.response.SelectorDTO;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
+import static org.apache.shenyu.e2e.engine.scenario.function.HttpCheckers.exists;
+import static org.apache.shenyu.e2e.engine.scenario.function.HttpCheckers.notExists;
+import static org.apache.shenyu.e2e.template.ResourceDataTemplate.newConditions;
+import static org.apache.shenyu.e2e.template.ResourceDataTemplate.newRuleBuilder;
+import static org.apache.shenyu.e2e.template.ResourceDataTemplate.newSelectorBuilder;
 
 @ShenYuTest(environments = {
         @ShenYuTest.Environment(
@@ -120,6 +132,30 @@ public class SofaPluginTest {
     @ShenYuScenario(provider = SofaPluginCases.class)
     void testSofa(final GatewayClient gateway, final CaseSpec spec) {
         spec.getVerifiers().forEach(verifier -> verifier.verify(gateway.getHttpRequesterSupplier().get()));
+    }
+
+    @Test
+    void testSelectorUpdateTakesEffect(final AdminClient adminClient, final GatewayClient gatewayClient) {
+        SelectorData selectorData = newSelectorBuilder("sofa-selector-refresh", Plugin.SOFA)
+                .conditionList(newConditions(Condition.ParamType.URI, Condition.Operator.EQUAL, "/sofa/findAll"))
+                .build();
+        SelectorDTO selector = adminClient.create(selectorData);
+        RuleDTO rule = adminClient.create(newRuleBuilder("sofa-rule-refresh", selectorData.getName())
+                .conditionList(newConditions(Condition.ParamType.URI, Condition.Operator.PATH_PATTERN, "/sofa/**"))
+                .build());
+        try {
+            WaitForHelper.waitForEffecting(gatewayClient.getHttpRequesterSupplier(), exists("/sofa/findAll"));
+            SelectorData updatedSelector = newSelectorBuilder(selectorData.getName(), Plugin.SOFA)
+                    .id(selector.getId())
+                    .conditionList(newConditions(Condition.ParamType.URI, Condition.Operator.EQUAL, "/sofa/findById"))
+                    .build();
+            adminClient.changeSelector(selector.getId(), updatedSelector);
+            WaitForHelper.waitForEffecting(gatewayClient.getHttpRequesterSupplier(), notExists("/sofa/findAll"));
+            WaitForHelper.waitForEffecting(gatewayClient.getHttpRequesterSupplier(), exists("/sofa/findById?id=7297"));
+        } finally {
+            adminClient.deleteRules(rule.getId());
+            adminClient.deleteSelectors(selector.getId());
+        }
     }
 
     @AfterAll

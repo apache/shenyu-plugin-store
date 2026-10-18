@@ -29,12 +29,12 @@ import org.apache.shenyu.common.constant.Constants;
 import org.apache.shenyu.common.dto.MetaData;
 import org.apache.shenyu.common.dto.SelectorData;
 import org.apache.shenyu.common.dto.convert.plugin.SofaRegisterConfig;
-import org.apache.shenyu.common.enums.RpcTypeEnum;
 import org.apache.shenyu.common.utils.GsonUtils;
 import org.apache.shenyu.plugin.api.utils.SpringBeanUtils;
 import org.apache.shenyu.plugin.sofa.cache.ApplicationConfigCache;
 import org.apache.shenyu.plugin.sofa.cache.SofaUpstream;
 import org.apache.shenyu.plugin.sofa.param.SofaParamResolveService;
+import org.apache.shenyu.plugin.sofa.SofaPluginConstants;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -85,7 +85,7 @@ public final class SofaProxyServiceTest {
         metaData.setPath(PATH);
         metaData.setServiceName("org.apache.shenyu.test.dubbo.api.service.DubboTestService");
         metaData.setMethodName(METHOD_NAME);
-        metaData.setRpcType(RpcTypeEnum.SOFA.getName());
+        metaData.setRpcType(SofaPluginConstants.RPC_TYPE);
         metaData.setRpcExt("{\"loadbalance\": \"loadbalance\"}");
     }
 

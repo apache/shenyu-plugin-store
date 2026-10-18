@@ -19,6 +19,7 @@ package org.apache.shenyu.e2e.testcase.sofa;
 
 import com.google.common.collect.Lists;
 import io.restassured.http.Method;
+import org.apache.shenyu.e2e.engine.scenario.function.Verifier;
 import org.apache.shenyu.e2e.engine.scenario.ShenYuScenarioProvider;
 import org.apache.shenyu.e2e.engine.scenario.specification.ScenarioSpec;
 import org.apache.shenyu.e2e.engine.scenario.specification.ShenYuAfterEachSpec;
@@ -29,6 +30,7 @@ import org.apache.shenyu.e2e.model.Plugin;
 import org.apache.shenyu.e2e.model.data.Condition;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.apache.shenyu.e2e.engine.scenario.function.HttpCheckers.exists;
 import static org.apache.shenyu.e2e.engine.scenario.function.HttpCheckers.notExists;
@@ -36,6 +38,8 @@ import static org.apache.shenyu.e2e.template.ResourceDataTemplate.newCondition;
 import static org.apache.shenyu.e2e.template.ResourceDataTemplate.newConditions;
 import static org.apache.shenyu.e2e.template.ResourceDataTemplate.newRuleBuilder;
 import static org.apache.shenyu.e2e.template.ResourceDataTemplate.newSelectorBuilder;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
 
 public class SofaPluginCases implements ShenYuScenarioProvider {
 
@@ -43,6 +47,10 @@ public class SofaPluginCases implements ShenYuScenarioProvider {
     public List<ScenarioSpec> get() {
         return Lists.newArrayList(
                 testSofaFindAll(),
+                testSofaSingleParameter(),
+                testSofaComplexParameter(),
+                testSofaNullResult(),
+                testSofaRpcError(),
                 testWithUriEquals(),
                 testWithUriPathPattern(),
                 testWithUriStartWith(),
@@ -63,6 +71,62 @@ public class SofaPluginCases implements ShenYuScenarioProvider {
                 .caseSpec(ShenYuCaseSpec.builder()
                         .addExists("/sofa/findAll")
                         .addNotExists("/sofa/findAll/123")
+                        .build())
+                .build();
+    }
+
+    private ShenYuScenarioSpec testSofaSingleParameter() {
+        return ShenYuScenarioSpec.builder()
+                .name("sofa single parameter request and response")
+                .caseSpec(ShenYuCaseSpec.builder()
+                        .add((Verifier) request -> request.get("/sofa/findById?id=7297")
+                                .then().statusCode(200).body("data.id", equalTo("7297")))
+                        .add((Verifier) request -> request.contentType("application/json")
+                                .body(Map.of("id", "simple-e2e", "name", "simple-parameter"))
+                                .post("/sofa/insert")
+                                .then().statusCode(200)
+                                .body("data.id", equalTo("simple-e2e"))
+                                .body("data.name", containsString("simple-parameter")))
+                        .build())
+                .build();
+    }
+
+    private ShenYuScenarioSpec testSofaComplexParameter() {
+        Map<String, Object> requestBody = Map.of("sofaComplexTypeBean", Map.of(
+                "sofaSimpleTypeBean", Map.of("id", "nested-id", "name", "nested-name"),
+                "idLists", List.of("complex-1", "complex-2"),
+                "idMaps", Map.of("map-key", "map-value")));
+        return ShenYuScenarioSpec.builder()
+                .name("sofa complex parameter request and response")
+                .caseSpec(ShenYuCaseSpec.builder()
+                        .add((Verifier) request -> request.contentType("application/json")
+                                .body(requestBody)
+                                .post("/sofa/saveComplexBean")
+                                .then().statusCode(200)
+                                .body("data.id", equalTo("[complex-1, complex-2]"))
+                                .body("data.name", containsString("nested-name")))
+                        .build())
+                .build();
+    }
+
+    private ShenYuScenarioSpec testSofaNullResult() {
+        return ShenYuScenarioSpec.builder()
+                .name("sofa null RPC result")
+                .caseSpec(ShenYuCaseSpec.builder()
+                        .add((Verifier) request -> request.get("/sofa/findNull")
+                                .then().statusCode(200)
+                                .body("data", equalTo("sofa has not return value!")))
+                        .build())
+                .build();
+    }
+
+    private ShenYuScenarioSpec testSofaRpcError() {
+        return ShenYuScenarioSpec.builder()
+                .name("sofa downstream RPC error")
+                .caseSpec(ShenYuCaseSpec.builder()
+                        .add((Verifier) request -> request.get("/sofa/findError")
+                                .then().statusCode(500)
+                                .body("message", equalTo("Internal Server Error")))
                         .build())
                 .build();
     }

@@ -18,8 +18,8 @@
 package org.apache.shenyu.plugin.sofa.context;
 
 import org.apache.shenyu.common.dto.MetaData;
-import org.apache.shenyu.common.enums.RpcTypeEnum;
 import org.apache.shenyu.plugin.api.context.ShenyuContext;
+import org.apache.shenyu.plugin.sofa.SofaPluginConstants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +39,7 @@ public class SofaShenyuContextDecoratorTest {
 
     @Test
     public void testPluginNamed() {
-        assertEquals(sofaShenyuContextDecorator.rpcType(), RpcTypeEnum.SOFA.getName());
+        assertEquals(sofaShenyuContextDecorator.rpcType(), SofaPluginConstants.RPC_TYPE);
     }
 
     @Test

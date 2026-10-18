@@ -20,10 +20,10 @@ package org.apache.shenyu.plugin.sofa.handler;
 import org.apache.shenyu.common.dto.SelectorData;
 import org.apache.shenyu.common.dto.convert.plugin.SofaRegisterConfig;
 import org.apache.shenyu.common.dto.PluginData;
-import org.apache.shenyu.common.enums.PluginEnum;
 import org.apache.shenyu.common.utils.GsonUtils;
 import org.apache.shenyu.plugin.base.handler.PluginDataHandler;
 import org.apache.shenyu.common.utils.Singleton;
+import org.apache.shenyu.plugin.sofa.SofaPluginConstants;
 import org.apache.shenyu.plugin.sofa.cache.ApplicationConfigCache;
 import org.apache.shenyu.plugin.sofa.cache.SofaUpstream;
 
@@ -90,6 +90,6 @@ public class SofaPluginDataHandler implements PluginDataHandler {
 
     @Override
     public String pluginNamed() {
-        return PluginEnum.SOFA.getName();
+        return SofaPluginConstants.PLUGIN_NAME;
     }
 }
