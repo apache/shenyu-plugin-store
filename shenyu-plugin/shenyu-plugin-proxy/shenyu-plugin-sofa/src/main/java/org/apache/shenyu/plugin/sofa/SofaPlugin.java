@@ -24,8 +24,6 @@ import org.apache.shenyu.common.constant.Constants;
 import org.apache.shenyu.common.dto.MetaData;
 import org.apache.shenyu.common.dto.RuleData;
 import org.apache.shenyu.common.dto.SelectorData;
-import org.apache.shenyu.common.enums.PluginEnum;
-import org.apache.shenyu.common.enums.RpcTypeEnum;
 import org.apache.shenyu.plugin.api.ShenyuPluginChain;
 import org.apache.shenyu.plugin.api.context.ShenyuContext;
 import org.apache.shenyu.plugin.api.result.ShenyuResultEnum;
@@ -85,7 +83,7 @@ public class SofaPlugin extends AbstractShenyuPlugin {
             return WebFluxResultUtils.result(exchange, error);
         }
         Map<String, Map<String, String>> rpcContext = exchange.getAttribute(Constants.GENERAL_CONTEXT);
-        Optional.ofNullable(rpcContext).map(context -> context.get(PluginEnum.SOFA.getName())).ifPresent(context -> RpcInvokeContext.getContext().putAllRequestBaggage(context));
+        Optional.ofNullable(rpcContext).map(context -> context.get(SofaPluginConstants.PLUGIN_NAME)).ifPresent(context -> RpcInvokeContext.getContext().putAllRequestBaggage(context));
         final Mono<Object> result = sofaProxyService.genericInvoker(param, metaData, selector, exchange);
         return result.then(chain.execute(exchange));
     }
@@ -97,7 +95,7 @@ public class SofaPlugin extends AbstractShenyuPlugin {
      */
     @Override
     public String named() {
-        return PluginEnum.SOFA.getName();
+        return SofaPluginConstants.PLUGIN_NAME;
     }
 
     /**
@@ -108,7 +106,9 @@ public class SofaPlugin extends AbstractShenyuPlugin {
      */
     @Override
     public boolean skip(final ServerWebExchange exchange) {
-        return skipExcept(exchange, RpcTypeEnum.SOFA);
+        ShenyuContext shenyuContext = exchange.getAttribute(Constants.CONTEXT);
+        Objects.requireNonNull(shenyuContext);
+        return !Objects.equals(shenyuContext.getRpcType(), SofaPluginConstants.RPC_TYPE);
     }
     
     @Override
@@ -123,7 +123,7 @@ public class SofaPlugin extends AbstractShenyuPlugin {
 
     @Override
     public int getOrder() {
-        return PluginEnum.SOFA.getCode();
+        return SofaPluginConstants.PLUGIN_ORDER;
     }
 
     private boolean checkMetaData(final MetaData metaData) {

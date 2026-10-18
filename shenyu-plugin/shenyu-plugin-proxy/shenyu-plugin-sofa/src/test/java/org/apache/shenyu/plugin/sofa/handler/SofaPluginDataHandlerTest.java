@@ -22,11 +22,11 @@ import com.google.common.cache.LoadingCache;
 import org.apache.shenyu.common.dto.PluginData;
 import org.apache.shenyu.common.dto.SelectorData;
 import org.apache.shenyu.common.dto.convert.plugin.SofaRegisterConfig;
-import org.apache.shenyu.common.enums.PluginEnum;
 import org.apache.shenyu.common.utils.GsonUtils;
 import org.apache.shenyu.common.utils.Singleton;
 import org.apache.shenyu.plugin.sofa.cache.ApplicationConfigCache;
 import org.apache.shenyu.plugin.sofa.cache.SofaUpstream;
+import org.apache.shenyu.plugin.sofa.SofaPluginConstants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -74,7 +74,7 @@ public final class SofaPluginDataHandlerTest {
 
     @Test
     public void testPluginNamed() {
-        assertEquals(sofaPluginDataHandler.pluginNamed(), PluginEnum.SOFA.getName());
+        assertEquals(sofaPluginDataHandler.pluginNamed(), SofaPluginConstants.PLUGIN_NAME);
     }
 
     @Test
