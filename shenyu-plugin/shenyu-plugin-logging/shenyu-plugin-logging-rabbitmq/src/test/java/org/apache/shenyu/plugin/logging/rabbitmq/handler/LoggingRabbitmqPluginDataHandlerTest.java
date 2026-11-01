@@ -31,6 +31,9 @@ import org.apache.shenyu.plugin.logging.rabbitmq.config.RabbitmqLogCollectConfig
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.MockedConstruction;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -49,6 +52,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.mockConstruction;
 
 /**
  * The Test Case For LoggingRabbitmqPluginDataHandler.
@@ -120,6 +124,7 @@ public final class LoggingRabbitmqPluginDataHandlerTest {
 
         PluginData pluginData = createPluginData();
         pluginData.setConfig(GsonUtils.getGson().toJson(existingConfig));
+        LoggingRabbitmqPluginDataHandler.getPluginGlobalConfigMap().put(pluginData.getId(), existingConfig);
 
         loggingRabbitmqPluginDataHandler.handlerPlugin(pluginData);
 
@@ -177,6 +182,40 @@ public final class LoggingRabbitmqPluginDataHandlerTest {
 
         Assertions.assertDoesNotThrow(() -> loggingRabbitmqPluginDataHandler.handlerSelector(selectorData));
         Assertions.assertNull(RabbitmqClientCache.getInstance().getClientCache().get(selectorData.getId()));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"{}", "", "null", "{\"host\":\"  \"}", "{\"host\":1}"})
+    public void testRestoreSameSelectorConfigAfterUsingGlobal(final String globalHandle) {
+        RabbitmqClientCache cache = RabbitmqClientCache.getInstance();
+        cache.invalidateAll();
+        LoggingRabbitmqPluginDataHandler.getSelectApiConfigMap().clear();
+        String customHandle = GsonUtils.getGson().toJson(createValidConfig());
+        selectorData.setHandle(customHandle);
+        try (MockedConstruction<RabbitmqLogCollectClient> clients = mockConstruction(RabbitmqLogCollectClient.class)) {
+            loggingRabbitmqPluginDataHandler.handlerSelector(selectorData);
+            final RabbitmqLogCollectClient first = cache.getRabbitmqClient(selectorData.getId());
+            loggingRabbitmqPluginDataHandler.handlerSelector(selectorData);
+            Assertions.assertEquals(1, clients.constructed().size());
+            selectorData.setHandle(globalHandle);
+            loggingRabbitmqPluginDataHandler.handlerSelector(selectorData);
+            verify(first).close();
+            Assertions.assertNull(cache.getRabbitmqClient(selectorData.getId()));
+            Assertions.assertFalse(LoggingRabbitmqPluginDataHandler.getMultiClient());
+            selectorData.setHandle(customHandle);
+            loggingRabbitmqPluginDataHandler.handlerSelector(selectorData);
+            Assertions.assertEquals(2, clients.constructed().size());
+            Assertions.assertSame(clients.constructed().get(1), cache.getRabbitmqClient(selectorData.getId()));
+            Assertions.assertTrue(LoggingRabbitmqPluginDataHandler.getMultiClient());
+            selectorData.setHandle(customHandle.replace("topic.logging", "topic.changed"));
+            loggingRabbitmqPluginDataHandler.handlerSelector(selectorData);
+            Assertions.assertEquals(3, clients.constructed().size());
+            verify(clients.constructed().get(1)).close();
+        } finally {
+            selectorData.setHandle("{}");
+            loggingRabbitmqPluginDataHandler.handlerSelector(selectorData);
+            LoggingRabbitmqPluginDataHandler.getSelectApiConfigMap().clear();
+        }
     }
 
     private PluginData createPluginData() {

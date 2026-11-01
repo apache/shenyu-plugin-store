@@ -94,6 +94,7 @@ public class LoggingRabbitmqPluginDataHandler extends AbstractLogPluginDataHandl
         Object hostObj = Objects.isNull(rabbitmqJsonMap) ? null : rabbitmqJsonMap.get("host");
         if (Objects.isNull(hostObj) || !(hostObj instanceof String) || ((String) hostObj).trim().isEmpty()) {
             RabbitmqClientCache.getInstance().invalidate(selectorData.getId());
+            getSelectApiConfigMap().remove(selectorData.getId());
             Optional.ofNullable(RabbitmqClientCache.getInstance().getClientCache())
                     .filter(Map::isEmpty)
                     .ifPresent(map -> MULTI_CLIENT.set(false));
