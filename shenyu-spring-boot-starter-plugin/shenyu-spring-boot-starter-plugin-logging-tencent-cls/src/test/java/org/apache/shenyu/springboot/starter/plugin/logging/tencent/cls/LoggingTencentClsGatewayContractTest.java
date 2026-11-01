@@ -18,6 +18,8 @@
 package org.apache.shenyu.springboot.starter.plugin.logging.tencent.cls;
 
 import com.google.common.util.concurrent.SettableFuture;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.tencentcloudapi.cls.producer.AsyncProducerClient;
 import com.tencentcloudapi.cls.producer.common.LogItem;
 import org.apache.shenyu.common.config.ShenyuConfig;
@@ -92,13 +94,18 @@ public final class LoggingTencentClsGatewayContractTest {
         assertGatewayResponse("/contract?source=tencent", "tencent-response-body");
 
         Assertions.assertTrue(sent.await(3, TimeUnit.SECONDS));
-        String payload = capturedLogs.get().get(0).mContents.toString();
+        String message = capturedLogs.get().get(0).mContents.getContentsList().stream()
+                .filter(content -> "message".equals(content.getKey())).findFirst().orElseThrow().getValue();
+        JsonObject payload = JsonParser.parseString(message).getAsJsonObject();
+        JsonObject requestHeaders = JsonParser.parseString(payload.get("requestHeader").getAsString()).getAsJsonObject();
+        JsonObject responseHeaders = JsonParser.parseString(payload.get("responseHeader").getAsString()).getAsJsonObject();
         Assertions.assertEquals("topic", capturedTopic.get());
-        Assertions.assertTrue(payload.contains("status"), payload);
-        Assertions.assertTrue(payload.contains("202"), payload);
-        Assertions.assertTrue(payload.contains("Content-Type"), payload);
-        Assertions.assertTrue(payload.contains("tencent-response-body"), payload);
-        Assertions.assertTrue(payload.contains("/contract?source=tencent"), payload);
+        Assertions.assertEquals(HttpStatus.ACCEPTED.value(), payload.get("status").getAsInt());
+        Assertions.assertFalse(requestHeaders.entrySet().isEmpty());
+        Assertions.assertEquals(MediaType.TEXT_PLAIN_VALUE, responseHeaders.get("Content-Type").getAsString());
+        Assertions.assertEquals("tencent-response-body", payload.get("responseBody").getAsString());
+        Assertions.assertEquals("source=tencent", payload.get("queryParams").getAsString());
+        Assertions.assertTrue(payload.get("requestUri").getAsString().endsWith("/contract?source=tencent"));
     }
 
     /**

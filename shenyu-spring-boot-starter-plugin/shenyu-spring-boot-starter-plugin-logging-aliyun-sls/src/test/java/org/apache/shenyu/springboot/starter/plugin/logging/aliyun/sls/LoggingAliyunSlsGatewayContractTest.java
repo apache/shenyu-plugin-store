@@ -21,6 +21,8 @@ import com.aliyun.openservices.aliyun.log.producer.Producer;
 import com.aliyun.openservices.log.Client;
 import com.aliyun.openservices.log.common.LogItem;
 import com.google.common.util.concurrent.SettableFuture;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.apache.shenyu.common.config.ShenyuConfig;
 import org.apache.shenyu.common.constant.Constants;
 import org.apache.shenyu.common.dto.RuleData;
@@ -93,12 +95,17 @@ public final class LoggingAliyunSlsGatewayContractTest {
         assertGatewayResponse("/contract?source=aliyun", "aliyun-response-body");
 
         Assertions.assertTrue(sent.await(3, TimeUnit.SECONDS));
-        String payload = capturedLogs.get().get(0).ToJsonString();
+        JsonObject envelope = JsonParser.parseString(capturedLogs.get().get(0).ToJsonString()).getAsJsonObject();
+        JsonObject payload = JsonParser.parseString(envelope.get("message").getAsString()).getAsJsonObject();
+        JsonObject requestHeaders = JsonParser.parseString(payload.get("requestHeader").getAsString()).getAsJsonObject();
+        JsonObject responseHeaders = JsonParser.parseString(payload.get("responseHeader").getAsString()).getAsJsonObject();
         Assertions.assertEquals("topic", capturedTopic.get());
-        Assertions.assertTrue(payload.contains("\\\"status\\\":202"), payload);
-        Assertions.assertTrue(payload.contains("Content-Type"), payload);
-        Assertions.assertTrue(payload.contains("aliyun-response-body"), payload);
-        Assertions.assertTrue(payload.contains("/contract?source=aliyun"), payload);
+        Assertions.assertEquals(HttpStatus.ACCEPTED.value(), payload.get("status").getAsInt());
+        Assertions.assertFalse(requestHeaders.entrySet().isEmpty());
+        Assertions.assertEquals(MediaType.TEXT_PLAIN_VALUE, responseHeaders.get("Content-Type").getAsString());
+        Assertions.assertEquals("aliyun-response-body", payload.get("responseBody").getAsString());
+        Assertions.assertEquals("source=aliyun", payload.get("queryParams").getAsString());
+        Assertions.assertTrue(payload.get("requestUri").getAsString().endsWith("/contract?source=aliyun"));
     }
 
     /**

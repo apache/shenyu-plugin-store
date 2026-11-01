@@ -138,6 +138,9 @@ public class HuaweiLtsLogCollectClient extends AbstractLogConsumeClient<HuaweiLo
      * @param log log
      */
     private void sendLog(final ShenyuRequestLog log) {
+        // Core defers header serialization; field-based exporters must resolve it first.
+        log.getRequestHeader();
+        log.getResponseHeader();
         final List<LogItem> logItems = new ArrayList<>();
         final List<LogItem> logItemList = new ArrayList<>();
         LogItem logItem = new LogItem();

@@ -96,7 +96,9 @@ public final class LoggingHuaweiLtsGatewayContractTest {
         String payload = capturedLogs.get().get(0).getContents().get(0).getLog();
         Assertions.assertEquals("stream", capturedStream.get());
         Assertions.assertTrue(payload.contains("status=202"), payload);
-        Assertions.assertTrue(payload.contains("Content-Type"), payload);
+        Assertions.assertTrue(payload.contains("requestHeader={"), payload);
+        Assertions.assertTrue(payload.contains("responseHeader={"), payload);
+        Assertions.assertTrue(payload.contains("\"Content-Type\":\"text/plain\""), payload);
         Assertions.assertTrue(payload.contains("huawei-response-body"), payload);
         Assertions.assertTrue(payload.contains("/contract?source=huawei"), payload);
     }

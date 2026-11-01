@@ -1,0 +1,270 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.shenyu.infra.etcd.client;
+
+import io.etcd.jetcd.ByteSequence;
+import io.etcd.jetcd.Client;
+import io.etcd.jetcd.ClientBuilder;
+import io.etcd.jetcd.KV;
+import io.etcd.jetcd.Lease;
+import io.etcd.jetcd.kv.PutResponse;
+import io.etcd.jetcd.lease.LeaseGrantResponse;
+import io.etcd.jetcd.lease.LeaseKeepAliveResponse;
+import io.grpc.stub.StreamObserver;
+import org.apache.shenyu.common.exception.ShenyuException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+
+@MockitoSettings(strictness = Strictness.LENIENT)
+@ExtendWith(MockitoExtension.class)
+public class EtcdClientTest {
+
+    @Test
+    public void etcdClientTest() {
+        try (MockedStatic<Client> clientMockedStatic = mockStatic(Client.class)) {
+            final ClientBuilder clientBuilder = mock(ClientBuilder.class);
+            clientMockedStatic.when(Client::builder).thenReturn(clientBuilder);
+            when(clientBuilder.endpoints(anyString())).thenReturn(clientBuilder);
+            final Client client = mock(Client.class);
+            when(clientBuilder.endpoints(anyString()).build()).thenReturn(client);
+            final Lease lease = mock(Lease.class);
+            when(client.getLeaseClient()).thenReturn(lease);
+            final CompletableFuture<LeaseGrantResponse> completableFuture = mock(CompletableFuture.class);
+            final LeaseGrantResponse leaseGrantResponse = mock(LeaseGrantResponse.class);
+            when(leaseGrantResponse.getID()).thenReturn(1L);
+
+            when(client.getLeaseClient().grant(anyLong())).thenReturn(completableFuture);
+            when(completableFuture.get()).thenReturn(leaseGrantResponse);
+            List<StreamObserver<LeaseKeepAliveResponse>> observerList = new ArrayList<>();
+            doAnswer(invocation -> {
+                observerList.add(invocation.getArgument(1));
+                return lease;
+            }).when(lease).keepAlive(anyLong(), any());
+
+            final EtcdClient etcdClient = Assertions.assertDoesNotThrow(() -> EtcdClient.builder()
+                    .client(Client.builder().endpoints("url").build())
+                    .ttl(60L)
+                    .timeout(3000L)
+                    .build());
+            Assertions.assertNotNull(etcdClient);
+
+            final LeaseKeepAliveResponse leaseKeepAliveResponse = mock(LeaseKeepAliveResponse.class);
+            observerList.forEach(streamObserver -> {
+                streamObserver.onCompleted();
+                streamObserver.onError(new ShenyuException("test"));
+                streamObserver.onNext(leaseKeepAliveResponse);
+            });
+            etcdClient.close();
+
+            doThrow(new InterruptedException("error")).when(completableFuture).get();
+            Assertions.assertThrows(ShenyuException.class, () -> EtcdClient.builder()
+                    .client(Client.builder().endpoints("url").build())
+                    .ttl(60L)
+                    .timeout(3000L)
+                    .build());
+        } catch (Exception e) {
+            throw new ShenyuException(e.getCause());
+        }
+    }
+
+    @Test
+    public void keepAliveRetryTest() throws ExecutionException, InterruptedException {
+        try (MockedStatic<Client> clientMockedStatic = mockStatic(Client.class)) {
+            final Client client = this.mockEtcd(clientMockedStatic);
+            final Lease lease = client.getLeaseClient();
+
+            AtomicInteger keepAliveInvoked = new AtomicInteger(0);
+            CountDownLatch latch = new CountDownLatch(2);
+            CountDownLatch firstCallLatch = new CountDownLatch(1);
+            List<StreamObserver<LeaseKeepAliveResponse>> observerList = new ArrayList<>();
+
+            doAnswer(invocation -> {
+                keepAliveInvoked.incrementAndGet();
+                latch.countDown();
+                firstCallLatch.countDown();
+                observerList.add(invocation.getArgument(1));
+                return lease;
+            }).when(lease).keepAlive(anyLong(), any());
+
+            final EtcdClient etcdClient = EtcdClient.builder()
+                    .client(Client.builder().endpoints("url").build())
+                    .ttl(60L)
+                    .timeout(3000L)
+                    .build();
+            Assertions.assertNotNull(etcdClient);
+
+            // Wait for the initial keepAlive registration to complete
+            Assertions.assertTrue(firstCallLatch.await(2, TimeUnit.SECONDS), "Initial keepAlive should run");
+            awaitObserverRegistered(observerList);
+
+            // Trigger error to schedule retry keep-alive
+            observerList.get(0).onError(new RuntimeException("test-error"));
+
+            boolean retried = latch.await(3, TimeUnit.SECONDS);
+            etcdClient.close();
+
+            Assertions.assertTrue(retried, "keepAlive should retry after onError");
+            Assertions.assertTrue(keepAliveInvoked.get() >= 2, "Expected retry keepAlive invocation");
+        }
+    }
+
+    @Test
+    public void keepAliveCompletedRetryTest() throws ExecutionException, InterruptedException {
+        try (MockedStatic<Client> clientMockedStatic = mockStatic(Client.class)) {
+            final Client client = this.mockEtcd(clientMockedStatic);
+            final Lease lease = client.getLeaseClient();
+
+            AtomicInteger keepAliveInvoked = new AtomicInteger(0);
+            CountDownLatch callsLatch = new CountDownLatch(2);
+            CountDownLatch firstCallLatch = new CountDownLatch(1);
+            List<StreamObserver<LeaseKeepAliveResponse>> observerList = new ArrayList<>();
+
+            doAnswer(invocation -> {
+                keepAliveInvoked.incrementAndGet();
+                callsLatch.countDown();
+                firstCallLatch.countDown();
+                observerList.add(invocation.getArgument(1));
+                return lease;
+            }).when(lease).keepAlive(anyLong(), any());
+
+            final EtcdClient etcdClient = EtcdClient.builder()
+                    .client(Client.builder().endpoints("url").build())
+                    .ttl(60L)
+                    .timeout(3000L)
+                    .build();
+            Assertions.assertNotNull(etcdClient);
+
+            Assertions.assertTrue(firstCallLatch.await(2, TimeUnit.SECONDS), "Initial keepAlive should run");
+            awaitObserverRegistered(observerList);
+
+            observerList.get(0).onCompleted();
+
+            boolean retried = callsLatch.await(3, TimeUnit.SECONDS);
+            etcdClient.close();
+
+            Assertions.assertTrue(retried, "keepAlive should retry after onCompleted");
+            Assertions.assertTrue(keepAliveInvoked.get() >= 2, "Expected keepAlive invocation after completion");
+        }
+    }
+
+    @Test
+    public void closeTest() {
+        try (MockedStatic<Client> clientMockedStatic = mockStatic(Client.class)) {
+            this.mockEtcd(clientMockedStatic);
+            final EtcdClient etcdClient = EtcdClient.builder().client(Client.builder().endpoints("url").build()).ttl(60L).timeout(3000L).build();
+            etcdClient.close();
+        } catch (Exception e) {
+            throw new ShenyuException(e.getCause());
+        }
+    }
+
+    @Test
+    public void putEphemeralTest() {
+        try (MockedStatic<Client> clientMockedStatic = mockStatic(Client.class)) {
+            final Client client = this.mockEtcd(clientMockedStatic);
+            final KV mockKV = mock(KV.class);
+            when(client.getKVClient()).thenReturn(mockKV);
+            final CompletableFuture<PutResponse> completableFuture = mock(CompletableFuture.class);
+            when(mockKV.put(any(), any(), any())).thenReturn(completableFuture);
+            final PutResponse putResponse = mock(PutResponse.class);
+            when(completableFuture.get(anyLong(), any(TimeUnit.class))).thenReturn(putResponse);
+            final EtcdClient etcdClient = EtcdClient.builder().client(Client.builder().endpoints("url").build()).ttl(60L).timeout(3000L).build();
+            etcdClient.putEphemeral("key", "value");
+
+            doThrow(new InterruptedException("error")).when(completableFuture).get(anyLong(), any(TimeUnit.class));
+            Assertions.assertThrows(ShenyuException.class, () -> etcdClient.putEphemeral("key", "value"));
+        } catch (Exception e) {
+            throw new ShenyuException(e.getCause());
+        }
+    }
+
+    private Client mockEtcd(final MockedStatic<Client> clientMockedStatic) throws InterruptedException, ExecutionException {
+        final ClientBuilder clientBuilder = mock(ClientBuilder.class);
+        clientMockedStatic.when(Client::builder).thenReturn(clientBuilder);
+        when(clientBuilder.endpoints(anyString())).thenReturn(clientBuilder);
+        final Client client = mock(Client.class);
+        when(clientBuilder.endpoints(anyString()).build()).thenReturn(client);
+        final Lease lease = mock(Lease.class);
+        when(client.getLeaseClient()).thenReturn(lease);
+        final CompletableFuture<LeaseGrantResponse> completableFuture = mock(CompletableFuture.class);
+        final LeaseGrantResponse leaseGrantResponse = mock(LeaseGrantResponse.class);
+        when(leaseGrantResponse.getID()).thenReturn(1L);
+        when(client.getLeaseClient().grant(anyLong())).thenReturn(completableFuture);
+        when(completableFuture.get()).thenReturn(leaseGrantResponse);
+        return client;
+    }
+
+    private void awaitObserverRegistered(final List<StreamObserver<LeaseKeepAliveResponse>> observerList)
+            throws InterruptedException {
+        for (int i = 0; i < 20 && observerList.isEmpty(); i++) {
+            Thread.sleep(50);
+        }
+        Assertions.assertFalse(observerList.isEmpty(), "Observer should be registered");
+    }
+
+    @Test
+    public void concurrentSubscriptionsCloseEveryWatcherOnce() throws Exception {
+        Client client = mock(Client.class);
+        Lease lease = mock(Lease.class);
+        io.etcd.jetcd.Watch watch = mock(io.etcd.jetcd.Watch.class);
+        io.etcd.jetcd.Watch.Watcher watcher = mock(io.etcd.jetcd.Watch.Watcher.class);
+        LeaseGrantResponse grant = mock(LeaseGrantResponse.class);
+        when(client.getLeaseClient()).thenReturn(lease);
+        when(lease.grant(anyLong())).thenReturn(CompletableFuture.completedFuture(grant));
+        when(grant.getID()).thenReturn(1L);
+        when(client.getWatchClient()).thenReturn(watch);
+        when(watch.watch(any(ByteSequence.class), any(io.etcd.jetcd.options.WatchOption.class), any(io.etcd.jetcd.Watch.Listener.class))).thenReturn(watcher);
+        EtcdClient adapter = EtcdClient.builder().client(client).ttl(30).timeout(3000).build();
+        try {
+            java.util.stream.IntStream.range(0, 50).parallel().forEach(index -> adapter.watchChildChange("/test/", (key, value) -> { }, key -> { }));
+            org.mockito.ArgumentCaptor<io.etcd.jetcd.Watch.Listener> listener = org.mockito.ArgumentCaptor.forClass(io.etcd.jetcd.Watch.Listener.class);
+            verify(watch, times(1)).watch(any(ByteSequence.class), any(io.etcd.jetcd.options.WatchOption.class), listener.capture());
+            Assertions.assertDoesNotThrow(() -> listener.getValue().onError(new IllegalStateException("connection interrupted")));
+        } finally {
+            adapter.close();
+            adapter.close();
+        }
+        verify(watcher, times(1)).close();
+        verify(client, times(1)).close();
+    }
+}

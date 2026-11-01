@@ -139,6 +139,9 @@ public class AliyunSlsLogCollectClient extends AbstractLogConsumeClient<AliyunLo
      * @param log log
      */
     private void sendLog(final ShenyuRequestLog log) {
+        // Core defers header serialization; field-based exporters must resolve it first.
+        log.getRequestHeader();
+        log.getResponseHeader();
         final List<LogItem> logGroup = new ArrayList<>();
         LogItem logItem = new LogItem((int) (System.currentTimeMillis() / 1000));
         logItem.PushBack("level", "info");

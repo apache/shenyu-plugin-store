@@ -266,3 +266,7 @@ starter plus gateway plus backend end-to-end fixture is not included in this cha
 In order of registration, More access companies are welcome to register at [https://github.com/apache/shenyu/issues/68](https://github.com/apache/shenyu/issues/68) (For open source users only) .
 
 All Users : [Known Users](https://shenyu.apache.org/community/user-registration)
+
+### etcd integration
+
+The [etcd extension](shenyu-extension/shenyu-extension-etcd/README.md) owns its admin listener, sync adapter, registry provider, starter and shared client together.
