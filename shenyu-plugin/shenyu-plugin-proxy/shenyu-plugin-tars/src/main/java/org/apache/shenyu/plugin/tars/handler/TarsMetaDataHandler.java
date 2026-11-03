@@ -28,7 +28,6 @@ import org.apache.shenyu.plugin.tars.proxy.TarsInvokePrx;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentMap;
-import java.util.stream.Collectors;
 
 /**
  * The tars metadata handler.
@@ -43,13 +42,12 @@ public class TarsMetaDataHandler implements MetaDataHandler {
         MetaData metaExist = META_DATA.get(metaData.getPath());
         List<TarsInvokePrx> prxList = ApplicationConfigCache.getInstance()
                 .get(metaData.getPath()).getTarsInvokePrxList();
-        boolean exist = prxList.stream().anyMatch(tarsInvokePrx -> tarsInvokePrx.getHost().equals(metaData.getAppName()));
+        // Proxies are keyed by metadata path; their hosts identify upstream addresses, not applications.
+        boolean exist = Objects.equals(metaExist, metaData) && CollectionUtils.isNotEmpty(prxList);
         if (!exist) {
             ApplicationConfigCache.getInstance().initPrx(metaData);
         }
-        if (Objects.isNull(metaExist)) {
-            META_DATA.put(metaData.getPath(), metaData);
-        }
+        META_DATA.put(metaData.getPath(), metaData);
     }
     
     @Override
@@ -57,10 +55,7 @@ public class TarsMetaDataHandler implements MetaDataHandler {
         metaData.updateContextPath();
         List<TarsInvokePrx> prxList = ApplicationConfigCache.getInstance()
                 .get(metaData.getPath()).getTarsInvokePrxList();
-        List<TarsInvokePrx> removePrxList = prxList.stream()
-                .filter(tarsInvokePrx -> tarsInvokePrx.getHost().equals(metaData.getAppName()))
-                .collect(Collectors.toList());
-        prxList.removeAll(removePrxList);
+        prxList.clear();
         if (CollectionUtils.isEmpty(prxList)) {
             META_DATA.remove(metaData.getPath());
         }
