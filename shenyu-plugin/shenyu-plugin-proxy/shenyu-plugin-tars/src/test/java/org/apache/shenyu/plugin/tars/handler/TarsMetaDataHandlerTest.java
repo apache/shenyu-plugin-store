@@ -74,6 +74,37 @@ public class TarsMetaDataHandlerTest {
     }
 
     @Test
+    public void testChangedDescriptorInitializesOnceForTheSamePath() {
+        final String path = "/descriptor-update";
+        final MetaData initial = new MetaData();
+        initial.setPath(path);
+        initial.setAppName("OriginalApp");
+        final MetaData updated = new MetaData();
+        updated.setPath(path);
+        updated.setAppName("ReplacementApp");
+        final MetaData replay = new MetaData();
+        replay.setPath(path);
+        replay.setAppName("ReplacementApp");
+
+        final ApplicationConfigCache cache = mock(ApplicationConfigCache.class);
+        final TarsInvokePrxList proxies = new TarsInvokePrxList();
+        proxies.getTarsInvokePrxList().add(new TarsInvokePrx(new Object(), "192.0.2.1:1080"));
+        try (MockedStatic<ApplicationConfigCache> singleton = mockStatic(ApplicationConfigCache.class)) {
+            singleton.when(ApplicationConfigCache::getInstance).thenReturn(cache);
+            when(cache.get(path)).thenReturn(proxies);
+            try {
+                tarsMetaDataHandler.handle(initial);
+                tarsMetaDataHandler.handle(updated);
+                tarsMetaDataHandler.handle(replay);
+                verify(cache).initPrx(initial);
+                verify(cache).initPrx(updated);
+            } finally {
+                tarsMetaDataHandler.remove(replay);
+            }
+        }
+    }
+
+    @Test
     public void testEmptyProxyListRetriesInitialization() {
         metaData.setPath("/retry");
         ApplicationConfigCache cache = mock(ApplicationConfigCache.class);
