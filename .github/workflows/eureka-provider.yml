@@ -34,7 +34,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: apache/shenyu
-          ref: 87c22dde7be14c1c3755440a4d8b082a86d10a87
+          ref: 31d90ba4022c3c49bbdd2aa507cb4e1f5fc8b87f
           path: core
       - uses: actions/setup-java@v4
         with:
@@ -55,7 +55,7 @@ jobs:
         working-directory: core
         run: >-
           ./mvnw -B -ntp -pl shenyu-admin,shenyu-bootstrap,shenyu-spring-boot-starter/shenyu-spring-boot-starter-registry -am
-          package dependency:build-classpath -DskipTests -Dmdep.outputFile=target/eureka-classpath.txt -DincludeScope=runtime
+          install dependency:build-classpath -DskipTests -Dmdep.outputFile=target/eureka-classpath.txt -DincludeScope=runtime
           -DskipRemoteResources=true -Djacoco.skip=true -Dmaven.javadoc.skip=true
       - name: Start Eureka and await readiness
         shell: bash
@@ -78,6 +78,7 @@ jobs:
           ./mvnw -B -ntp -f ../store/pom.xml
           -pl shenyu-extension/shenyu-extension-eureka/shenyu-spring-boot-starter-registry-eureka -am
           verify dependency:build-classpath apache-rat:check -Peureka-live
+          -Dshenyu.version=2.7.3-SNAPSHOT
           -Dmdep.outputFile=target/eureka-classpath.txt -DincludeScope=runtime
           -Deureka.test.url=http://127.0.0.1:8761/eureka/
           -Deureka.client.refresh.interval=1

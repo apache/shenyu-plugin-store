@@ -25,10 +25,18 @@ Source preparation, local snapshot installation and this guide are not publicati
 
 ## Compatibility and ownership
 
-Development validation uses store 2.7.1-SNAPSHOT, core 2.7.2-SNAPSHOT at cutover commit cfc267c8b (base 87c22dde7),
+Initial development validation used store 2.7.1-SNAPSHOT, core 2.7.2-SNAPSHOT at cutover commit cfc267c8b (base 87c22dde7),
 Microsoft OpenJDK 17.0.18 and Netflix eureka-client/eureka-client-jersey3 2.0.2.
 The disposable server uses ShenYu's Spring Cloud Eureka example (4.1.2).
 These are development coordinates and test scope, not a released compatibility matrix.
+
+The current Eureka lifecycle workflow pins the paired removal commit
+31d90ba4022c3c49bbdd2aa507cb4e1f5fc8b87f from apache/shenyu#7960 and explicitly
+builds the receiving modules with `-Dshenyu.version=2.7.3-SNAPSHOT`. Store artifact
+coordinates remain 2.7.1-SNAPSHOT. The workflow installs the selected core reactor
+before resolving the Admin/gateway runtime classpaths, so validation uses that
+source pair rather than an older cached core snapshot. This source-pair update
+does not establish a published compatibility matrix or an upstream CI pass.
 
 The provider keeps its packages, non-singleton @Join annotation, eureka type key,
 SPI resource and existing lease/registration behavior. Runtime parity testing also
@@ -120,8 +128,9 @@ update/refresh, deregistration and watch shutdown.
 Example verification from a checkout with the core Maven wrapper available:
 
 ```text
-core/mvnw -f store/pom.xml -pl shenyu-extension/shenyu-extension-eureka/shenyu-spring-boot-starter-registry-eureka -am test
-core/mvnw -f store/pom.xml -pl shenyu-extension/shenyu-extension-eureka/shenyu-registry-eureka -am verify -Peureka-live -Deureka.test.url=http://127.0.0.1:8761/eureka/
+cd core
+./mvnw -f ../store/pom.xml -pl shenyu-extension/shenyu-extension-eureka/shenyu-spring-boot-starter-registry-eureka -am test -Dshenyu.version=2.7.3-SNAPSHOT
+./mvnw -f ../store/pom.xml -pl shenyu-extension/shenyu-extension-eureka/shenyu-registry-eureka -am verify -Dshenyu.version=2.7.3-SNAPSHOT -Peureka-live -Deureka.test.url=http://127.0.0.1:8761/eureka/
 ```
 
 The live profile must fail if its server URL is missing/unreachable; ordinary unit
@@ -158,10 +167,25 @@ Eureka e2e/results directory. The CI lane is configured to repeat the live provi
 and complete process tests; its configuration alone is not a passing CI result.
 Docker image/container execution was not run.
 
-To reproduce the full process harness, first package core Admin, bootstrap and the
+Current-core local evidence on 2026-11-06: store runtime code at 0921f1a43 and
+core removal commit 31d90ba40 pass seven unit/SPI/starter tests, one live provider
+test and all 13 full-process checkpoints on OpenJDK 21.0.13/Linux. The selected
+163-module Admin/bootstrap reactor builds with Checkstyle and RAT; its tests are
+compiled but skipped. Neither default Admin nor bootstrap runtime classpath
+contains the Eureka provider or Netflix Eureka dependencies before the external
+closure is added. The machine-readable result and provider JAR digest are in
+`shenyu-extension/shenyu-extension-eureka/e2e/results/linux-jdk21-current-core.json`.
+The disposable server was compiled locally with `-Dmaven.compiler.release=`
+because the available runtime lacks `ct.sym`; Java 17 source/target settings
+remain unchanged. The committed workflow still uses Temurin 17. This local
+process result does not replace Docker IT/E2E, upstream workflow approval or
+compatible artifact publication.
+
+To reproduce the full process harness, first install core Admin, bootstrap and the
 retained registry starter with dependency:build-classpath, setting
 -Dmdep.outputFile=target/eureka-classpath.txt -DincludeScope=runtime. Package the
-external Eureka starter reactor with the same classpath goal. Start the real Eureka
+external Eureka starter reactor with the same classpath goal and
+`-Dshenyu.version=2.7.3-SNAPSHOT`. Start the real Eureka
 example server, then run e2e/run-local.py with --core, --store, --java, --eureka and
 --output paths. The workflow records the complete wrapper commands and retains
 redacted process/class-origin logs plus result.json.

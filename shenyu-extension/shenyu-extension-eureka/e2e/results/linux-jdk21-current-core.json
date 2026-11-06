@@ -1,0 +1,53 @@
+{
+  "core": "31d90ba4022c3c49bbdd2aa507cb4e1f5fc8b87f",
+  "store": "0921f1a43b8819f855c47da049a379c169089575",
+  "assertions": [
+    "admin-ready",
+    "external-provider-origin-admin",
+    "external-provider-origin-gateway",
+    "gateway-bound-port",
+    "discovery-proxy",
+    "discovery-refresh",
+    "old-endpoint-removal",
+    "gateway-context-deregistration",
+    "gateway-restart",
+    "healthy-sibling",
+    "deregistration"
+  ],
+  "backendApplication": "SHENYU-EXTERNAL-B261412C36194E9F948B22B85B068068",
+  "gatewayApplication": "SHENYU-EXTERNAL-B261412C36194E9F948B22B85B068068-GATEWAY",
+  "externalRegistryJarSha256": "9b2c226c6749af681eae31c788a4333af4f71583f624ae49bbeb59d952fedd5f",
+  "date": "2026-11-06",
+  "runtime": "OpenJDK 21.0.13, Linux amd64",
+  "database": "H2 in-memory",
+  "sync": "WebSocket",
+  "checkpointsPassed": 13,
+  "checkpoints": [
+    "Admin authenticated readiness",
+    "Gateway external provider origin",
+    "Gateway bound-port registration",
+    "Registered selector readiness",
+    "Admin external provider origin",
+    "Admin discovery to gateway HTTP routing",
+    "Eureka update refreshes gateway routing",
+    "Old endpoint is removed after identity-preserving update",
+    "Gateway context shutdown deregisters its instance",
+    "Gateway restart restores discovered route",
+    "Healthy sibling enters discovery",
+    "Deregistration preserves healthy sibling routing",
+    "Eureka deregistration removes gateway route"
+  ],
+  "coreVersion": "2.7.3-SNAPSHOT",
+  "storeVersion": "2.7.1-SNAPSHOT",
+  "unitTestsPassed": 7,
+  "liveProviderTestsPassed": 1,
+  "defaultCoreEurekaDependencies": {
+    "shenyu-admin": [],
+    "shenyu-bootstrap": []
+  },
+  "notes": [
+    "The recorded store revision identifies unchanged runtime code; only workflow and documentation changes were present during this run.",
+    "The disposable Eureka example used -Dmaven.compiler.release= locally because this runtime lacks ct.sym; Java 17 source/target settings were retained. The committed workflow uses Temurin 17.",
+    "Process-based local validation only; Docker deployment, artifact publication and upstream CI approval are not established."
+  ]
+}
