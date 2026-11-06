@@ -27,5 +27,6 @@
     <modules>
         <module>shenyu-extension-consul</module>
         <module>shenyu-extension-polaris</module>
+        <module>shenyu-extension-eureka</module>
     </modules>
 </project>

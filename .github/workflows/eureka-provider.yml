@@ -1,0 +1,110 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Eureka provider lifecycle
+
+on:
+  pull_request:
+    paths:
+      - "shenyu-extension/shenyu-extension-eureka/**"
+      - "pom.xml"
+      - ".github/workflows/eureka-provider.yml"
+  workflow_dispatch:
+
+jobs:
+  live-provider:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: store
+      - uses: actions/checkout@v4
+        with:
+          repository: apache/shenyu
+          ref: 31d90ba4022c3c49bbdd2aa507cb4e1f5fc8b87f
+          path: core
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+      - name: Install retained core APIs and lifecycle
+        working-directory: core
+        run: >-
+          ./mvnw -B -ntp -pl shenyu-spring-boot-starter/shenyu-spring-boot-starter-registry -am install
+          -DskipTests -DskipRemoteResources=true -Djacoco.skip=true -Dmaven.javadoc.skip=true
+      - name: Build disposable real Eureka server
+        working-directory: core
+        run: >-
+          ./mvnw -B -ntp -f shenyu-examples/shenyu-examples-eureka/pom.xml package
+          -DskipTests -DskipRemoteResources=true -Djacoco.skip=true -Dmaven.javadoc.skip=true -Ddocker.skip=true
+      - name: Prepare real Admin and gateway classpaths
+        working-directory: core
+        run: >-
+          ./mvnw -B -ntp -pl shenyu-admin,shenyu-bootstrap,shenyu-spring-boot-starter/shenyu-spring-boot-starter-registry -am
+          install dependency:build-classpath -DskipTests -Dmdep.outputFile=target/eureka-classpath.txt -DincludeScope=runtime
+          -DskipRemoteResources=true -Djacoco.skip=true -Dmaven.javadoc.skip=true
+      - name: Start Eureka and await readiness
+        shell: bash
+        run: |
+          nohup java -Xms128m -Xmx384m -jar core/shenyu-examples/shenyu-examples-eureka/target/shenyu-examples-eureka.jar \
+            --server.port=8761 --eureka.client.register-with-eureka=false --eureka.client.fetch-registry=false \
+            --eureka.server.enable-self-preservation=false > eureka-server.log 2>&1 &
+          echo "$!" > eureka-server.pid
+          for attempt in $(seq 1 90); do
+            if curl --fail --silent http://127.0.0.1:8761/eureka/apps >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat eureka-server.log
+          exit 1
+      - name: Verify external provider and starter
+        working-directory: core
+        run: >-
+          ./mvnw -B -ntp -f ../store/pom.xml
+          -pl shenyu-extension/shenyu-extension-eureka/shenyu-spring-boot-starter-registry-eureka -am
+          verify dependency:build-classpath apache-rat:check -Peureka-live
+          -Dshenyu.version=2.7.3-SNAPSHOT
+          -Dmdep.outputFile=target/eureka-classpath.txt -DincludeScope=runtime
+          -Deureka.test.url=http://127.0.0.1:8761/eureka/
+          -Deureka.client.refresh.interval=1
+          -Deureka.appinfo.initial.replicate.time=1 -Deureka.appinfo.replicate.interval=1
+          -DskipRemoteResources=true -Djacoco.skip=true -Dmaven.javadoc.skip=true
+      - name: Verify external Eureka through real Admin and gateway
+        run: >-
+          python store/shenyu-extension/shenyu-extension-eureka/e2e/run-local.py
+          --core core --store store --java "$JAVA_HOME/bin/java"
+          --eureka http://127.0.0.1:8761/eureka --output store/target/eureka-e2e
+      - name: Stop disposable server
+        if: always()
+        shell: bash
+        run: |
+          if [ -f eureka-server.pid ]; then
+            kill "$(cat eureka-server.pid)" || true
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eureka-provider-results
+          retention-days: 7
+          path: |
+            eureka-server.log
+            store/shenyu-extension/shenyu-extension-eureka/**/target/surefire-reports/
+            store/shenyu-extension/shenyu-extension-eureka/**/target/failsafe-reports/
+            store/target/eureka-e2e/*.log
+            store/target/eureka-e2e/result.json
+

@@ -1,0 +1,25 @@
+{
+  "core": "cfc267c8b7766baa7580f5a97e11ca9ea1a385c2",
+  "store": "8bf73dd4fee574440e24dcde26a44d333f3e0fd7",
+  "assertions": [
+    "admin-ready",
+    "external-provider-origin-admin",
+    "external-provider-origin-gateway",
+    "gateway-bound-port",
+    "discovery-proxy",
+    "discovery-refresh",
+    "old-endpoint-removal",
+    "gateway-context-deregistration",
+    "gateway-restart",
+    "healthy-sibling",
+    "deregistration"
+  ],
+  "backendApplication": "SHENYU-EXTERNAL-A923F853650A43C489A865C2B7A02D25",
+  "gatewayApplication": "SHENYU-EXTERNAL-A923F853650A43C489A865C2B7A02D25-GATEWAY",
+  "externalRegistryJarSha256": "e5fefda48d00b17cf505549e100479b87c04a5d83ca7c0ef6c3547225fc8fc31",
+  "date": "2026-10-21",
+  "runtime": "Microsoft OpenJDK 17.0.18, Windows amd64",
+  "database": "H2 in-memory",
+  "sync": "WebSocket",
+  "checkpointsPassed": 13
+}
