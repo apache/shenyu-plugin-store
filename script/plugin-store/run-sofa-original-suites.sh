@@ -468,7 +468,11 @@ run_e2e() {
   if [[ "${COMPOSE_STARTED}" != "true" ]]; then
     start_compose
   fi
-  run_logged sofa-original-e2e mvn -B -ntp -f "${REPO_DIR}/shenyu-e2e/pom.xml" -pl shenyu-e2e-case/shenyu-e2e-case-sofa -am -Dtest='DataSynTest,SofaPluginTest' -DfailIfNoTests=false test -Drat.skip=true -Djacoco.skip=true
+  # SofaPluginTest deletes all selectors, including the provider registrations
+  # required by DataSynTest. Run the data-sync check first in a separate
+  # Surefire invocation so the tests do not depend on class execution order.
+  run_logged sofa-original-e2e-data-sync mvn -B -ntp -f "${REPO_DIR}/shenyu-e2e/pom.xml" -pl shenyu-e2e-case/shenyu-e2e-case-sofa -am -Dtest='DataSynTest' -DfailIfNoTests=false test -Drat.skip=true -Djacoco.skip=true
+  run_logged sofa-original-e2e-plugin mvn -B -ntp -f "${REPO_DIR}/shenyu-e2e/pom.xml" -pl shenyu-e2e-case/shenyu-e2e-case-sofa -am -Dtest='SofaPluginTest' -DfailIfNoTests=false test -Drat.skip=true -Djacoco.skip=true
 }
 
 load_kind_image() {
