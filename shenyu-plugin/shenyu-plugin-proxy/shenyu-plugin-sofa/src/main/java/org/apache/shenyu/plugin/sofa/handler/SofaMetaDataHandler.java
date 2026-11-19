@@ -19,9 +19,9 @@ package org.apache.shenyu.plugin.sofa.handler;
 
 import com.google.common.collect.Maps;
 import org.apache.shenyu.common.dto.MetaData;
-import org.apache.shenyu.common.enums.RpcTypeEnum;
 import org.apache.shenyu.plugin.base.handler.MetaDataHandler;
 import org.apache.shenyu.plugin.sofa.cache.ApplicationConfigCache;
+import org.apache.shenyu.plugin.sofa.SofaPluginConstants;
 
 import java.util.Objects;
 import java.util.concurrent.ConcurrentMap;
@@ -61,6 +61,6 @@ public class SofaMetaDataHandler implements MetaDataHandler {
     
     @Override
     public String rpcType() {
-        return RpcTypeEnum.SOFA.getName();
+        return SofaPluginConstants.RPC_TYPE;
     }
 }

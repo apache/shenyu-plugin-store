@@ -234,6 +234,22 @@ public class AdminClient extends BaseClient {
         return getMetaDataList("/meta-data/findAll", SEARCHED_METADATAS_TYPE_REFERENCE, v -> v);
     }
 
+    /**
+     * Create or update API metadata through the Admin endpoint.
+     *
+     * @param metaData metadata to create or update
+     */
+    public void createOrUpdateMetaData(final MetaDataDTO metaData) {
+        HttpHeaders headers = new HttpHeaders(basicAuth);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<MetaDataDTO> entity = new HttpEntity<>(metaData, headers);
+        ResponseEntity<ShenYuResult> response = template.postForEntity(baseURL + "/meta-data/createOrUpdate", entity, ShenYuResult.class);
+        Assertions.assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue(), "checking metadata update HTTP status");
+        ShenYuResult result = response.getBody();
+        Assertions.assertNotNull(result, "checking metadata update response body");
+        Assertions.assertEquals(200, result.getCode(), "checking metadata update result: " + result.getMessage());
+    }
+
     private <T extends ResourceDTO, OUT> List<OUT> list(final String uri, final QueryCondition condition, final TypeReference<SearchedResources<T>> valueType, final Mapper<T, OUT> mapper) {
         List<OUT> result = Lists.newArrayList();
 

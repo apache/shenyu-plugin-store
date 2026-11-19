@@ -22,7 +22,7 @@ import com.google.common.cache.LoadingCache;
 import org.apache.shenyu.common.dto.MetaData;
 import org.apache.shenyu.common.dto.SelectorData;
 import org.apache.shenyu.common.dto.convert.plugin.SofaRegisterConfig;
-import org.apache.shenyu.common.enums.RpcTypeEnum;
+import org.apache.shenyu.plugin.sofa.SofaPluginConstants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -63,7 +63,7 @@ public class ApplicationConfigCacheTest {
         metaData.setPath("/sofa/findAll");
         metaData.setServiceName("org.apache.shenyu.test.dubbo.api.service.DubboTestService");
         metaData.setMethodName("findAll");
-        metaData.setRpcType(RpcTypeEnum.SOFA.getName());
+        metaData.setRpcType(SofaPluginConstants.RPC_TYPE);
         when(selectorData.getId()).thenReturn("153153464562434");
         cache = ApplicationConfigCache.getInstance();
         cache.invalidateAll();

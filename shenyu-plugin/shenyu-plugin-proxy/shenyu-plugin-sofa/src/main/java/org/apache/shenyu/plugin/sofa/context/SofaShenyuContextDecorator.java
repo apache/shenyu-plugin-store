@@ -18,9 +18,9 @@
 package org.apache.shenyu.plugin.sofa.context;
 
 import org.apache.shenyu.common.dto.MetaData;
-import org.apache.shenyu.common.enums.RpcTypeEnum;
 import org.apache.shenyu.plugin.api.context.ShenyuContext;
 import org.apache.shenyu.plugin.api.context.ShenyuContextDecorator;
+import org.apache.shenyu.plugin.sofa.SofaPluginConstants;
 
 /**
  * The type Sofa shenyu context decorator.
@@ -32,12 +32,12 @@ public class SofaShenyuContextDecorator implements ShenyuContextDecorator {
         shenyuContext.setModule(metaData.getAppName());
         shenyuContext.setMethod(metaData.getServiceName());
         shenyuContext.setContextPath(metaData.getContextPath());
-        shenyuContext.setRpcType(RpcTypeEnum.SOFA.getName());
+        shenyuContext.setRpcType(SofaPluginConstants.RPC_TYPE);
         return shenyuContext;
     }
     
     @Override
     public String rpcType() {
-        return RpcTypeEnum.SOFA.getName();
+        return SofaPluginConstants.RPC_TYPE;
     }
 }

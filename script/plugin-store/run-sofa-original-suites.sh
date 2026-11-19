@@ -468,6 +468,12 @@ run_e2e() {
   if [[ "${COMPOSE_STARTED}" != "true" ]]; then
     start_compose
   fi
+  log "restarting SOFA gateway before E2E to verify persisted config resynchronization"
+  docker compose -p "${COMPOSE_NAME}" -f "${REPO_DIR}/shenyu-integrated-test/shenyu-integrated-test-sofa/docker-compose.yml" \
+    -f "${REPORT_DIR}/sofa-compose-override.yml" restart shenyu-integrated-test-sofa
+  wait_for_url "http://localhost:${GATEWAY_PORT}/actuator/health" shenyu-gateway-after-restart
+  wait_for_gateway_cache_value metadata /sofa/findById sofa-metadata-after-restart
+  wait_for_gateway_cache_value ruleData /sofa/findById sofa-rule-after-restart
   run_logged sofa-original-e2e mvn -B -ntp -f "${REPO_DIR}/shenyu-e2e/pom.xml" -pl shenyu-e2e-case/shenyu-e2e-case-sofa -am -Dtest='DataSynTest,SofaPluginTest' -DfailIfNoTests=false test -Drat.skip=true -Djacoco.skip=true
 }
 

@@ -41,6 +41,20 @@ public interface SofaSingleParamService {
     SofaSimpleTypeBean findAll();
 
     /**
+     * Return no value to exercise the gateway's null-result handling.
+     *
+     * @return null
+     */
+    SofaSimpleTypeBean findNull();
+
+    /**
+     * Fail the RPC invocation to exercise the gateway error response.
+     *
+     * @return never returns
+     */
+    SofaSimpleTypeBean findError();
+
+    /**
      * Insert dubbo test.
      * body :{"id":"122344","name":"xiaoyu"}
      *

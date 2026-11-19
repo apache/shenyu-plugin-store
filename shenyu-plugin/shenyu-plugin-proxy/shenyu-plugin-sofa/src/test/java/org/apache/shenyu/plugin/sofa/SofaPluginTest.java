@@ -21,8 +21,6 @@ import org.apache.shenyu.common.constant.Constants;
 import org.apache.shenyu.common.dto.MetaData;
 import org.apache.shenyu.common.dto.RuleData;
 import org.apache.shenyu.common.dto.SelectorData;
-import org.apache.shenyu.common.enums.PluginEnum;
-import org.apache.shenyu.common.enums.RpcTypeEnum;
 import org.apache.shenyu.plugin.api.ShenyuPluginChain;
 import org.apache.shenyu.plugin.api.context.ShenyuContext;
 import org.apache.shenyu.plugin.api.result.DefaultShenyuResult;
@@ -74,7 +72,7 @@ public final class SofaPluginTest {
         metaData.setPath("/sofa/findAll");
         metaData.setServiceName("org.apache.shenyu.test.dubbo.api.service.DubboTestService");
         metaData.setMethodName("findAll");
-        metaData.setRpcType(RpcTypeEnum.SOFA.getName());
+        metaData.setRpcType(SofaPluginConstants.RPC_TYPE);
         SofaProxyService sofaProxyService = mock(SofaProxyService.class);
         when(sofaProxyService.genericInvoker(eq(null), eq(metaData), any(), eq(exchange))).thenReturn(Mono.empty());
         sofaPlugin = new SofaPlugin(sofaProxyService);
@@ -110,14 +108,14 @@ public final class SofaPluginTest {
     @Test
     public void testNamed() {
         final String result = sofaPlugin.named();
-        assertEquals(PluginEnum.SOFA.getName(), result);
+        assertEquals(SofaPluginConstants.PLUGIN_NAME, result);
     }
 
     @Test
     public void testSkip() {
         final ServerWebExchange exchange = MockServerWebExchange.from(MockServerHttpRequest.get("localhost").build());
         ShenyuContext context = mock(ShenyuContext.class);
-        when(context.getRpcType()).thenReturn(RpcTypeEnum.SOFA.getName());
+        when(context.getRpcType()).thenReturn(SofaPluginConstants.RPC_TYPE);
         exchange.getAttributes().put(Constants.CONTEXT, context);
         exchange.getAttributes().put(Constants.META_DATA, metaData);
         final boolean result = sofaPlugin.skip(exchange);
@@ -127,7 +125,7 @@ public final class SofaPluginTest {
     @Test
     public void testGetOrder() {
         final int result = sofaPlugin.getOrder();
-        assertEquals(PluginEnum.SOFA.getCode(), result);
+        assertEquals(SofaPluginConstants.PLUGIN_ORDER, result);
     }
 
     @Test

@@ -50,6 +50,20 @@ public class SofaSingleParamServiceImpl implements SofaSingleParamService {
     }
 
     @Override
+    @ShenyuSofaClient("/findNull")
+    @ApiDoc(desc = "findNull")
+    public SofaSimpleTypeBean findNull() {
+        return null;
+    }
+
+    @Override
+    @ShenyuSofaClient("/findError")
+    @ApiDoc(desc = "findError")
+    public SofaSimpleTypeBean findError() {
+        throw new IllegalStateException("SOFA E2E RPC failure");
+    }
+
+    @Override
     @ShenyuSofaClient("/insert")
     @ApiDoc(desc = "insert")
     public SofaSimpleTypeBean insert(final SofaSimpleTypeBean sofaSimpleTypeBean) {

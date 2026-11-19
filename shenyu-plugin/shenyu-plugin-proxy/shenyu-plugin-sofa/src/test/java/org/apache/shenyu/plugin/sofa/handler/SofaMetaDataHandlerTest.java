@@ -22,8 +22,8 @@ import com.alipay.sofa.rpc.config.ConsumerConfig;
 import com.google.common.cache.LoadingCache;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.shenyu.common.dto.MetaData;
-import org.apache.shenyu.common.enums.RpcTypeEnum;
 import org.apache.shenyu.plugin.sofa.cache.ApplicationConfigCache;
+import org.apache.shenyu.plugin.sofa.SofaPluginConstants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -51,7 +51,7 @@ public class SofaMetaDataHandlerTest {
 
     @Test
     public void testPluginNamed() {
-        assertEquals(sofaMetaDataHandler.rpcType(), RpcTypeEnum.SOFA.getName());
+        assertEquals(sofaMetaDataHandler.rpcType(), SofaPluginConstants.RPC_TYPE);
     }
 
     @Test

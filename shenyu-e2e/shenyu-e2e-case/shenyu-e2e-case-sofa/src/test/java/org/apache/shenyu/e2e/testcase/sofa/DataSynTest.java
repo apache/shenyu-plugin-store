@@ -22,7 +22,17 @@ import org.apache.shenyu.e2e.client.admin.AdminClient;
 import org.apache.shenyu.e2e.client.gateway.GatewayClient;
 import org.apache.shenyu.e2e.engine.annotation.ShenYuTest;
 import org.apache.shenyu.e2e.enums.ServiceTypeEnum;
+import org.apache.shenyu.e2e.model.response.MetaDataDTO;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
+
+import java.time.Duration;
+import java.util.List;
+import java.util.Objects;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Testing the correctness of Http data synchronization method.
@@ -55,5 +65,40 @@ public class DataSynTest {
         WaitDataSync.waitAdmin2GatewayDataSyncEquals(adminClient::listAllSelectors, gatewayClient::getSelectorCache, adminClient);
         WaitDataSync.waitAdmin2GatewayDataSyncEquals(adminClient::listAllMetaData, gatewayClient::getMetaDataCache, adminClient);
         WaitDataSync.waitAdmin2GatewayDataSyncEquals(adminClient::listAllRules, gatewayClient::getRuleCache, adminClient);
+
+        List<MetaDataDTO> metaDataList = adminClient.listAllMetaData();
+        assertTrue(metaDataList.stream().anyMatch(metaData -> "/sofa/findById".equals(metaData.getPath())
+                && "sofa".equals(metaData.getRpcType())
+                && "findById".equals(metaData.getMethodName())), "SOFA client metadata should be registered with the gateway API contract");
+    }
+
+    @Test
+    void testMetaDataRefresh(final AdminClient adminClient, final GatewayClient gatewayClient) throws Exception {
+        adminClient.login();
+        MetaDataDTO metaData = adminClient.listAllMetaData().stream()
+                .filter(item -> "/sofa/findById".equals(item.getPath()))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("SOFA findById metadata is not registered"));
+        String originalRpcExt = metaData.getRpcExt();
+        String updatedRpcExt = "{\"loadbalance\":\"random\",\"retries\":1,\"timeout\":3000}";
+        try {
+            metaData.setRpcExt(updatedRpcExt);
+            adminClient.createOrUpdateMetaData(metaData);
+            Awaitility.await().atMost(Duration.ofSeconds(30)).pollInterval(Duration.ofMillis(250))
+                    .until(() -> gatewayClient.getMetaDataCache().stream()
+                            .anyMatch(cached -> "/sofa/findById".equals(cached.getPath()) && updatedRpcExt.equals(cached.getRpcExt())));
+            gatewayClient.getHttpRequesterSupplier().get().get("/sofa/findById?id=7297")
+                    .then().statusCode(HttpStatus.OK.value()).body("data.id", equalTo("7297"));
+        } finally {
+            metaData.setRpcExt(originalRpcExt);
+            adminClient.createOrUpdateMetaData(metaData);
+            awaitMetadataRpcExt(gatewayClient, originalRpcExt);
+        }
+    }
+
+    private void awaitMetadataRpcExt(final GatewayClient gatewayClient, final String rpcExt) {
+        Awaitility.await().atMost(Duration.ofSeconds(30)).pollInterval(Duration.ofMillis(250))
+                .until(() -> gatewayClient.getMetaDataCache().stream()
+                        .anyMatch(cached -> "/sofa/findById".equals(cached.getPath()) && Objects.equals(rpcExt, cached.getRpcExt())));
     }
 }
