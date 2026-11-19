@@ -29,8 +29,3 @@ notifications:
   commits: notifications@shenyu.apache.org
   issues: notifications@shenyu.apache.org
   pullrequests: notifications@shenyu.apache.org
-  # Keep status changes and comments/reviews off the legacy dev-list targets.
-  issues_status: notifications@shenyu.apache.org
-  issues_comment: notifications@shenyu.apache.org
-  pullrequests_status: notifications@shenyu.apache.org
-  pullrequests_comment: notifications@shenyu.apache.org
